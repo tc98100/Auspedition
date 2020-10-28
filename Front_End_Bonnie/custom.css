@@ -1,0 +1,118 @@
+/* Log in and sign up */
+#butForSignUp{
+    background-color: #27AE60; 
+    border: 0px;
+    font-size: 16px;
+    margin-right: 5px;
+    margin-top: 5px;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+#butForSignUp:hover{
+    background-color: #1E8449;
+    color:black;
+}
+
+#butForLogIn{
+    background-color: #229954;
+    border: 0px;
+    font-size: 16px;
+    margin-right: 2px;
+    margin-top: 5px;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+#butForLogIn:hover{
+    background-color: #1E8449;
+    color:black;
+}
+
+/* Recommendation 01 */
+.container01{
+    margin: auto;
+    width: 90%;
+    padding: 30px;
+    background-color: OldLace;
+}
+
+.pageTitle{
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.summary{
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+#graffitiTunnel{
+    margin-top: 30px; 
+}
+
+.figureGT{
+    width: 60%;
+    margin-top: 30px;
+}
+
+/* Recommendation 02 */
+.container02{
+    margin: auto;
+    width: 90%;
+}
+
+.btnOpera{
+    width: 80%;
+    margin: auto;
+    margin-top: 2%;
+    margin-bottom: 20px;
+}
+
+#btnOpera01, #btnOpera02, #btnOpera03{
+    width: 30%;
+    margin-top: 2.5%;
+}
+
+.infoTitle{
+    text-align: center;
+    padding: 50px;
+    background-color: Wheat;
+}
+
+.imgOH{
+    width: 300px;
+    text-align: center;
+    margin-top: 20px;
+    margin-right: 50px;
+    margin-left: -15px;
+}
+
+.introOH{
+    padding-top: 20px;
+}
+
+/* Recommendation 03 */
+.container03{
+    margin: auto;
+    width: 85%;
+}
+
+.segmentTitle{
+    text-align: center;
+    padding: 30px;
+    background-color: #D8BFD8;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.introCH{
+    display: table;
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#breakfastCH{
+    margin: auto;
+}
