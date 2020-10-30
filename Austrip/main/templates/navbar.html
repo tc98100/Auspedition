@@ -51,11 +51,56 @@
                             </div>
                             <button type="submit" class="btn btn-outline-success">Log in</button>
                         </form>
+                        <hr>
+                        <a class="btn btn-success" href="#modalSignup" data-dismiss="modal" data-toggle="modal">sign up</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="modalSignup" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <a class="btn" href="#modalLogIn" data-toggle="modal" data-dismiss="modal">
+                            <span aria-hidden="true">&lt;</span>
+                        </a>
+                        <h2 class="modal-title">Sign up</h2>
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="firstnameInput">first name</label>
+                                <input class="form-control" type="email" id="firstnameInput" placeholder="first name" required>
+<!--                                <small class="form-text text-muted">You can use any email</small>-->
+                            </div>
+                            <div class="form-group">
+                                <label for="lastnameInput">Password</label>
+                                <input class="form-control" type="password" id="lastnameInput" placeholder="Last name" required>
+                            </div>
+                             <div class="form-group">
+                                <label for="emailSignUpInput">Email address</label>
+                                <input class="form-control" type="email" id="emailSignUpInput" placeholder="Enter email" required>
+                                <small class="form-text text-muted">You can use any email</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="passwordSignUpInput">Password</label>
+                                <input class="form-control" type="password" id="passwordSignUpInput" placeholder="Enter password" required>
+                            </div>
+                            <button type="submit" class="btn btn-outline-success">sign up</button>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </nav>
+
+
+
 
 
