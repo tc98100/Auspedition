@@ -1,0 +1,48 @@
+#logo {
+    color: cadetblue;
+    font-size: 2em;
+}
+
+#profileIcon {
+    width: 3rem;
+    height: 3rem;
+    color: cadetblue;
+}
+#funcBookmark, #funcDislike, #funcLike {
+    width: 2.5rem;
+    height: 2.5rem;
+    color: darkgrey;
+}
+
+#funcBookmark:hover {
+    color: goldenrod;
+}
+
+#funcDislike:hover {
+    color: red;
+}
+
+#funcLike:hover {
+    color: green;
+}
+
+#funcBookmark:visited {
+    color: goldenrod;
+}
+
+#funcDislike:visited {
+    color: red;
+}
+
+#funcLike:visited {
+    color: green;
+}
+
+.backBtn{
+    text-align: center;
+    margin-top: 5px;
+}
+
+.form-check{
+    margin-bottom: 10px;
+}

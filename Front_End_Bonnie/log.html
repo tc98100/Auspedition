@@ -36,13 +36,6 @@
                 <input class="form-control mr-sm-2 px-3" type="text" placeholder="Search...">
                 <button class="btn btn-outline-success my-2 my-sm-0">Search</button>
             </form>
-            <a href="#modalLogIn" data-toggle="modal">
-                <svg id="profileIcon" viewBox="0 0 16 16" class="bi bi-person-circle mx-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z"/>
-                    <path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                    <path fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"/>
-                </svg>
-            </a>
 
         <!--start-->
             <a href="#modalLogIn" data-toggle="modal" class="logIcon"> 
@@ -57,32 +50,35 @@
             <div class="modal fade" id="modalLogIn" tabindex="-1" role="dialog">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
-                        <div class="modal-header">
-                            <h2 class="modal-title">Log in</h2>
+                        <div class="modal-header myModal-header">
+                            <h2 class="modal-title">Login Form</h2>
                             <button type="button" class="close" data-dismiss="modal">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body myModal-body">
                             <form>
                                 <!-- email -->
                                 <div class="form-group">
                                     <label for="emailInput">Email address</label>
-                                    <input class="form-control" type="email" id="emailInput" placeholder="Enter email" required>
+                                    <input class="form-control myModal-input" type="email" id="emailInput" placeholder="Enter email" required>
                                 </div>
                                 <!-- password -->
                                 <div class="form-group">
                                     <label for="passwordInput">Password</label>
-                                    <input class="form-control" type="password" id="passwordInput" placeholder="Enter password" required>
+                                    <input class="form-control myModal-input" type="password" id="passwordInput" placeholder="Enter password" required>
                                 </div>
-                                <!-- button for log in -->
-                                <button type="submit" class="btn btn-success btn-lg btn-block signBtn">Log in</button>
-                                <!-- Go to sign up -->
-                                <div class="backBtn">
-                                    <a class="btn" href="#modalSignUp" data-toggle="modal" data-dismiss="modal">
-                                        <span aria-hidden="true"><strong>No account? Create one!</strong></span>
+                                
+                                <div class="bottomBtns"”>
+                                    <!-- button for log in -->
+                                    <button type="submit" class="btn btn-success btn-lg btn-block">Log In</button>
+                                    <!-- Go to sign up -->
+                                    <a class="btn btn-outline-success btn-lg btn-block" href="#modalSignUp" data-toggle="modal" data-dismiss="modal" role="button">
+                                        <span aria-hidden="true">Sign Up</span>
                                     </a>
                                 </div>
+                                
+                                
                             </form>
                         </div>
                     </div>
@@ -94,14 +90,14 @@
             <div class="modal fade" id="modalSignUp" tabindex="-1" role="dialog">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
-                        <div class="modal-header">
+                        <div class="modal-header myModal-header">
                             <h2 class="modal-title">Sign Up</h2>
                             <button type="button" class="close" data-dismiss="modal">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body">
-                            <form>
+                        <div class="modal-body myModal-body">
+                            <form class="needs-validation" novalidate>
                                 <!-- username -->
                                 <div class="form-group">
                                     <label for="nameInput">Username</label>
@@ -116,29 +112,38 @@
                                 <div class="form-group">
                                     <label for="passwordInput">Password</label>
                                     <input class="form-control" type="password" id="passwordInput" placeholder="Enter password" required>
+                                    <!-- 修改-->
+                                    <span class="form-text small text-muted">
+                                        The password must be 8-20 characters, and must <strong>not</strong> contain spaces.
+                                    </span>
                                 </div>
                                 <!-- check password -->
                                 <div class="form-group">
                                     <label for="passwordCheck">Confirm Password</label>
                                     <input class="form-control" type="password" id="passwordCheck" placeholder="Confirm password" required>
+                                    <span class="form-text small text-muted">
+                                        Enter the <strong>same</strong> password above.
+                                    </span>
                                 </div>
+                                
+                        
                                 <!-- tickbox for terms and conditions -->
                                 <div class="form-check">
                                     <input type="checkbox" class="form-check-input" id="exampleCheck1">
                                     <label class="form-check-label" for="exampleCheck1">I accept the <a href="#">Terms of Use & Privacy Policy</a></label>
                                 </div>
-                                <!-- sign up buttom -->
-                                <button type="submit" class="btn btn-success btn-lg btn-block signBtn">Sign Up</button>
-                            
-                                <!-- Back to log in -->   
-                                <div class="backBtn" text-center>
-                                    <a class="btn" href="#modalLogIn" data-toggle="modal" data-dismiss="modal">
-                                        <span aria-hidden="true"><strong>Already a member? Log In!</strong></span>
+                                
+                                <div class="bottomBtns"”>
+                                    <!-- button for log in -->
+                                    <button type="submit" class="btn btn-success btn-lg btn-block">Sign Up</button>
+                                    <!-- Go to sign up -->
+                                    <a class="btn btn-outline-success btn-lg btn-block" href="#modalLogIn" data-toggle="modal" data-dismiss="modal">
+                                        <span aria-hidden="true"><strong>Log In</strong></span>
                                     </a>
                                 </div>
-                               
-                
                                 
+                                
+    
         
                             </form>
                         </div>

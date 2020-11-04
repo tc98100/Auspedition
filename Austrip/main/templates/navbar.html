@@ -1,0 +1,131 @@
+
+<nav class="navbar navbar-expand-sm bg-light navbar-light shadow mb-3">
+    <a id="logo" class="navbar-brand" href="{% url 'home' %}">Auspedition</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navb"  aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div id="navb" class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item px-3 active">
+                <a class="nav-link" href="{% url 'home' %}">Home</a>
+            </li>
+            <li class="nav-item px-3">
+                <a class="nav-link" href="{% url 'destination_list' %}">Destination</a>
+            </li>
+            <li class="nav-item px-3">
+                <a class="nav-link" href="{% url 'attraction_list' %}">Attraction</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0 mx-3">
+            <input class="form-control mr-sm-2 px-3" type="text" placeholder="Search...">
+            <button class="btn btn-outline-success my-2 my-sm-0">Search</button>
+        </form>
+
+        <a href="#modalLogIn" data-toggle="modal" class="logIcon"> 
+            <svg id="profileIcon" viewBox="0 0 16 16" class="bi bi-person-circle mx-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z"/>
+                <path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                <path fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"/>
+            </svg>
+        </a>
+    
+        <!--  modal for log in -->
+        <div class="modal fade" id="modalLogIn" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header myModal-header">
+                        <h2 class="modal-title">Login Form</h2>
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body myModal-body">
+                        <form>
+                            <!-- email -->
+                            <div class="form-group">
+                                <label for="emailInput">Email address</label>
+                                <input class="form-control myModal-input" type="email" id="emailInput" placeholder="Enter email" required>
+                            </div>
+                            <!-- password -->
+                            <div class="form-group">
+                                <label for="passwordInput">Password</label>
+                                <input class="form-control myModal-input" type="password" id="passwordInput" placeholder="Enter password" required>
+                            </div>
+                            
+                            <div class="bottomBtns"”>
+                                <!-- button for log in -->
+                                <button type="submit" class="btn btn-success btn-lg btn-block">Log In</button>
+                                <!-- Go to sign up -->
+                                <a class="btn btn-outline-success btn-lg btn-block" href="#modalSignUp" data-toggle="modal" data-dismiss="modal" role="button">
+                                    <span aria-hidden="true">Sign Up</span>
+                                </a>
+                            </div>
+                            
+                            
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    
+        <!--  modal for sign up -->
+        <div class="modal fade" id="modalSignUp" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header myModal-header">
+                        <h2 class="modal-title">Sign Up</h2>
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body myModal-body">
+                        <form class="needs-validation" novalidate>
+                            <!-- username -->
+                            <div class="form-group">
+                                <label for="nameInput">Username</label>
+                                <input class="form-control" type="text" id="nameInput" placeholder="Enter name" required>
+                            </div>
+                            <!-- email -->
+                            <div class="form-group">
+                                <label for="emailInput">Email address</label>
+                                <input class="form-control" type="email" id="emailInput" placeholder="Enter email" required>
+                            </div>
+                            <!-- password -->
+                            <div class="form-group">
+                                <label for="passwordInput">Password</label>
+                                <input class="form-control" type="password" id="passwordInput" placeholder="Enter password" required>
+                            </div>
+                            <!-- check password -->
+                            <div class="form-group">
+                                <label for="passwordCheck">Confirm Password</label>
+                                <input class="form-control" type="password" id="passwordCheck" placeholder="Confirm password" required>
+                            </div>
+                            
+                    
+                            <!-- tickbox for terms and conditions -->
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                <label class="form-check-label" for="exampleCheck1">I accept the <a href="#">Terms of Use & Privacy Policy</a></label>
+                            </div>
+                            
+                            <div class="bottomBtns"”>
+                                <!-- button for log in -->
+                                <button type="submit" class="btn btn-success btn-lg btn-block">Sign Up</button>
+                                <!-- Go to sign up -->
+                                <a class="btn btn-outline-success btn-lg btn-block" href="#modalLogIn" data-toggle="modal" data-dismiss="modal">
+                                    <span aria-hidden="true"><strong>Log In</strong></span>
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+
+
+
+
