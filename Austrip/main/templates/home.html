@@ -6,159 +6,107 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Home</title>
+    <link rel="stylesheet" href="../statics/css/custom.css">
     <link rel="stylesheet" href="{% static 'custom.css'%}">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 </head>
 <body>
-    {% include 'navbar.html' %}
-    <div class="container mb-lg-5">
-        <div id="slide" class="carousel slide" data-ride="carousel">
-            <ol class="carousel-indicators">
-                <li data-target="#slide" data-slide-to="0" class="active"></li>
-                <li data-target="#slide" data-slide-to="1"></li>
-                <li data-target="#slide" data-slide-to="2"></li>
-            </ol>
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img class="d-block w-100 rounded img-fluid" src="{% static 'sydney_recommendation.jpg'%}" alt="First slide">
-                    <div class="carousel-caption">
-                        <h5>Recommendation 1</h5>
-                        <p>description content</p>
-                    </div>
+{% include 'navbar.html' %}
+
+<div class=bg-box style="background-image: url(../assets/Background.jpg);">
+    <div style="position:absolute; left: 60%; top: 20%; right: 10%;" class="text-white">
+        <h4 class="text-monospace">#1 Tourism Website Service since 2010</h4>
+        <h1 class="font-weight-bold" style="font-size: 2rem">We provide you best tourism service in Australia</h1>
+        <button type="button" class="btn btn btn-success mt-3 rounded-pill" style="font-size: 1rem">Where do you want
+            to go?
+        </button>
+    </div>
+</div>
+
+
+<div class="container-fluid ">
+    <div class="bg-transparent">
+        <h1 class="font-weight-normal text-center mt-5" style="font-size: 4rem; color: lightseagreen">Trending
+            Attractions</h1>
+        <div class="text-center font-weight-light" style="font-size: 1.5rem; color: slategray">
+            <p>Check the best place near you</p>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid mt-5">
+    <div class="row justify-content-between pl-4 pr-4">
+        <div class="col-4 ">
+            <div class="card rounded-cus">
+                <div class="attraction" style="background-image: url(../assets/OprahHouse.jpg);">
                 </div>
-                <div class="carousel-item">
-                    <img class="d-block w-100 rounded img-fluid" src="{% static 'Melbourne_recommendation.jpg'%}" alt="second slide">
-                    <div class="carousel-caption">
-                        <h5>Recommendation 2</h5>
-                        <p>description content</p>
-                    </div>
+
+                <div class="card-body">
+                    <p class="font-weight-bold text-center" style="font-size: 2rem;">Sydney Oprah House</p>
                 </div>
-                <div class="carousel-item">
-                    <img class="d-block w-100 rounded img-fluid" src="{% static 'gold_coast_recommendation.jpg'%}" alt="third slide">
-                    <div class="carousel-caption">
-                        <h5>Recommendation 3</h5>
-                        <p>description content</p>
-                    </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card rounded-cus">
+                <div class="attraction" style="background-image: url(../assets/bridge.jpg);">
+                </div>
+
+                <div class="card-body">
+                    <p class="font-weight-bold text-center" style="font-size: 2rem;"> Sydney Harbour Bridge</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-4 ">
+            <div class="card rounded-cus">
+                <div class="attraction" style="background-image: url(../assets/AyersMountain.jpg);">
+                </div>
+                <div class="card-body">
+                    <p class="font-weight-bold text-center" style="font-size: 2rem;">Ayers Mountain</p>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <div class="container mb-lg-5">
-        <div class="jumbotron pt-0">
-            <h1 class="display-4 text-info">Description about Australia</h1>
-            <p class="lead text-info">G'day mate, how's ya arvo?</p>
+<div class="container-fluid ">
+    <div class="bg-transparent">
+        <h1 class="font-weight-normal text-center mt-5" style="font-size: 4rem; color: lightseagreen">
+            Recommendations</h1>
+        <div class="text-center font-weight-light" style="font-size: 1.5rem; color: slategray">
+            <p>Choose the place you want and we guide it for you </p>
         </div>
     </div>
+</div>
 
+<div class="jumbotron mt-5 mr-5 ml-5 pl-5 rounded-cus"
+     style="background-image: url(../assets/recom1.jpg); color: white; background-repeat: no-repeat; background-size: cover">
+    <h1 class="display-3">EXPERIENCE AUSTRALIA</h1>
+    <p class="lead">Take a colour and sound journey through the country's most epic destinations with our new 8D video
+        escapes.</p>
+    <a class="btn btn-success btn-lg" href="#" role="button">Learn more</a>
+</div>
 
-    <div class="container mb-lg-5 shadow">
-        <div class="row text-info">
-            <h1 class="display-2 mx-auto">Popular Destinations</h1>
-        </div>
-        <div class="row">
-            <div class="card-deck">
-                <div class="card" style="width: 18rem">
-                    <img class="card-img-top" src="../assets/default-placeholder-image.png" alt="example pic">
-                    <div class="card-body">
-                        <h5 class="card-title">New card</h5>
-                        <p class="card-text">some text to get started</p>
-                        <div class="dropdown show">
-                            <a class="btn btn-success dropdown-toggle" href="#" data-toggle="dropdown">Go somewhere</a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">By car</a>
-                                <a class="dropdown-item" href="#">By bus</a>
-                                <a class="dropdown-item" href="#">By plane</a>
-                            </div>
-                        </div>
+<div class="jumbotron mt-5 mr-5 ml-5 pl-5 rounded-cus"
+     style="background-image: url(../assets/recom3.jpg); color: white; background-repeat: no-repeat; background-size: cover">
+    <h1 class="display-3">EXPERIENCE AUSTRALIA</h1>
+    <p class="lead">Take a colour and sound journey through the country's most epic destinations with our new 8D video
+        escapes.</p>
+    <a class="btn btn-success btn-lg" href="#" role="button">Learn more</a>
+</div>
 
-                    </div>
-                </div>
+{% include 'footer.html' %}
 
-                <div class="card" style="width: 18rem">
-                    <img class="card-img-top" src="../assets/default-placeholder-image.png" alt="example pic">
-                    <div class="card-body">
-                        <h5 class="card-title">New card</h5>
-                        <p class="card-text">some text to get started</p>
-                        <a class="btn btn-success" href="#">Go somewhere</a>
-                    </div>
-                </div>
-                <div class="card" style="width: 18rem">
-                    <img class="card-img-top" src="../assets/default-placeholder-image.png" alt="example pic">
-                    <div class="card-body">
-                        <h5 class="card-title">New card</h5>
-                        <p class="card-text">some text to get started</p>
-                        <a class="btn btn-success" href="#">Go somewhere</a>
-                    </div>
-                </div>
-                <div class="card" style="width: 18rem">
-                    <img class="card-img-top" src="../assets/default-placeholder-image.png" alt="example pic">
-                    <div class="card-body">
-                        <h5 class="card-title">New card</h5>
-                        <p class="card-text">some text to get started</p>
-                        <a class="btn btn-success" href="#">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="container mb-lg-5 shadow">
-        <div class="row text-info">
-            <h1 class="display-2 mx-auto">Popular Attractions</h1>
-        </div>
-        <div class="row">
-            <div class="card-deck">
-                <div class="card" style="width: 18rem">
-                    <img class="card-img-top" src="../assets/default-placeholder-image.png" alt="example pic">
-                    <div class="card-body">
-                        <h5 class="card-title">New card</h5>
-                        <p class="card-text">some text to get started</p>
-                        <div class="dropdown show">
-                            <a class="btn btn-success dropdown-toggle" href="#" data-toggle="dropdown">Go somewhere</a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">By car</a>
-                                <a class="dropdown-item" href="#">By bus</a>
-                                <a class="dropdown-item" href="#">By plane</a>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-                <div class="card" style="width: 18rem">
-                    <img class="card-img-top" src="../assets/default-placeholder-image.png" alt="example pic">
-                    <div class="card-body">
-                        <h5 class="card-title">New card</h5>
-                        <p class="card-text">some text to get started</p>
-                        <a class="btn btn-success" href="#">Go somewhere</a>
-                    </div>
-                </div>
-                <div class="card" style="width: 18rem">
-                    <img class="card-img-top" src="../assets/default-placeholder-image.png" alt="example pic">
-                    <div class="card-body">
-                        <h5 class="card-title">New card</h5>
-                        <p class="card-text">some text to get started</p>
-                        <a class="btn btn-success" href="#">Go somewhere</a>
-                    </div>
-                </div>
-                <div class="card" style="width: 18rem">
-                    <img class="card-img-top" src="../assets/default-placeholder-image.png" alt="example pic">
-                    <div class="card-body">
-                        <h5 class="card-title">New card</h5>
-                        <p class="card-text">some text to get started</p>
-                        <a class="btn btn-success" href="#">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    {% include 'footer.html' %}
-
-    <script src = "../statics/javascript/index.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+<script src="../statics/javascript/index.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
 
 </body>
 </html>
