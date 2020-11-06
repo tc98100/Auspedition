@@ -26,10 +26,10 @@
 
 /* Recommendation 01 */
 
-.container.recommendation-cnt{
+.container.recommendationBox{
     margin: auto;
-    background-color:#e0e5df;
-    padding-bottom: 1rem;
+    width: 70%;
+    padding-bottom: 2rem;
     padding-top: 1rem;
     border-radius: 25px;
     margin-bottom: 1rem;
@@ -40,15 +40,16 @@
     padding:1rem;
     margin-top: 1rem;
     margin-bottom: 2rem;
-    background-color: #b5c4b1;
+    background-color: #8FBC8F;
     border-radius: 15px 50px;
     box-shadow: 2px 2px 2px #A9A9A9;
 }
 
-#recImg{
+.recImg{
     border-radius:15px 50px 30px;
     margin-right: 0.5rem;
 }
+
 
 /* Recommendation 02 */
 .container02{
@@ -191,7 +192,7 @@ body.profileBody{
     text-align: center;
 }
 
-.submitBtn{
+.changeProBtn{
     margin-top: 1rem;
     text-align: center;
 }
