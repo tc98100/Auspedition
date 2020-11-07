@@ -45,12 +45,15 @@
 
 .form-check{
     margin-bottom: 10px;
+}
+
 /* Sunny */
 .bg-box {
     background-size: 100% 100%;
     background-repeat: no-repeat;
     margin:0 auto;
 }
+
 .bg-box::after {
     content: "";
     display: block;
@@ -70,3 +73,4 @@
     border-radius: 1rem;
     overflow: hidden;
 }
+
