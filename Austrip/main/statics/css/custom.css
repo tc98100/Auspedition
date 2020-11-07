@@ -1,6 +1,6 @@
 #logo {
     color: cadetblue;
-    font-size: 2em;
+    /*font-size: 2em;*/
 }
 
 #profileIcon {
@@ -45,4 +45,28 @@
 
 .form-check{
     margin-bottom: 10px;
+/* Sunny */
+.bg-box {
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    margin:0 auto;
+}
+.bg-box::after {
+    content: "";
+    display: block;
+    padding:20%;
+}
+
+.attraction{
+    width: 100%;
+    height: 0;
+    padding-bottom: 75%;
+    overflow: hidden;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.rounded-cus{
+    border-radius: 1rem;
+    overflow: hidden;
 }
