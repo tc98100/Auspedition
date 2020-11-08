@@ -19,3 +19,6 @@ def profile(request):
 def detailed_item(request, name):
     city = Destination.objects.get(destination_id=name)
     return render(request, "detailed_destination.html", {'city': city})
+
+def destination_detail(request):
+    return render(request, 'destination_detail.html')
