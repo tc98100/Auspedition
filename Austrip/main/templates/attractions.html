@@ -15,7 +15,85 @@
 
     <!-- include your code here -->
     <!-- Note that this page should have the search/filter stuff and include all the attractions as cards below that -->
+    <div style="justify-content: center;
+	display: flex;align-items:center;background:url({% static 'GoldCoast.jpg'%});background-size:100%; height: 600px">
+        <div class="container-fluid" >
+            <div class="row rounded-pill" style="width: 70%;margin:15%;font-size: 2.5rem;background-color: white;padding:0.5rem 0 0.5rem 0.5rem">
+                <div class="col-5">
+                    <div class="input-group">
+                        <select class="custom-select custom-select-lg border-0" id="inputGroupSelect01">
+                            <option selected>STATE</option>
+                            <option value="1">NSW</option>
+                            <option value="2">QLD</option>
+                            <option value="3">SA</option>
+                            <option value="4">TAS</option>
+                            <option value="5">VIC</option>
+                            <option value="6">WA</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-5">
+                    <div class="input-group">
+                        <select class="custom-select custom-select-lg border-0" id="inputGroupSelect02">
+                            <option selected>CITY</option>
+                            <option value="1">Sydney</option>
+                            <option value="2">Melbourne</option>
+                            <option value="3">Brisbane</option>
+                            <option value="4">Gold Coast</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-2" style="justify-content: center;display: flex;align-items:center;">
+                    <button style="margin-right: -0.5rem" class="btn btn-outline-success btn-lg btn-block rounded-pill" type="submit">SEARCH</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class = "mt-5 ml-5 mr-5">
+        <div class="container-fluid ">
+            <div class="bg-transparent">
+                <h1 class="font-weight-bold  " style="font-size: 1rem; color: lightseagreen">
+                    STAY AND EAT LIKE A LOCAL</h1>
+                <p class="font-weight-light" style="font-size: 3rem; color: slategray; line-height: 2rem">Our guides </p>
+            </div>
+        </div>
 
+
+
+        <div class="container-fluid mt-5">
+            <div class="row justify-content-between">
+                <div class="col-4 ">
+                    <div class="card rounded-cus">
+                        <div class="attraction" style="background-image: url({% static 'Sydney.jpg'%});">
+                        </div>
+
+                        <div class="card-body">
+                            <p class="font-weight-bold text-center" style="font-size: 1.5rem; line-height: 1rem">Sydney</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="card rounded-cus">
+                        <div class="attraction" style="background-image: url({% static 'Melbourne.jpg'%});">
+                        </div>
+
+                        <div class="card-body">
+                            <p class="font-weight-bold text-center" style="font-size: 1.5rem;line-height: 1rem">Melbourne</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4 ">
+                    <div class="card rounded-cus">
+                        <div class="attraction" style="background-image: url({% static 'Brisbane.jpg'%});">
+                        </div>
+                        <div class="card-body">
+                            <p class="font-weight-bold text-center" style="font-size: 1.5rem;line-height: 1rem">Brisbane</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     {% include 'footer.html' %}
     <script src = "../statics/javascript/index.js"></script>
