@@ -1,3 +1,4 @@
+
 #logo {
     color: cadetblue;
     /*font-size: 2em;*/
@@ -8,6 +9,11 @@
     height: 3rem;
     color: cadetblue;
 }
+
+#signButton{
+    margin-right: 1rem;
+}
+
 #funcBookmark, #funcDislike, #funcLike {
     width: 2.5rem;
     height: 2.5rem;
@@ -38,12 +44,22 @@
     color: green;
 }
 
+.backBtn{
+    text-align: center;
+    margin-top: 5px;
+}
+
+.form-check{
+    margin-bottom: 10px;
+}
+
 /* Sunny */
 .bg-box {
     background-size: 100% 100%;
     background-repeat: no-repeat;
     margin:0 auto;
 }
+
 .bg-box::after {
     content: "";
     display: block;
@@ -63,3 +79,131 @@
     border-radius: 1rem;
     overflow: hidden;
 }
+
+/* User Profile */
+.profileImg{
+    margin: auto;
+    text-align: center;
+    width:  20rem;
+}
+.profileImg img{
+    width: 100%;
+}
+.profileImg .uploadedFile {
+    position: relative;
+    overflow: hidden;
+    margin-top: -20%;
+    border: none;
+    background: grey;
+}
+.uploadedFile input {
+    position: absolute;
+    opacity: 0;
+    right: 0;
+    top: 0;
+}
+
+#userProfile{
+    margin-top: 5rem;
+    width: 60%;
+}
+
+.infoNav{
+    margin-top: 3rem;
+}
+
+.btnGroup{
+    margin-top: 1rem;
+}
+
+html, body.profileBody{
+    width: 100%;
+    height: 100%;
+}
+
+body.profileBody{
+    background-image: radial-gradient(circle at 20% 20%, #99CCCC, #7171B7);
+}
+
+#editBtn:hover{
+    background-color: #4CAF50;
+    border-color: #4CAF50;
+    color: white;
+}
+
+#changePassword:hover{
+    background-color: #B8860B;
+    border-color: #B8860B;
+    color: white;
+}
+
+.nav-tabs>li>a{
+    color: black;
+}
+
+
+/* Change User Profile */
+.changeBox{
+    width:30%;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.changeTitle{
+    text-align: center;
+}
+
+.changeProBtn{
+    margin-top: 1rem;
+    text-align: center;
+}
+
+/* Log in and sign up */
+
+.bottomBtns{
+    margin:0 auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.myModal-header{
+    background-color: #F5F5F5;
+}
+
+.myModal-body{
+    background-color: #F5F5F5;
+}
+
+.form-check{
+    margin-bottom: 20px;
+}
+
+/* Recommendation page */
+
+.container.recommendationBox{
+    margin: auto;
+    width: 70%;
+    padding-bottom: 2rem;
+    padding-top: 1rem;
+    border-radius: 25px;
+    margin-bottom: 1rem;
+}
+
+.pageTitle{
+    text-align: center;
+    padding:1rem;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    background-color: #8FBC8F;
+    border-radius: 15px 50px;
+    box-shadow: 2px 2px 2px #A9A9A9;
+}
+
+.recImg{
+    border-radius:15px 50px 30px;
+    margin-right: 0.5rem;
+}
+
+
