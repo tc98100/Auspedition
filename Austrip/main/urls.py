@@ -7,5 +7,5 @@ urlpatterns = [
     path('attractions/', views.attraction, name="attraction_list"),
     path('<name>', views.detailed_item, name="item_details"),
     path('accounts/', include('accounts.urls')),
-    path('destination_detail',views.destination_detail, name= "destination_detail")
+    path('destination_detail/',views.destination_detail, name= "destination_detail")
 ]
