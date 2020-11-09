@@ -20,11 +20,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="192f926e-fe2c-4b72-ae14-95d510d85d25" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../../.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/statics/css/custom.css" beforeDir="false" afterPath="$PROJECT_DIR$/statics/css/custom.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/attractions.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/attractions.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/destination_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/destination_detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/destinations.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/destinations.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/urls.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,7 +60,6 @@
       <updated>1604837939635</updated>
       <workItem from="1604837941043" duration="1821000" />
       <workItem from="1604842544077" duration="9374000" />
-      <workItem from="1604929769709" duration="3178000" />
     </task>
     <servers />
   </component>
