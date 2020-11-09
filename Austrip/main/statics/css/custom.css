@@ -206,3 +206,46 @@ body.profileBody{
     margin-top: 1rem;
     text-align: center;
 }
+
+/* Add Recommendation */
+.recUploadImg {
+    position: relative;
+    padding: 0.3rem 1rem;
+    height: 2rem;
+    line-height: 1.2rem;
+    border-radius: 5px;
+    overflow: hidden;
+    display: inline-block;
+    color: grey;
+    background: white;
+    border: 1px solid grey;
+}
+
+.recUploadImg  input {
+    position: absolute;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+
+.recUploadImg:hover {
+    color: white;
+    background: grey;
+    border-color: grey;
+    text-decoration: none;
+}
+
+.recAddBtn{
+    margin-top:0.5rem;
+    text-align: center;
+}
+
+.upRecBtn{
+    text-align: center;
+}
+
+/* Delete Comments */
+.deleCommentBtn{
+    margin-left: 1.4rem;
+    margin-bottom: 1rem;
+
+}
