@@ -1,0 +1,166 @@
+<!--{% load static %}-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Home Page for Staff</title>
+    <link rel="stylesheet" href="../statics/css/custom.css">
+    <link rel="stylesheet" href="{% static 'custom.css'%}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+<body>
+{% include 'navbar.html' %}
+
+<div class=bg-box style="background-image: url({% static 'Background.jpg'%});">
+    <div style="position:absolute; left: 60%; top: 20%; right: 10%;" class="text-white">
+        <h4 class="text-monospace">#1 Tourism Website Service since 2010</h4>
+        <h1 class="font-weight-bold" style="font-size: 2rem">We provide you best tourism service in Australia</h1>
+        <button type="button" class="btn btn btn-success mt-3 rounded-pill" style="font-size: 1rem">Where do you want
+            to go?
+        </button>
+    </div>
+</div>
+
+
+<div class="container-fluid ">
+    <div class="bg-transparent">
+        <h1 class="font-weight-normal text-center mt-5" style="font-size: 4rem; color: lightseagreen">Trending
+            Attractions</h1>
+        <div class="text-center font-weight-light" style="font-size: 1.5rem; color: slategray">
+            <p>Check the best place near you</p>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid mt-5">
+    <div class="row justify-content-between pl-4 pr-4">
+        <div class="col-4 ">
+            <div class="card rounded-cus">
+                <div class="attraction" style="background-image: url({% static 'OprahHouse.jpg'%});">
+                </div>
+
+                <div class="card-body">
+                    <p class="font-weight-bold text-center" style="font-size: 1rem;">Sydney Oprah House</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card rounded-cus">
+                <div class="attraction" style="background-image: url({% static 'bridge.jpg'%});">
+                </div>
+
+                <div class="card-body">
+                    <p class="font-weight-bold text-center" style="font-size: 1rem;"> Sydney Harbour Bridge</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-4 ">
+            <div class="card rounded-cus">
+                <div class="attraction" style="background-image: url({% static 'AyersMountain.jpg'%});">
+                </div>
+                <div class="card-body">
+                    <p class="font-weight-bold text-center" style="font-size: 1rem;">Ayers Mountain</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid ">
+    <div class="bg-transparent">
+        <h1 class="font-weight-normal text-center mt-5" style="font-size: 4rem; color: lightseagreen">
+            Recommendations</h1>
+        <div class="text-center font-weight-light" style="font-size: 1.5rem; color: slategray">
+            <p>Choose the place you want and we guide it for you </p>
+        </div>
+    </div>
+</div>
+
+<!--Recommendation 1-->
+<div class="jumbotron mt-5 mr-5 ml-5 pl-5 rounded-cus"
+     style="background-image: url({% static 'recom1.jpg'%}); color: white; background-repeat: no-repeat; background-size: cover">
+    <h1 class="display-3">EXPERIENCE AUSTRALIA</h1>
+    <p class="lead">Take a colour and sound journey through the country's most epic destinations with our new 8D video
+        escapes.</p>
+    <a class="btn btn-success btn-lg" href="#" role="button">Learn more</a>
+</div>
+
+<!--Update Recommendation 1-->
+<div class="upRecBtn">
+    <a class="btn btn-outline-success" data-toggle="modal" href="#modalAddRec" role="button" onclick="">Update</a>
+</div>
+
+<!--Modal for new redommendation-->
+<div class="modal fade" id="modalAddRec" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header myModal-header">
+                <h2 class="modal-title">New Rcommendation</h2>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body myModal-body recModal">
+                <form role="form" action="" method="post">
+                    <div class="formContent">
+                        <div class="form-group">
+                            <label for="recTitle">Title</label>
+                            <input type="text" name="recTitle" placeholder="Enter recommendation title" class="form-control recTitle" id="recTitle">
+                        </div>
+                        <div class="form-group">
+                            <label for="shortDescription">Short Description</label>
+                            <textarea name="shortDescription" placeholder="Enter short description" 
+                                        class="form-control shortDescription" id="shortDescription"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="longDescription">Long Description</label>
+                            <textarea name="longDescription" placeholder="Enter long description" 
+                                        class="form-control longDescription" id="longDescription"></textarea>
+                        </div>
+                        <a href="javascript:;" class="recUploadImg">
+                            <input type="file" name="recImage" accept="image/png, image/jpeg, image/gif, image/jpg">
+                            Upload the file
+                        </a>
+                        <div class="recAddBtn">
+                            <button type="submit" class="btn btn-success">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Recommendation 2-->
+<div class="jumbotron mt-5 mr-5 ml-5 pl-5 rounded-cus"
+     style="background-image: url({% static 'recom3.jpg'%}); color: white; background-repeat: no-repeat; background-size: cover">
+    <h1 class="display-3">EXPERIENCE AUSTRALIA</h1>
+    <p class="lead">Take a colour and sound journey through the country's most epic destinations with our new 8D video
+        escapes.</p>
+    <a class="btn btn-success btn-lg" href="#" role="button">Learn more</a>
+</div>
+
+<!--Update Recommendation 2-->
+<div class="upRecBtn">
+    <a class="btn btn-outline-success" data-toggle="modal" href="#modalAddRec" role="button" onclick="">Update</a>
+</div>
+
+
+{% include 'footer.html' %}
+
+<script src="../statics/javascript/index.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>

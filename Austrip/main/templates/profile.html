@@ -19,7 +19,7 @@
         <!-- Profile Photo -->
         <form action="#" method="post">
             <div class="profileImg">
-                <img class="img-thumbnail" src="../assets/profile_image_default.png" alt="Profile Image">
+                <img class="img-thumbnail" src="{% static 'profile_image_default.png'%}" alt="Profile Image">
                 <div class="btn btn-lg btn-success uploadedFile">
                     Change Profile Photo
                     <input type="file" name="profileImage" accept="image/png, image/jpeg, image/gif, image/jpg">
@@ -56,9 +56,6 @@
 
                 <dt class="col-sm-3">Last Name</dt>
                 <dd class="col-sm-9">Last Name</dd>
-              
-                <dt class="col-sm-3">Email</dt>
-                <dd class="col-sm-9">Etiam porta sem malesuada magna mollis euismod.</dd>
 
                 <dt class="col-sm-3">Bio</dt>
                 <dd class="col-sm-9">
