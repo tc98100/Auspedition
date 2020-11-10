@@ -81,6 +81,11 @@
     overflow: hidden;
 }
 
+.card-body-attraction p{
+    font-size: 1.5rem;
+    line-height: 1rem;
+}
+
 /* Log in and sign up */
 .bottomBtns{
     margin:0 auto;
