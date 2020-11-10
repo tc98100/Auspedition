@@ -14,11 +14,11 @@
 <body>
 {% include 'navbar.html' %}
 
-<div style="justify-content: center;
-	display: flex;align-items:center;background:url({% static 'sydney1.webp'%});background-size:100%; height: 600px">
-</div>
+    <div style="justify-content: center;
+    display: flex;align-items:center;background:url({% static 'sydney1.webp'%});background-size:100%; height: 600px">
+    </div>
 
-<div class="mt-5 ml-5 mr-5">
+    <div class="mt-5 ml-5 mr-5">
     <div class="container-fluid ">
         <div class="bg-transparent">
 
@@ -32,18 +32,18 @@
                 to the fullest.</h1>
         </div>
     </div>
-</div>
+    </div>
 
-<div class="mt-5 ml-5 mr-5">
+    <div class="mt-5 ml-5 mr-5">
     <div class="container-fluid ">
         <div class="bg-transparent">
 
             <p class="font-weight-bold" style="font-size: 3rem; line-height: 2rem; color: lightseagreen">Comments </p>
         </div>
     </div>
-</div>
+    </div>
 
-<form class=" container-fluid mt-2 border p-2 pl-5 pr-5" style="border-top: #17a2b8 solid 2px !important;">
+    <form class=" container-fluid mt-2 border p-2 pl-5 pr-5" style="border-top: #17a2b8 solid 2px !important;">
     <div class="p-1 comments">
         <div class="container comment  m-1 p-0">
             <div class=" ml-3 border-left ">
@@ -54,7 +54,7 @@
                     </a>
                 </div>
                 <div class="messageText ml-2 container m-2">I love this place!</div>
-                <!--delete button-->
+                 <!--delete button-->
                 <div class="deleCommentBtn">
                     <button type="button" class="btn btn-secondary btn-sm" onclick="">Delete</button>
                 </div>
@@ -69,7 +69,6 @@
                     </a>
                 </div>
                 <div class="messageText ml-2 container m-2">Great!</div>
-                <!--delete button-->
                 <div class="deleCommentBtn">
                     <button type="button" class="btn btn-secondary btn-sm" onclick="">Delete</button>
                 </div>
@@ -84,12 +83,22 @@
                     </a>
                 </div>
                 <div class="messageText ml-2 container m-2">Best time in my life!</div>
-                <!--delete button-->
                 <div class="deleCommentBtn">
                     <button type="button" class="btn btn-secondary btn-sm" onclick="">Delete</button>
                 </div>
             </div>
         </div>
+    </div>
+    <div class = "ml-4">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            </ul>
+        </nav>
     </div>
     <div class="ml-4">
         <form>
@@ -97,7 +106,7 @@
             <button type="submit" class="btn  btn-info" >Sent</button>
         </form>
     </div>
-</div>
+    </div>
 
 
 
