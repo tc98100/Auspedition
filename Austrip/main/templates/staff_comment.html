@@ -5,8 +5,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Home</title>
-
+    <title>Home Page for Staff</title>
+    <link rel="stylesheet" href="../statics/css/custom.css">
     <link rel="stylesheet" href="{% static 'custom.css'%}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
           integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
@@ -14,11 +14,11 @@
 <body>
 {% include 'navbar.html' %}
 
-<div style="justify-content: center;
-	display: flex;align-items:center;background:url({% static 'sydney1.webp'%});background-size:100%; height: 600px">
-</div>
+    <div style="justify-content: center;
+    display: flex;align-items:center;background:url({% static 'sydney1.webp'%});background-size:100%; height: 600px">
+    </div>
 
-<div class="mt-5 ml-5 mr-5">
+    <div class="mt-5 ml-5 mr-5">
     <div class="container-fluid ">
         <div class="bg-transparent">
 
@@ -32,18 +32,18 @@
                 to the fullest.</h1>
         </div>
     </div>
-</div>
+    </div>
 
-<div class="mt-5 ml-5 mr-5">
+    <div class="mt-5 ml-5 mr-5">
     <div class="container-fluid ">
         <div class="bg-transparent">
 
             <p class="font-weight-bold" style="font-size: 3rem; line-height: 2rem; color: lightseagreen">Comments </p>
         </div>
     </div>
-</div>
+    </div>
 
-<form class=" container-fluid mt-2 border p-2 pl-5 pr-5" style="border-top: #17a2b8 solid 2px !important;">
+    <form class=" container-fluid mt-2 border p-2 pl-5 pr-5" style="border-top: #17a2b8 solid 2px !important;">
     <div class="p-1 comments">
         <div class="container comment  m-1 p-0">
             <div class=" ml-3 border-left ">
@@ -54,6 +54,10 @@
                     </a>
                 </div>
                 <div class="messageText ml-2 container m-2">I love this place!</div>
+                 <!--delete button-->
+                <div class="deleCommentBtn">
+                    <button type="button" class="btn btn-secondary btn-sm" onclick="">Delete</button>
+                </div>
             </div>
         </div>
         <div class="container comment  m-1 p-0">
@@ -65,6 +69,9 @@
                     </a>
                 </div>
                 <div class="messageText ml-2 container m-2">Great!</div>
+                <div class="deleCommentBtn">
+                    <button type="button" class="btn btn-secondary btn-sm" onclick="">Delete</button>
+                </div>
             </div>
         </div>
         <div class="container comment  m-1 p-0">
@@ -76,6 +83,9 @@
                     </a>
                 </div>
                 <div class="messageText ml-2 container m-2">Best time in my life!</div>
+                <div class="deleCommentBtn">
+                    <button type="button" class="btn btn-secondary btn-sm" onclick="">Delete</button>
+                </div>
             </div>
         </div>
     </div>
@@ -96,7 +106,8 @@
             <button type="submit" class="btn  btn-info" >Sent</button>
         </form>
     </div>
-</div>
+    </div>
+
 
 
 {% include 'footer.html' %}
@@ -114,7 +125,3 @@
 
 </body>
 </html>
-
-
-
-
