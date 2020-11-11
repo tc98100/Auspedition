@@ -140,6 +140,8 @@
 }
 .profileImg img{
     width: 100%;
+    max-width: 20rem;
+    max-height: 20rem;
 }
 .profileImg .uploadedFile {
     position: relative;
