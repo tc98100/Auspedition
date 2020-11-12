@@ -129,34 +129,7 @@
 
 
     {% include 'footer.html' %}
-    <script>
-        let destinations = document.getElementById("destinationCards")
-        let btn = document.getElementById("moreBtn")
-        btn.addEventListener("click",()=>{
-            loadMore();
-        });
-        function loadMore(){
-            var cards="";
-            cards+="<div style=\"padding-top: 25px\">"
 
-            cards+="<div class=\"row justify-content-between\">\n"
-            for(i=0;i<3;i++){
-                cards+="<div class=\"col-4 \">\n" +
-                    "                <div class=\"card rounded-cus\">\n" +
-                    "                    <a class=\"attraction\" style=\"background-image: url({% static 'Sydney.jpg'%}); display: block\" href=\"{%url 'destination_detail'  %}\">\n" +
-                    "                    </a>\n" +
-                    "\n" +
-                    "                    <div class=\"card-body card-body-attraction\">\n" +
-                    "                        <p class=\"font-weight-bold text-center\">Sydney</p>\n" +
-                    "                    </div>\n" +
-                    "                </div>\n" +
-                    "            </div>";
-            }
-            cards+="</div>"
-            cards+="</div>"
-            destinations.insertAdjacentHTML("beforeend",cards);
-        };
-    </script>
     <script src = "../statics/javascript/index.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
