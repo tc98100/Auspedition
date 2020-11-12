@@ -57,6 +57,9 @@ def profile_change(request):
 #     city.click_count += 1
 #     city.save(update_fields=['click_field'])
 
+def detail_destination(request):
+    return render(request, 'detailed_destination.html')
+
 
 class DestinationModelViewSet(viewsets.ModelViewSet):
     serializer_class = DestinationSerializer

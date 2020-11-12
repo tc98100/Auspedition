@@ -62,29 +62,29 @@
     </div>
 
     <div class="container-fluid">
-            <div class="row justify-content-between">
-                {% for place in Attractions %}
-                    <div class="col-4 mb-2">
-                        <div class="card rounded-cus shadow">
-                            <a class="attraction" style="background-image: url({{place.image.url}}); display: block"></a>
-                            <div class="card-body">
-                                <p class="font-weight-bold text-center" style="font-size: 1.5rem; line-height: 1rem">{{place.name}}</p>
-                                <hr>
-                                <div class="row text-center">
-                                    <div class="col">
-                                        <p class=""><b>{{place.likes}}</b> people liked it</p>
-                                        <p><b>{{place.dislikes}}</b> people disliked it</p>
-                                    </div>
-                                    <div class="col">
-                                        <a class="btn btn-success my-2" href="{% url 'attraction_details' attraction=place.attraction_id %}">see more</a>
-                                    </div>
+        <div class="row justify-content-between">
+            {% for place in Attractions %}
+                <div class="col-4 mb-2">
+                    <div class="card rounded-cus shadow">
+                        <a class="attraction" style="background-image: url({{place.image.url}}); display: block"></a>
+                        <div class="card-body">
+                            <p class="font-weight-bold text-center" style="font-size: 1.5rem; line-height: 1rem">{{place.name}}</p>
+                            <hr>
+                            <div class="row text-center">
+                                <div class="col">
+                                    <p class=""><b>{{place.likes}}</b> people liked it</p>
+                                    <p><b>{{place.dislikes}}</b> people disliked it</p>
+                                </div>
+                                <div class="col">
+                                    <a class="btn btn-success my-2" href="{% url 'attraction_details' attraction=place.attraction_id %}">see more</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                {% endfor %}
-            </div>
+                </div>
+            {% endfor %}
         </div>
+    </div>
 
 
 
@@ -123,8 +123,6 @@
             </div>
         </div>
 
-
-
     {% include 'footer.html' %}
     <script src = "{% static 'index.js'%}"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -133,3 +131,4 @@
 
 </body>
 </html>
+
