@@ -14,34 +14,19 @@
 
     <div id="attraction_jumbo">
         <div class="container-fluid">
-            <div class="row rounded-pill" style="width: 70%;margin:15%;font-size: 2.5rem;background-color: white;padding:0.5rem 0 0.5rem 0.5rem">
-                <div class="col-5">
+            <div class="row rounded-pill mx-auto justify-content-center" style="width: 50%;margin:15%;font-size: 2.5rem;background-color: white;padding:0.5rem 0 0.5rem 0.5rem">
+                <form class="col-6 row" method="post" action="{% url 'attraction_result' %}">
+                    {% csrf_token %}
                     <div class="input-group">
-                        <select class="custom-select custom-select-lg border-0" id="inputGroupSelect01">
-                            <option selected>STATE</option>
-                            <option value="1">NSW</option>
-                            <option value="2">QLD</option>
-                            <option value="3">SA</option>
-                            <option value="4">TAS</option>
-                            <option value="5">VIC</option>
-                            <option value="6">WA</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-5">
-                    <div class="input-group">
-                        <select class="custom-select custom-select-lg border-0" id="inputGroupSelect02">
+                        <select class="custom-select custom-select-lg border-0" id="inputGroupSelect01" name="city">
                             <option selected>CITY</option>
-                            <option value="1">Sydney</option>
-                            <option value="2">Melbourne</option>
-                            <option value="3">Brisbane</option>
-                            <option value="4">Gold Coast</option>
+                            {% for place in Attractions %}
+                                <option value="{{ place.city }}">{{ place.city }}</option>
+                            {% endfor %}
                         </select>
                     </div>
-                </div>
-                <div class="col-2" style="justify-content: center;display: flex;align-items:center;">
                     <button style="margin-right: -0.5rem" class="btn btn-outline-success btn-lg btn-block rounded-pill" type="submit">SEARCH</button>
-                </div>
+                </form>
             </div>
         </div>
     </div>

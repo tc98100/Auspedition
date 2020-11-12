@@ -14,34 +14,23 @@
 
     <div id="destination_jumbo">
         <div class="container-fluid">
-            <div class="row rounded-pill" style="width: 70%;margin:15%;font-size: 2.5rem;background-color: white;padding:0.5rem 0 0.5rem 0.5rem">
-                <div class="col-5">
+            <div class="row rounded-pill mx-auto justify-content-center" style="width: 50%;margin:15%;font-size: 2.5rem;background-color: white;padding:0.5rem 0 0.5rem 0.5rem">
+                <form class="col-6 row" method="post" action="{% url 'destination_result' %}">
+                    {% csrf_token %}
                     <div class="input-group">
-                        <select class="custom-select custom-select-lg border-0" id="inputGroupSelect01">
+                        <select class="custom-select custom-select-lg border-0" id="inputGroupSelect01" name="state">
                             <option selected>STATE</option>
-                            <option value="1">NSW</option>
-                            <option value="2">QLD</option>
-                            <option value="3">SA</option>
-                            <option value="4">TAS</option>
-                            <option value="5">VIC</option>
-                            <option value="6">WA</option>
+                            {% for city in Destinations %}
+                                <option value="{{ city.stateCode }}">{{ city.state }}</option>
+                            {% endfor %}
                         </select>
                     </div>
-                </div>
-                <div class="col-5">
-                    <div class="input-group">
-                        <select class="custom-select custom-select-lg border-0" id="inputGroupSelect02">
-                            <option selected>CITY</option>
-                            <option value="1">Sydney</option>
-                            <option value="2">Melbourne</option>
-                            <option value="3">Brisbane</option>
-                            <option value="4">Gold Coast</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-2" style="justify-content: center;display: flex;align-items:center;">
                     <button style="margin-right: -0.5rem" class="btn btn-outline-success btn-lg btn-block rounded-pill" type="submit">SEARCH</button>
-                </div>
+                </form>
+
+{#                <div class="col-2" style="justify-content: center;display: flex;align-items:center;">#}
+{#                    <button style="margin-right: -0.5rem" class="btn btn-outline-success btn-lg btn-block rounded-pill" type="submit">SEARCH</button>#}
+{#                </div>#}
             </div>
         </div>
     </div>
@@ -83,34 +72,34 @@
     {% include 'footer.html' %}
     <script src = "{% static 'index.js'%}"></script>
 
-    <script>
-        let destinations = document.getElementById("destinationCards")
-        let btn = document.getElementById("moreBtn")
-        btn.addEventListener("click",()=>{
-            loadMore();
-        });
-        function loadMore(){
-            var cards="";
-            cards+="<div style=\"padding-top: 25px\">"
-
-            cards+="<div class=\"row justify-content-between\">\n"
-            for(i=0;i<3;i++){
-                cards+="<div class=\"col-4 \">\n" +
-                    "                <div class=\"card rounded-cus\">\n" +
-                    "                    <a class=\"attraction\" style=\"background-image: url({% static 'Sydney.jpg'%}); display: block\" href=\"{%url 'destination_detail'  %}\">\n" +
-                    "                    </a>\n" +
-                    "\n" +
-                    "                    <div class=\"card-body card-body-attraction\">\n" +
-                    "                        <p class=\"font-weight-bold text-center\">Sydney</p>\n" +
-                    "                    </div>\n" +
-                    "                </div>\n" +
-                    "            </div>";
-            }
-            cards+="</div>"
-            cards+="</div>"
-            destinations.insertAdjacentHTML("beforeend",cards);
-        };
-    </script>
+{#    <script>#}
+{#        let destinations = document.getElementById("destinationCards")#}
+{#        let btn = document.getElementById("moreBtn")#}
+{#        btn.addEventListener("click",()=>{#}
+{#            loadMore();#}
+{#        });#}
+{#        function loadMore(){#}
+{#            var cards="";#}
+{#            cards+="<div style=\"padding-top: 25px\">"#}
+{##}
+{#            cards+="<div class=\"row justify-content-between\">\n"#}
+{#            for(i=0;i<3;i++){#}
+{#                cards+="<div class=\"col-4 \">\n" +#}
+{#                    "                <div class=\"card rounded-cus\">\n" +#}
+{#                    "                    <a class=\"attraction\" style=\"background-image: url({% static 'Sydney.jpg'%}); display: block\" href=\"{%url 'destination_details'  %}\">\n" +#}
+{#                    "                    </a>\n" +#}
+{#                    "\n" +#}
+{#                    "                    <div class=\"card-body card-body-attraction\">\n" +#}
+{#                    "                        <p class=\"font-weight-bold text-center\">Sydney</p>\n" +#}
+{#                    "                    </div>\n" +#}
+{#                    "                </div>\n" +#}
+{#                    "            </div>";#}
+{#            }#}
+{#            cards+="</div>"#}
+{#            cards+="</div>"#}
+{#            destinations.insertAdjacentHTML("beforeend",cards);#}
+{#        };#}
+{#    </script>#}
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>

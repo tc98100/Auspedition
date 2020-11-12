@@ -2,9 +2,9 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from rest_framework import viewsets
 
-from .models import Destination, Attraction, DestinationComment, AttractionComment, Recommendation
+from .models import *
 from .serializers import *
-from .search import Search
+from .search import *
 
 
 def home(request):
@@ -42,6 +42,28 @@ def search_result(request):
 
     return render(request, "search_result.html", {'result': result_destination, 'cities': cities, 'places': places})
 
+def filter_state(request):
+    state = ''
+    if request.method == 'POST':
+        state = request.POST['state']
+
+    if state == 'STATE':
+        cities = Destination.objects.all()
+    else:
+        cities = Destination.objects.filter(stateCode=state)
+    return render(request, "search_result.html", {'cities': cities})
+
+def filter_city(request):
+    city = ''
+    if request.method == 'POST':
+        city = request.POST['city']
+
+    if city == 'CITY':
+        places = Attraction.objects.all()
+    else:
+        places = Attraction.objects.filter(name=city)
+    return render(request, "search_result.html", {'places': places})
+
 # temporary
 def profile(request):
     return render(request, "profile.html")
@@ -56,9 +78,6 @@ def profile_change(request):
 #     city = Destination.objects.get(destination_id=destination)
 #     city.click_count += 1
 #     city.save(update_fields=['click_field'])
-
-def detail_destination(request):
-    return render(request, 'detailed_destination.html')
 
 
 class DestinationModelViewSet(viewsets.ModelViewSet):

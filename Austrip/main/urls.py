@@ -2,8 +2,7 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
 from . import views
-from .views import DestinationModelViewSet, AttractionModelViewSet, DestinationCommentModelViewSet, \
-    AttractionCommentModelViewSet, RecommendationModelViewSet, UserModelViewSet
+from .views import *
 
 apiRouter = DefaultRouter()
 apiRouter.register('destination', DestinationModelViewSet, basename='destination')
@@ -22,7 +21,9 @@ urlpatterns = [
     path('recommendations/<str:recommendation>/', views.detailed_recommendation, name="recommendation_details"),
 
 
-    path('result/', views.search_result, name="search_result"),
+    path('search_result/', views.search_result, name="search_result"),
+    path('destination_result/', views.filter_state, name="destination_result"),
+    path('attraction_result/', views.filter_city, name="attraction_result"),
 
     # temporary use, needs to be changed
     path('profile/', views.profile, name="profile"),
