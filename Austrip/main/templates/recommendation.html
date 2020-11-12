@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Recommendation for royal botanic gardens</title>
+    <title>{{ recommendation.title }}</title>
     <link rel="stylesheet" href="../statics/css/custom.css">
     <link rel="stylesheet" href="{% static 'custom.css'%}" charset="UTF-8">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
@@ -13,39 +13,26 @@
 
 <body>
     {% include 'navbar.html' %}
-
-    <!-- Breadcrumb -->
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="#">Home</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Recommendation</li>
-        </ol>
-    </nav>
-
-    <!-- Body -->
     <div class="container recommendationBox">
         <hgroup class="pageTitle">
-            <h1 class="title" style="text-transform:uppercase;">Slow tour of royal botanic gardens</h1>
-            <h5 class="title" style="text-transform:capitalize;">Slow down and feel the freshness</h5>
+            <h1 class="title" style="text-transform:uppercase;">{{ recommendation.title }}</h1>
+            <h5 class="title" style="text-transform:capitalize;">{{ recommendation.short_description }}</h5>
         </hgroup>
 
         <div class="row no-gutters bg-light position-relative cntBox">
             <div class="col-md-8 mb-md-0 p-md-4">
-                <img class="img-fluid recImg" src="{% static 'recommendation1_garden.jpeg'%}" class="mr-3" alt="No Picture">
+                <img class="img-fluid recImg mr-3" src="{{ recommendation.image.url }}" alt="{{ recommendation.recommendation_id }}">
             </div>
             <div class="col-md-4 position-static p-4 pl-md-0 align-self-center">
-              <p>Slow down and explore the 'hidden map' of the area, reach out and touch the world-famous 'shell bricks', 
-                wrap your hand around the back of the Opera House for a wider view of the harbour; "The Royal Botanic Gardens, walk to the famous "Mrs. Macquarie's Chair", turn on the 
-                panoramic mode and see it from a distance. Elegance of the Opera House and Harbour Bridge.</p>
+              <p>{{ recommendation.long_description }}</p>
             </div>
         </div>
     </div>
 
     {% include 'footer.html' %}
-    <script src = "../statics/javascript/index.js"></script>
+    <script src = "{% static 'index.js'%}"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
 </body>
 </html>

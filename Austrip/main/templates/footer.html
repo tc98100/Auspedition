@@ -4,10 +4,9 @@
             <h1 class="display-2 mx-5 p-3" style="color: cadetblue">Austrip</h1>
         </div>
         <div class="col-4">
-            <a class="nav-link text-success" href="home.html">Home</a>
-            <a class="nav-link text-success" href="./destinations.html">Destination</a>
-            <a class="nav-link text-success" href="#">Attraction</a>
-            <a class="nav-link text-success" href="#">Restaurant</a>
+            <a class="nav-link text-success" href="{% url 'home' %}">Home</a>
+            <a class="nav-link text-success" href="{% url 'destination_list' %}">Destination</a>
+            <a class="nav-link text-success" href="{% url 'attraction_list' %}">Attraction</a>
         </div>
          <div class="col-4"></div>
     </div>
