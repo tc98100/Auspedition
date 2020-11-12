@@ -18,7 +18,7 @@
 #funcBookmark, #funcDislike, #funcLike {
     width: 2.5rem;
     height: 2.5rem;
-    color: darkgrey;
+    /*color: gray;*/
 }
 
 #funcBookmark:hover {
@@ -34,14 +34,20 @@
 }
 
 #funcBookmark:visited {
-    color: goldenrod;
+    color: #daa520;
 }
 
+#funcDislike:focus {
+    color: red;
+}
+#funcDislike:active {
+    color: red;
+}
 #funcDislike:visited {
     color: red;
 }
 
-#funcLike:visited {
+#funcLike:focus {
     color: green;
 }
 

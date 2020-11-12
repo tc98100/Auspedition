@@ -20,5 +20,6 @@ urlpatterns = [
     path('<name>', views.detailed_item, name="item_details"),
     path('accounts/', include('accounts.urls')),
     path('destination_detail/', views.destination_detail, name="destination_detail"),
+    path('detail_destination/', views.detail_destination, name="detail_destination"),
     path('viewset/', include(apiRouter.urls)),
 ]

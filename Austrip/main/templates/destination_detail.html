@@ -43,7 +43,7 @@
     </div>
 </div>
 
-<form class=" container-fluid mt-2 border p-2 pl-5 pr-5" style="border-top: #17a2b8 solid 2px !important;">
+<form id="comment-section"class=" container-fluid mt-2 border p-2 pl-5 pr-5" style="border-top: #17a2b8 solid 2px !important;">
     <div class="p-1 comments">
         <div class="container comment  m-1 p-0">
             <div class=" ml-3 border-left ">
@@ -79,16 +79,11 @@
             </div>
         </div>
     </div>
+    <div id="comments"></div>
+
+</form>
     <div class = "ml-4">
-        <nav aria-label="Page navigation example">
-            <ul class="pagination">
-                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-            </ul>
-        </nav>
+        <button id="loadMoreBtn">Load more</button>
     </div>
     <div class="ml-4">
         <form>
@@ -100,7 +95,31 @@
 
 
 {% include 'footer.html' %}
+<script>
+    let container = document.getElementById("comments");
+    let btn = document.getElementById("loadMoreBtn");
+    btn.addEventListener('click',()=>{
+        loadComments(3)
+    })
 
+    function loadComments(numberOfComments){
+        var comments="";
+        for(i=0;i<numberOfComments;i++){
+            comments+="<div class=\"container comment  m-1 p-0\">\n" +
+            "            <div class=\" ml-3 border-left \">\n" +
+            "                <div class=\"container ml-2\">\n" +
+            "                    <a class=\"author\">\n" +
+            "                        <span>User"+i+"</span>\n" +
+            "                        <span class=\"summary-text small\">time stamp to be added</span>\n" +
+            "                    </a>\n" +
+            "                </div>\n" +
+            "                <div class=\"messageText ml-2 container m-2\">Actual comments to be pulled from db</div>\n" +
+            "            </div>\n" +
+            "        </div>";
+        }
+        container.insertAdjacentHTML("beforeend",comments);
+    }
+</script>
 <script src="../statics/javascript/index.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

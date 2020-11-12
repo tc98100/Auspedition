@@ -26,6 +26,9 @@ def detailed_item(request, name):
 def destination_detail(request):
     return render(request, 'destination_detail.html')
 
+def detail_destination(request):
+    return render(request, 'detailed_destination.html')
+
 
 class DestinationModelViewSet(viewsets.ModelViewSet):
     serializer_class = DestinationSerializer
