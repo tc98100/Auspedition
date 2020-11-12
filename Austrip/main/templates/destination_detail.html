@@ -1,105 +1,130 @@
-<!--{% load static %}-->
+{% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Home</title>
+    <title>{{ city.name }}</title>
 
     <link rel="stylesheet" href="{% static 'custom.css'%}">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 </head>
 <body>
-{% include 'navbar.html' %}
-
-<div style="justify-content: center;
-	display: flex;align-items:center;background:url({% static 'sydney1.webp'%});background-size:100%; height: 600px">
-</div>
-
-<div class="mt-5 ml-5 mr-5">
-    <div class="container-fluid ">
-        <div class="bg-transparent">
-
-            <p class="font-weight-bold" style="font-size: 3rem; line-height: 2rem">Sydney </p>
-            <h1 class="font-weight-light  " style="font-size: 1rem; line-height: 2rem">
-                Sydney is the first stop on many Australian itineraries, and for good reason. It's an inviting blend
-                of the exhilarating and easygoing. You can find excitement in the city, but drive just a few kilometres
-                and you'll hit the golden sand of famous beaches like Bondi and Manly. Plus, with endless nature at its
-                doorstep, Sydney is the starting point
-                for day trips serving up fresh air, unique flavours and locals who know a thing or two about living life
-                to the fullest.</h1>
-        </div>
+    {% include 'navbar.html' %}
+    <div class="container">
+        <img class="img-fluid rounded" src="{{city.image.url}}" alt="{{city.name}}">
     </div>
-</div>
-
-<div class="mt-5 ml-5 mr-5">
-    <div class="container-fluid ">
-        <div class="bg-transparent">
-
-            <p class="font-weight-bold" style="font-size: 3rem; line-height: 2rem; color: lightseagreen">Comments </p>
-        </div>
-    </div>
-</div>
-
-<form class=" container-fluid mt-2 border p-2 pl-5 pr-5" style="border-top: #17a2b8 solid 2px !important;">
-    <div class="p-1 comments">
-        <div class="container comment  m-1 p-0">
-            <div class=" ml-3 border-left ">
-                <div class="container ml-2">
-                    <a class="author">
-                        <span>User 1</span>
-                        <span class="summary-text small">2020-04-10 16:01:27</span>
-                    </a>
+    <div class="mt-5 ml-5 mr-5">
+        <div class="container">
+            <div class="bg-transparent">
+                <div class="row">
+                    <div class="col-6">
+                        <p class="font-weight-bold" style="font-size: 3rem; line-height: 2rem">{{ city.name }}</p>
+                        <p>{{ city.click_count }}</p>
+                    </div>
+                    <div class="col-6">
+                        <div>
+                            <div class="row">
+                                <div class="col-6">
+                                </div>
+                                <div class="col-2">
+                                    <button class="btn">
+                                         <svg id="funcBookmark" viewBox="0 0 16 16" class="bi bi-bookmark-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5V2z"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="col-2">
+                                    <button class="btn">
+                                        <svg id="funcLike" viewBox="0 0 16 16" class="bi bi-emoji-smile" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                                            <path fill-rule="evenodd" d="M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683z"></path>
+                                            <path d="M7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z"></path>
+                                        </svg>
+                                    </button>
+                                    <p class="text-center mb-0">{{city.likes}}</p>
+                                </div>
+                                <div class="col-2">
+                                   <button class="btn">
+                                        <svg id="funcDislike" viewBox="0 0 16 16" class="bi bi-emoji-frown" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                                            <path fill-rule="evenodd" d="M4.285 12.433a.5.5 0 0 0 .683-.183A3.498 3.498 0 0 1 8 10.5c1.295 0 2.426.703 3.032 1.75a.5.5 0 0 0 .866-.5A4.498 4.498 0 0 0 8 9.5a4.5 4.5 0 0 0-3.898 2.25.5.5 0 0 0 .183.683z"></path>
+                                            <path d="M7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z"></path>
+                                        </svg>
+                                    </button>
+                                    <p class="text-center mb-0">{{city.dislikes}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="messageText ml-2 container m-2">I love this place!</div>
-            </div>
-        </div>
-        <div class="container comment  m-1 p-0">
-            <div class=" ml-3 border-left ">
-                <div class="container ml-2">
-                    <a class="author">
-                        <span>User 2</span>
-                        <span class="summary-text small">2020-04-10 16:01:27</span>
-                    </a>
-                </div>
-                <div class="messageText ml-2 container m-2">Great!</div>
-            </div>
-        </div>
-        <div class="container comment  m-1 p-0">
-            <div class=" ml-3 border-left ">
-                <div class="container ml-2">
-                    <a class="author">
-                        <span>User 3</span>
-                        <span class="summary-text small">2020-04-10 16:01:27</span>
-                    </a>
-                </div>
-                <div class="messageText ml-2 container m-2">Best time in my life!</div>
+                <h1 class="font-weight-light" style="font-size: 1rem; line-height: 2rem">{{ city.description }}</h1>
             </div>
         </div>
     </div>
-    <div class="ml-4">
-        <form>
-            <textarea name="note" style="width: 100%;"></textarea>
-            <button type="submit" class="btn  btn-info" >Sent</button>
-        </form>
+
+
+
+    <div class="mt-5 ml-5 mr-5">
+        <div class="container-fluid">
+            <div class="bg-transparent">
+
+                <p class="font-weight-bold" style="font-size: 3rem; line-height: 2rem; color: lightseagreen">Comments</p>
+            </div>
+        </div>
     </div>
-</div>
+
+    <form class=" container-fluid mt-2 border p-2 pl-5 pr-5" style="border-top: #17a2b8 solid 2px !important;">
+        <div class="p-1 comments">
+            <div class="container comment  m-1 p-0">
+                <div class=" ml-3 border-left ">
+                    <div class="container ml-2">
+                        <a class="author">
+                            <span>User 1</span>
+                            <span class="summary-text small">2020-04-10 16:01:27</span>
+                        </a>
+                    </div>
+                    <div class="messageText ml-2 container m-2">I love this place!</div>
+                </div>
+            </div>
+            <div class="container comment  m-1 p-0">
+                <div class=" ml-3 border-left ">
+                    <div class="container ml-2">
+                        <a class="author">
+                            <span>User 2</span>
+                            <span class="summary-text small">2020-04-10 16:01:27</span>
+                        </a>
+                    </div>
+                    <div class="messageText ml-2 container m-2">Great!</div>
+                </div>
+            </div>
+            <div class="container comment  m-1 p-0">
+                <div class=" ml-3 border-left ">
+                    <div class="container ml-2">
+                        <a class="author">
+                            <span>User 3</span>
+                            <span class="summary-text small">2020-04-10 16:01:27</span>
+                        </a>
+                    </div>
+                    <div class="messageText ml-2 container m-2">Best time in my life!</div>
+                </div>
+            </div>
+        </div>
+        <div class="ml-4">
+            <form>
+                <textarea name="note" style="width: 100%;"></textarea>
+                <button type="submit" class="btn  btn-info" >Sent</button>
+            </form>
+        </div>
+    </form>
 
 
-{% include 'footer.html' %}
-
-<script src="../statics/javascript/index.js"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-        crossorigin="anonymous"></script>
+    {% include 'footer.html' %}
+    <script src = "{% static 'index.js'%}"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
 
 </body>
 </html>

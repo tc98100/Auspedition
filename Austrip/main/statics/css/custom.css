@@ -2,7 +2,7 @@
 
 #logo {
     color: cadetblue;
-    /*font-size: 2em;*/
+    font-size: 2em;
 }
 
 #profileIcon {
@@ -83,9 +83,7 @@
 
 /* Log in and sign up */
 .bottomBtns{
-    margin:0 auto;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin: 20px auto;
 }
 
 .myModal-header{
@@ -103,12 +101,11 @@
 
 /* Recommendation page */
 .container.recommendationBox{
-    margin: auto;
     width: 70%;
     padding-bottom: 2rem;
     padding-top: 1rem;
     border-radius: 25px;
-    margin-bottom: 1rem;
+    margin: auto auto 1rem;
 }
 
 .pageTitle{
@@ -133,16 +130,14 @@
     text-align: center;
     width:  20rem;
 }
-.profileImg img{
-    width: 100%;
-}
+
 .profileImg .uploadedFile {
     position: relative;
     overflow: hidden;
-    margin-top: -20%;
     border: none;
     background: grey;
 }
+
 .uploadedFile input {
     position: absolute;
     opacity: 0;
@@ -151,8 +146,7 @@
 }
 
 #userProfile{
-    margin-top: 5rem;
-    width: 60%;
+    background-image: radial-gradient(circle at 20% 20%, #99CCCC, #7171B7);
 }
 
 .infoNav{
@@ -163,14 +157,6 @@
     margin-top: 1rem;
 }
 
-html, body.profileBody{
-    width: 100%;
-    height: 100%;
-}
-
-body.profileBody{
-    background-image: radial-gradient(circle at 20% 20%, #99CCCC, #7171B7);
-}
 
 #editBtn:hover{
     background-color: #4CAF50;
@@ -184,13 +170,13 @@ body.profileBody{
     color: white;
 }
 
-.nav-tabs>li>a{
+.nav-tabs > li > a {
     color: black;
 }
 
 
 /* Change User Profile */
-.changeBox{
+.changeBox {
     width:30%;
     position: relative;
     top: 50%;
@@ -198,11 +184,31 @@ body.profileBody{
     transform: translate(-50%,-50%);
 }
 
-.changeTitle{
+.changeTitle {
     text-align: center;
 }
 
-.changeProBtn{
+.changeProBtn {
     margin-top: 1rem;
     text-align: center;
+}
+
+#destination_jumbo {
+    justify-content: center;
+	display: flex;
+    align-items:center;
+    background:url('/../../assets/destination_background.jpg');
+    background-size:100%;
+}
+
+#attraction_jumbo {
+    justify-content: center;
+	display: flex;
+    align-items:center;
+    background:url('/../../assets/attraction_background.jpeg');
+    background-size:100%;
+}
+
+#home_background {
+    background-image: url('/../../assets/home_background.jpg')
 }

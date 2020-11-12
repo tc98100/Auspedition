@@ -15,10 +15,17 @@ apiRouter.register('recommendation', RecommendationModelViewSet, basename='recom
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('destinations/', views.destination, name="destination_list"),
-    path('attractions/', views.attraction, name="attraction_list"),
-    path('<name>', views.detailed_item, name="item_details"),
-    path('accounts/', include('accounts.urls')),
-    path('destination_detail/', views.destination_detail, name="destination_detail"),
+    path('destinations/', views.destination_list, name="destination_list"),
+    path('attractions/', views.attraction_list, name="attraction_list"),
+    path('destinations/<str:destination>/', views.detailed_destination, name="destination_details"),
+    path('attractions/<str:attraction>/', views.detailed_attraction, name="attraction_details"),
+    path('recommendations/<str:recommendation>/', views.detailed_recommendation, name="recommendation_details"),
+
+
+    path('result/', views.search_result, name="search_result"),
+
+    # temporary use, needs to be changed
+    path('profile/', views.profile, name="profile"),
+
     path('viewset/', include(apiRouter.urls)),
 ]
