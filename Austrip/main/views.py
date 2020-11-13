@@ -41,22 +41,25 @@ def detailed_recommendation(request, recommendation):
 
 
 def search_result(request):
-    # result_destination = Search(request.GET, queryset=Destination.objects.all())
-    # result_attraction = Search(request.GET, queryset=Attraction.objects.all())
-    # cities = result_destination.qs
-    # places = result_attraction.qs
-    # context = {'result': result_destination, 'cities': cities, 'places': places}
-
     user_input = ''
+    match = True
+
     if request.method == 'GET':
         user_input = request.GET.get('input')
-    condition = Q(name__icontains=user_input) | Q(stateCode__icontains=user_input) | Q(state__icontains=user_input)
-    result_destination = Destination.objects.filter(condition)
-    condition = Q(name__icontains=user_input) | Q(city__icontains=user_input) | Q(state__icontains=user_input) | \
-                Q(stateCode__icontains=user_input)
-    result_attraction = Attraction.objects.filter(condition)
 
-    context = {'cities': result_destination, 'places': result_attraction}
+    condition1 = Q(name__icontains=user_input) | Q(stateCode__icontains=user_input) | Q(state__icontains=user_input)
+    condition2 = Q(name__icontains=user_input) | Q(city__icontains=user_input) | Q(state__icontains=user_input) | \
+                 Q(stateCode__icontains=user_input)
+
+    result_destination = Destination.objects.filter(condition1)
+    result_attraction = Attraction.objects.filter(condition2)
+
+    if not result_destination and not result_attraction:
+        match = False
+        result_destination = Destination.objects.all()[:3]
+        result_attraction = Attraction.objects.all()[:3]
+
+    context = {'cities': result_destination, 'places': result_attraction, 'match': match}
     return render(request, "search_result.html", context)
 
 

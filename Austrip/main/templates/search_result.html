@@ -11,56 +11,57 @@
 </head>
 <body>
     {% include 'navbar.html' %}
-    {% if not cities and not places %}
-        <div class="container" style="height: 45rem">
-            <h1 class="display-5">Seems like nothing is here :(</h1>
+    {% if not match %}
+        <div class="container mb-4">
+            <h1 class="text-danger">Looks like nothing is here :(</h1>
+            <h2>Below are the top travel destinations and attractions</h2>
         </div>
     {% else %}
-        <div class="container">
+        <div class="container mb-4">
             <h1 class="display-5 text-success">Here is what we found</h1>
         </div>
-        <div class="container shadow-lg my-5">
-            {% for city in cities %}
-                <div class="row border-bottom align-items-center p-3">
-                    <div class="col-3">
-                        <img class="img-fluid" src="{{ city.image.url }}" alt="{{ city.name }}">
-                    </div>
-                    <div class="col-6 mx-auto">
-                        <div class="card-body">
-                            <h5 class="card-title text-center">{{ city.name }}</h5>
-                            <p class="card-text">{{ city.description|truncatechars:150 }}</p>
-                        </div>
-                    </div>
-                    <div class="col-3 my-auto text-center">
-                        <p class=""><b>{{city.likes}}</b> people liked it</p>
-                        <p><b>{{city.dislikes}}</b> people disliked it</p>
-                        <hr>
-                        <a class="btn btn-success my-2" href="{% url 'destination_details' destination=city.destination_id %}">explore</a>
-                    </div>
-                </div>
-            {% endfor %}
-            {% for place in places %}
-                <div class="row border-bottom align-items-center p-3">
-                    <div class="col-3">
-                        <img class="img-fluid" src="{{ place.image.url }}" alt="{{ place.name }}">
-                    </div>
-                    <div class="col-6 mx-auto">
-                        <div class="card-body">
-                            <h5 class="card-title text-center">{{ place.name }}</h5>
-                            <p class="card-text">{{ place.description|truncatechars:150 }}</p>
-                        </div>
-                    </div>
-                    <div class="col-3 my-auto text-center">
-                        <p class=""><b>{{place.likes}}</b> people liked it</p>
-                        <p><b>{{place.dislikes}}</b> people disliked it</p>
-                        <hr>
-                        <a class="btn btn-success my-2" href="{% url 'attraction_details' attraction=place.attraction_id %}">explore</a>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-
     {% endif %}
+
+     <div class="container shadow-lg mb-5">
+        {% for city in cities %}
+            <div class="row border-bottom align-items-center p-3">
+                <div class="col-3">
+                    <img class="img-fluid" src="{{ city.image.url }}" alt="{{ city.name }}">
+                </div>
+                <div class="col-6 mx-auto">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">{{ city.name }}</h5>
+                        <p class="card-text">{{ city.description|truncatechars:150 }}</p>
+                    </div>
+                </div>
+                <div class="col-3 my-auto text-center">
+                    <p class=""><b>{{city.likes}}</b> people liked it</p>
+                    <p><b>{{city.dislikes}}</b> people disliked it</p>
+                    <hr>
+                    <a class="btn btn-success my-2" href="{% url 'destination_details' destination=city.destination_id %}">explore</a>
+                </div>
+            </div>
+        {% endfor %}
+        {% for place in places %}
+            <div class="row border-bottom align-items-center p-3">
+                <div class="col-3">
+                    <img class="img-fluid" src="{{ place.image.url }}" alt="{{ place.name }}">
+                </div>
+                <div class="col-6 mx-auto">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">{{ place.name }}</h5>
+                        <p class="card-text">{{ place.description|truncatechars:150 }}</p>
+                    </div>
+                </div>
+                <div class="col-3 my-auto text-center">
+                    <p class=""><b>{{place.likes}}</b> people liked it</p>
+                    <p><b>{{place.dislikes}}</b> people disliked it</p>
+                    <hr>
+                    <a class="btn btn-success my-2" href="{% url 'attraction_details' attraction=place.attraction_id %}">explore</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 
 
     {% include 'footer.html' %}
