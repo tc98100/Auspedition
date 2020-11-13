@@ -25,6 +25,8 @@ urlpatterns = [
     path('destination_result/', views.filter_state, name="destination_result"),
     path('attraction_result/', views.filter_city, name="attraction_result"),
 
+    path('attraction_result/', views.filter_city, name="attraction_result"),
+
     # temporary use, needs to be changed
     path('profile/', views.profile, name="profile"),
 
