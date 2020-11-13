@@ -234,6 +234,10 @@ body .userProfile{
 }
 
 /* Change User Profile */
+.userProfile{
+    padding-top: 2rem;
+}
+
 #leftBox, #rightBox{
     width: 80%;
     margin: auto;
@@ -252,8 +256,8 @@ body .userProfile{
 
 .backBtn{
     margin: auto;
-    margin-top: 2rem;
-    margin-bottom: -2rem;
+    margin-top: 3rem;
+    margin-bottom: -1rem;
 }
 
 /* Add Recommendation */
