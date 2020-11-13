@@ -92,6 +92,26 @@
     line-height: 1rem;
 }
 
+#destination_jumbo {
+    justify-content: center;
+	display: flex;
+    align-items:center;
+    background:url('/../../assets/destination_background.jpg');
+    background-size:100%;
+}
+
+#attraction_jumbo {
+    justify-content: center;
+	display: flex;
+    align-items:center;
+    background:url('/../../assets/attraction_background.jpeg');
+    background-size:100%;
+}
+
+#home_background {
+    background-image: url('/../../assets/home_background.jpg')
+}
+
 /* Log in and sign up */
 .bottomBtns{
     margin: 20px auto;
@@ -213,54 +233,27 @@ body .userProfile{
     color: white;
 }
 
-
-
 /* Change User Profile */
-.proBg{
-    position: relative;
-    height: 38rem;
-    background-image: radial-gradient(circle at 20% 20%, #99CCCC, #7171B7);
-}
-
-.changeBox {
-    width: 20rem;
-    height: 28rem;
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
+#leftBox, #rightBox{
+    width: 80%;
     margin: auto;
 }
 
 .changeTitle {
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
+    margin-top: 3rem;
 }
 
-.changeProBtn {
+.subProBtn {
     margin-top: 1rem;
     text-align: center;
 }
 
-#destination_jumbo {
-    justify-content: center;
-	display: flex;
-    align-items:center;
-    background:url('/../../assets/destination_background.jpg');
-    background-size:100%;
-}
-
-#attraction_jumbo {
-    justify-content: center;
-	display: flex;
-    align-items:center;
-    background:url('/../../assets/attraction_background.jpeg');
-    background-size:100%;
-}
-
-#home_background {
-    background-image: url('/../../assets/home_background.jpg')
+.backBtn{
+    margin: auto;
+    margin-top: 2rem;
+    margin-bottom: -2rem;
 }
 
 /* Add Recommendation */
