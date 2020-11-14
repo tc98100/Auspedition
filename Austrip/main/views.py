@@ -1,10 +1,45 @@
-from django.shortcuts import render
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from rest_framework import viewsets
 from django.db.models import Q
+
+from .forms import CreateUserForm
 from .models import *
 from .serializers import *
 from .search import *
+
+
+def login_user(request):
+    if request.method == 'POST':
+        user = authenticate(request, username=request.POST.get('username'), password=request.POST.get('password'))
+        if user is not None:
+            login(request, user)
+            return redirect('home')
+        else:
+            messages.info(request, 'Invalid username or password :(')
+    return render(request, 'login_user.html')
+
+
+def logout_user(request):
+    logout(request)
+    return redirect('login_user')
+
+
+def signup(request):
+    if request.user.is_authenticated:
+        return redirect('home')
+    else:
+        form = CreateUserForm()
+        if request.method == 'POST':
+            form = CreateUserForm(request.POST)
+            if form.is_valid():
+                form.save()
+                user = form.cleaned_data.get('username')
+                messages.success(request, 'Sign up successful for ' + user)
+                return redirect('login_user')
+        return render(request, 'signup.html', {'form': form})
 
 
 def home(request):

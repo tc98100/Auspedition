@@ -30,4 +30,9 @@ urlpatterns = [
     path('change-profile/', views.profile_change, name="change_profile"),
 
     path('viewset/', include(apiRouter.urls)),
+
+    # user
+    path('signup', views.signup, name="signup"),
+    path('login', views.login_user, name="login_user"),
+    path('logout', views.logout_user, name="logout_user")
 ]
