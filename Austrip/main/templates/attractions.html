@@ -7,107 +7,70 @@
      <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Attractions</title>
     <link rel="stylesheet" href="{% static 'custom.css'%}">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-</head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    </head>
 <body>
     {% include 'navbar.html' %}
-
-
-    <!-- include your code here -->
-    <!-- Note that this page should have the search/filter stuff and include all the attractions as cards below that -->
-    <div style="justify-content: center;
-	display: flex;align-items:center;background:url({% static 'GoldCoast.jpg'%});background-size:100%; height: 600px">
-        <div class="container-fluid" >
-            <div class="row rounded-pill" style="width: 70%;margin:15%;font-size: 2.5rem;background-color: white;padding:0.5rem 0 0.5rem 0.5rem">
-                <div class="col-5">
+    <div id="attraction_jumbo">
+        <div class="container-fluid">
+            <div class="row rounded-pill mx-auto justify-content-center" style="width: 50%;margin:15%;font-size: 2.5rem;background-color: white;padding:0.5rem 0 0.5rem 0.5rem">
+                <form class="col-6 row" method="GET" action="{% url 'attraction_result' %}">
+                    {% csrf_token %}
                     <div class="input-group">
-                        <select class="custom-select custom-select-lg border-0" id="inputGroupSelect01">
-                            <option selected>STATE</option>
-                            <option value="1">NSW</option>
-                            <option value="2">QLD</option>
-                            <option value="3">SA</option>
-                            <option value="4">TAS</option>
-                            <option value="5">VIC</option>
-                            <option value="6">WA</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-5">
-                    <div class="input-group">
-                        <select class="custom-select custom-select-lg border-0" id="inputGroupSelect02">
+                        <select class="custom-select custom-select-lg border-0" id="inputGroupSelect01" name="city">
                             <option selected>CITY</option>
-                            <option value="1">Sydney</option>
-                            <option value="2">Melbourne</option>
-                            <option value="3">Brisbane</option>
-                            <option value="4">Gold Coast</option>
+                            {% for place in Attractions %}
+                                <option value="{{ place.city }}">{{ place.city }}</option>
+                            {% endfor %}
                         </select>
                     </div>
-                </div>
-                <div class="col-2" style="justify-content: center;display: flex;align-items:center;">
                     <button style="margin-right: -0.5rem" class="btn btn-outline-success btn-lg btn-block rounded-pill" type="submit">SEARCH</button>
-                </div>
+                </form>
             </div>
         </div>
     </div>
-    <div class = "mt-5 ml-5 mr-5">
+    <div class="mt-5 ml-5 mr-5">
         <div class="container-fluid ">
             <div class="bg-transparent">
-                <h1 class="font-weight-bold  " style="font-size: 1rem; color: lightseagreen">
-                    STAY AND EAT LIKE A LOCAL</h1>
-                <div class="row">
-                    <div class="col-8">
-                        <p class="font-weight-light" style="font-size: 3rem; color: slategray; line-height: 2rem">Our guides
-                        </p>
-                    </div>
-
-                    <div class="col-4 text-right">
-                        <button type="button" class="btn btn-link" >MORE</button>
-                    </div>
-                </div>
+                <h1 class="font-weight-bold" style="font-size: 1rem; color: lightseagreen">
+                    Wow that looks good!</h1>
+                <p class="font-weight-light" style="font-size: 3rem; color: slategray; line-height: 2rem">Popular attractions</p>
             </div>
         </div>
+    <button id="loadAttractionBtn">load more</button>
 
-
-
-        <div class="container-fluid mt-5">
+        <div class="container-fluid">
             <div class="row justify-content-between">
-                <div class="col-4 ">
-                    <div class="card rounded-cus">
-                        <div class="attraction" style="background-image: url({% static 'OprahHouse.jpg'%});">
-                        </div>
-
-                        <div class="card-body card-body-attraction">
-                            <p class="font-weight-bold text-center">Sydney Oprah House</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="card rounded-cus">
-                        <div class="attraction" style="background-image: url({% static 'bridge.jpg'%});">
-                        </div>
-
-                        <div class="card-body card-body-attraction">
-                            <p class="font-weight-bold text-center">Sydney Harbour Bridge</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-4 ">
-                    <div class="card rounded-cus">
-                        <div class="attraction" style="background-image: url({% static 'AyersMountain.jpg'%});">
-                        </div>
-                        <div class="card-body card-body-attraction">
-                            <p class="font-weight-bold text-center">Ayers Mountain</p>
+                {% for place in Attractions %}
+                    <div class="col-3 mb-2">
+                        <div class="card rounded-cus shadow">
+                            <a class="attraction" style="background-image: url({{place.image.url}}); display: block"></a>
+                            <div class="card-body">
+                                <p class="font-weight-bold text-center" style="font-size: 1.5rem; line-height: 1rem">{{place.name}}</p>
+                                <hr>
+                                <div class="row text-center">
+                                    <div class="col">
+                                        <p class=""><b>{{place.likes}}</b> people liked it</p>
+                                        <p><b>{{place.dislikes}}</b> people disliked it</p>
+                                    </div>
+                                    <div class="col">
+                                        <a class="btn btn-success my-2" href="{% url 'attraction_details' attraction=place.attraction_id %}">see more</a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
+        <div id="attractions"></div>
+        <div style="padding-bottom: 25px"></div>
     </div>
 
     {% include 'footer.html' %}
-    <script src = "../statics/javascript/index.js"></script>
+    <script src = "{% static 'loadMoreAttractionFunction.js'%}"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
 </body>
 </html>

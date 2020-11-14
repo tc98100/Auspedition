@@ -2,7 +2,7 @@
 
 #logo {
     color: cadetblue;
-    /*font-size: 2em;*/
+    font-size: 2em;
 }
 
 #profileIcon {
@@ -18,7 +18,7 @@
 #funcBookmark, #funcDislike, #funcLike {
     width: 2.5rem;
     height: 2.5rem;
-    color: darkgrey;
+    /*color: gray;*/
 }
 
 #funcBookmark:hover {
@@ -33,18 +33,29 @@
     color: green;
 }
 
-#funcBookmark:visited {
-    color: goldenrod;
+#funcBookmark:focus {
+    color: #daa520;
 }
 
+#funcDislike:focus {
+    color: red;
+}
+#funcDislike:active {
+    color: red;
+}
 #funcDislike:visited {
     color: red;
 }
 
+#funcLike:focus {
+    color: green;
+}
 #funcLike:visited {
     color: green;
 }
-
+#funcLike:active {
+    color: green;
+}
 .backBtn{
     text-align: center;
     margin-top: 5px;
@@ -86,11 +97,29 @@
     line-height: 1rem;
 }
 
+#destination_jumbo {
+    justify-content: center;
+	display: flex;
+    align-items:center;
+    background:url('/../../assets/destination_background.jpg');
+    background-size:100%;
+}
+
+#attraction_jumbo {
+    justify-content: center;
+	display: flex;
+    align-items:center;
+    background:url('/../../assets/attraction_background.jpeg');
+    background-size:100%;
+}
+
+#home_background {
+    background-image: url('/../../assets/home_background.jpg')
+}
+
 /* Log in and sign up */
 .bottomBtns{
-    margin:0 auto;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin: 20px auto;
 }
 
 .myModal-header{
@@ -108,12 +137,11 @@
 
 /* Recommendation page */
 .container.recommendationBox{
-    margin: auto;
     width: 70%;
     padding-bottom: 2rem;
     padding-top: 1rem;
     border-radius: 25px;
-    margin-bottom: 1rem;
+    margin: auto auto 1rem;
 }
 
 .pageTitle{
@@ -133,23 +161,34 @@
 
 
 /* User Profile */
+.userProfile h2{
+    text-align: center;
+    padding-top: 3rem;
+    padding-bottom: 1rem;
+}
+
 .profileImg{
     margin: auto;
     text-align: center;
-    width:  20rem;
+    width:  12rem;
+    height: 12rem;
+
 }
+
 .profileImg img{
-    width: 100%;
-    max-width: 20rem;
-    max-height: 20rem;
+    width:  12rem;
+    height: 12rem;
+    object-fit: cover;
 }
+
 .profileImg .uploadedFile {
     position: relative;
     overflow: hidden;
-    margin-top: -20%;
+    margin-top: -25%;
     border: none;
     background: grey;
 }
+
 .uploadedFile input {
     position: absolute;
     opacity: 0;
@@ -157,26 +196,34 @@
     top: 0;
 }
 
-#userProfile{
-    margin-top: 5rem;
-    width: 60%;
+body .userProfile{
+    background-image: radial-gradient(circle at 20% 20%, #99CCCC, #7171B7);
+    padding-bottom: 5rem;
 }
 
-.infoNav{
-    margin-top: 3rem;
+.basicInfo{
+    width: 50%;
+    margin: auto;
+    margin-top: 2rem;
+}
+
+.basicInfo h3{
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.bookmarkList{
+    width: 50%;
+    margin: auto;
+}
+
+.bookmarkList h3{
+    text-align: center;
+    margin-bottom: 2rem;
 }
 
 .btnGroup{
-    margin-top: 1rem;
-}
-
-html, body.profileBody{
-    width: 100%;
-    height: 100%;
-}
-
-body.profileBody{
-    background-image: radial-gradient(circle at 20% 20%, #99CCCC, #7171B7);
+    margin-top: 2rem;
 }
 
 #editBtn:hover{
@@ -191,27 +238,31 @@ body.profileBody{
     color: white;
 }
 
-.nav-tabs>li>a{
-    color: black;
-}
-
-
 /* Change User Profile */
-.changeBox{
-    width:30%;
-    position: relative;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
+.userProfile{
+    padding-top: 2rem;
 }
 
-.changeTitle{
+#leftBox, #rightBox{
+    width: 80%;
+    margin: auto;
+}
+
+.changeTitle {
     text-align: center;
+    margin-bottom: 1rem;
+    margin-top: 3rem;
 }
 
-.changeProBtn{
+.subProBtn {
     margin-top: 1rem;
     text-align: center;
+}
+
+.backBtn{
+    margin: auto;
+    margin-top: 3rem;
+    margin-bottom: -1rem;
 }
 
 /* Add Recommendation */
