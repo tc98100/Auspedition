@@ -18,7 +18,7 @@
 #funcBookmark, #funcDislike, #funcLike {
     width: 2.5rem;
     height: 2.5rem;
-    color: gray;
+    /*color: gray;*/
 }
 
 #funcBookmark:hover {
@@ -33,7 +33,7 @@
     color: green;
 }
 
-#funcBookmark:visited {
+#funcBookmark:focus {
     color: #daa520;
 }
 
@@ -50,7 +50,12 @@
 #funcLike:focus {
     color: green;
 }
-
+#funcLike:visited {
+    color: green;
+}
+#funcLike:active {
+    color: green;
+}
 .backBtn{
     text-align: center;
     margin-top: 5px;

@@ -20,13 +20,10 @@ urlpatterns = [
     path('attractions/<str:attraction>/', views.detailed_attraction, name="attraction_details"),
     path('recommendations/<str:recommendation>/', views.detailed_recommendation, name="recommendation_details"),
 
-
     path('search_result/', views.search_result, name="search_result"),
     path('destination_result/', views.filter_state, name="destination_result"),
     path('attraction_result/', views.filter_city, name="attraction_result"),
-
     # temporary use, needs to be changed
     path('profile/', views.profile, name="profile"),
-
     path('viewset/', include(apiRouter.urls)),
 ]
