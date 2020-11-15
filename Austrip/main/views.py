@@ -1,10 +1,65 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import Group
+from django.shortcuts import render, redirect
 from rest_framework import viewsets
 from django.db.models import Q
+from .decorators import *
+
+from .forms import CreateUserForm, ChangeUserInfo
 from .models import *
 from .serializers import *
-from .search import *
+
+
+@login_required(login_url='login_user')
+def profile(request):
+    return render(request, "profile.html")
+
+
+@login_required(login_url='login_user')
+def profile_change(request):
+    user = request.user.userinfo
+    form = ChangeUserInfo(instance=user)
+    return render(request, "profile_change.html", {'form': form})
+
+
+@unauthenticated_user
+def login_user(request):
+    if request.method == 'POST':
+        user = authenticate(request, username=request.POST.get('username'), password=request.POST.get('password'))
+        if user is not None:
+            login(request, user)
+            return redirect('home')
+        else:
+            messages.info(request, 'Invalid username or password :(')
+    return render(request, 'login_user.html')
+
+
+def logout_user(request):
+    logout(request)
+    return redirect('home')
+
+
+@unauthenticated_user
+def signup(request):
+    form = CreateUserForm()
+    if request.method == 'POST':
+        form = CreateUserForm(request.POST)
+        if form.is_valid():
+            new_user = form.save()
+            username = form.cleaned_data.get('username')
+
+            group = Group.objects.get(name='user')
+            new_user.groups.add(group)
+
+            UserInfo.objects.create(
+                user=new_user,
+            )
+
+            messages.success(request, 'Sign up successful for ' + username)
+            return redirect('login_user')
+    return render(request, 'signup.html', {'form': form})
 
 
 def home(request):
@@ -22,22 +77,33 @@ def destination_list(request):
 
 def attraction_list(request):
     Attractions = Attraction.objects.all()
-    return render(request, 'attractions.html', {'Attractions': Attractions})
+    city_list = []
+    for attraction in Attractions:
+        if attraction.city.name not in city_list:
+            city_list.append(attraction.city.name)
+    return render(request, 'attractions.html', {'Attractions': Attractions, 'city_list': city_list})
 
 
 def detailed_destination(request, destination):
     city = Destination.objects.get(destination_id=destination)
-    return render(request, "destination_detail.html", {'city': city})
+    comments = city.destinationcomment_set.all()
+    return render(request, "destination_detail.html", {'city': city, 'comments': comments})
 
 
 def detailed_attraction(request, attraction):
     place = Attraction.objects.get(attraction_id=attraction)
-    return render(request, "attraction_detail.html", {'place': place})
+    comments = place.attractioncomment_set.all()
+    return render(request, "attraction_detail.html", {'place': place, 'comments': comments})
 
 
 def detailed_recommendation(request, recommendation):
     specific_recommendation = Recommendation.objects.get(recommendation_id=recommendation)
     return render(request, "recommendation.html", {'recommendation': specific_recommendation})
+
+
+def recommendation_edit(request, recommendation):
+    specific_recommendation = Recommendation.objects.get(recommendation_id=recommendation)
+    return render(request, "staff_recommendation.html", {'recommendation': specific_recommendation})
 
 
 def search_result(request):
@@ -48,23 +114,25 @@ def search_result(request):
         user_input = request.GET.get('input')
 
     condition1 = Q(name__icontains=user_input) | Q(stateCode__icontains=user_input) | Q(state__icontains=user_input)
-    condition2 = Q(name__icontains=user_input) | Q(city__icontains=user_input) | Q(state__icontains=user_input) | \
-                 Q(stateCode__icontains=user_input)
+    condition2 = Q(name__icontains=user_input) | Q(city__name__icontains=user_input) | \
+                 Q(city__state__icontains=user_input) | Q(city__stateCode__icontains=user_input)
 
     result_destination = Destination.objects.filter(condition1)
     result_attraction = Attraction.objects.filter(condition2)
+    result_recommendation = Recommendation.objects.filter(title__icontains=user_input)
 
-    if not result_destination and not result_attraction:
+    if not result_destination and not result_attraction and not result_recommendation:
         match = False
         result_destination = Destination.objects.all()[:3]
         result_attraction = Attraction.objects.all()[:3]
 
-    context = {'cities': result_destination, 'places': result_attraction, 'match': match}
+    context = {'cities': result_destination, 'places': result_attraction, 'rec': result_recommendation, 'match': match}
     return render(request, "search_result.html", context)
 
 
 def filter_state(request):
     state = ''
+    match = True
     if request.method == 'GET':
         state = request.GET.get('state')
 
@@ -72,41 +140,20 @@ def filter_state(request):
         cities = Destination.objects.all()
     else:
         cities = Destination.objects.filter(stateCode=state)
-    return render(request, "search_result.html", {'cities': cities})
+    return render(request, "search_result.html", {'cities': cities, 'match': match})
 
 
 def filter_city(request):
     city = ''
+    match = True
     if request.method == 'GET':
         city = request.GET.get('city')
 
     if city == 'CITY':
         places = Attraction.objects.all()
     else:
-        places = Attraction.objects.filter(name=city)
-    return render(request, "search_result.html", {'places': places})
-
-def load_more_attraction(request):
-    attraction = Attraction
-    response_data={}
-    try:
-        response_data['result']='Success'
-        response_data['message']=list(attraction)
-    except:
-        response_data['result']='Oh No!'
-        response_data['message'] = "Rip"
-    return HttpResponse(json.dumps(response_data),content_type="application/json")
-
-
-# temporary
-def profile(request):
-    return render(request, "profile.html")
-
-
-def profile_change(request):
-    return render(request, "profile_change.html")
-####
-
+        places = Attraction.objects.filter(city__name=city)
+    return render(request, "search_result.html", {'places': places, 'match': match, 'city': city})
 
 # def count_increment_dest(destination):
 #     city = Destination.objects.get(destination_id=destination)
@@ -121,7 +168,7 @@ class DestinationModelViewSet(viewsets.ModelViewSet):
 
 class UserModelViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
-    queryset = User.objects.all()
+    queryset = UserInfo.objects.all()
 
 
 class AttractionModelViewSet(viewsets.ModelViewSet):
