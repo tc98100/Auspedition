@@ -2,12 +2,12 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from rest_framework import viewsets
 from django.db.models import Q
 from .decorators import *
 
-from .forms import CreateUserForm
+from .forms import CreateUserForm, ChangeUserInfo
 from .models import *
 from .serializers import *
 from .search import *
@@ -18,8 +18,11 @@ def profile(request):
     return render(request, "profile.html")
 
 
+@login_required(login_url='login_user')
 def profile_change(request):
-    return render(request, "profile_change.html")
+    user = request.user.userinfo
+    form = ChangeUserInfo(instance=user)
+    return render(request, "profile_change.html", {'form': form})
 
 
 @unauthenticated_user
@@ -45,11 +48,15 @@ def signup(request):
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
         if form.is_valid():
-            user = form.save()
+            new_user = form.save()
             username = form.cleaned_data.get('username')
 
             group = Group.objects.get(name='user')
-            user.groups.add(group)
+            new_user.groups.add(group)
+
+            UserInfo.objects.create(
+                user=new_user,
+            )
 
             messages.success(request, 'Sign up successful for ' + username)
             return redirect('login_user')
@@ -87,6 +94,11 @@ def detailed_attraction(request, attraction):
 def detailed_recommendation(request, recommendation):
     specific_recommendation = Recommendation.objects.get(recommendation_id=recommendation)
     return render(request, "recommendation.html", {'recommendation': specific_recommendation})
+
+
+def recommendation_edit(request, recommendation):
+    specific_recommendation = Recommendation.objects.get(recommendation_id=recommendation)
+    return render(request, "staff_recommendation.html", {'recommendation': specific_recommendation})
 
 
 def search_result(request):
@@ -151,7 +163,7 @@ class DestinationModelViewSet(viewsets.ModelViewSet):
 
 class UserModelViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
-    queryset = NormalUser.objects.all()
+    queryset = UserInfo.objects.all()
 
 
 class AttractionModelViewSet(viewsets.ModelViewSet):

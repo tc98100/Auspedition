@@ -23,7 +23,14 @@
                 <img class="img-fluid recImg mr-3" src="{{ recommendation.image.url }}" alt="{{ recommendation.recommendation_id }}">
             </div>
             <div class="col-md-4 position-static p-4 pl-md-0 align-self-center">
-              <p>{{ recommendation.long_description }}</p>
+                {% if request.user.is_superuser %}
+                    <p>{{ recommendation.long_description }}</p>
+                    <a class="btn btn-secondary" id="signButton" href="{% url 'recommendation_edit' %}" role="button">Edit</a>
+                {% else %}
+                    <p>{{ recommendation.long_description }}</p>
+                {% endif %}
+
+
             </div>
         </div>
     </div>

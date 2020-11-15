@@ -19,7 +19,7 @@ urlpatterns = [
     path('destinations/<str:destination>/', views.detailed_destination, name="destination_details"),
     path('attractions/<str:attraction>/', views.detailed_attraction, name="attraction_details"),
     path('recommendations/<str:recommendation>/', views.detailed_recommendation, name="recommendation_details"),
-
+    path('recommendations/<str:recommendation>/edit', views.recommendation_edit, name="recommendation_edit"),
 
     path('search-result/', views.search_result, name="search_result"),
     path('destination-result/', views.filter_state, name="destination_result"),
