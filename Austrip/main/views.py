@@ -129,8 +129,6 @@ def profile(request):
 
 def profile_change(request):
     return render(request, "profile_change.html")
-
-
 ####
 
 

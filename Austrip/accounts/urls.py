@@ -6,5 +6,7 @@ app_name = 'accounts'
 
 urlpatterns = [
     path('signup/', views.signup_view, name="signup"),
+    path('aLike/', views.aLike, name='aLike'),
+
 ]
 
