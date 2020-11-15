@@ -76,39 +76,19 @@
 
     <form class=" container-fluid mt-2 border p-2 pl-5 pr-5" style="border-top: #17a2b8 solid 2px !important;">
         <div class="p-1 comments">
-            <div class="container comment  m-1 p-0">
-                <div class=" ml-3 border-left ">
-                    <div class="container ml-2">
-                        <a class="author">
-                            <span>User 1</span>
-                            <span class="summary-text small">2020-04-10 16:01:27</span>
-                        </a>
+            {% for comment in comments %}
+                <div class="container comment  m-1 p-0">
+                    <div class=" ml-3 border-left ">
+                        <div class="container ml-2">
+                            <a class="author">
+                                <span>{{ comment.user.username }}</span>
+                                <span class="summary-text small">{{ comment.created_time }}</span>
+                            </a>
+                        </div>
+                        <div class="messageText ml-2 container m-2">{{ comment.comment_content }}</div>
                     </div>
-                    <div class="messageText ml-2 container m-2">I love this place!</div>
                 </div>
-            </div>
-            <div class="container comment  m-1 p-0">
-                <div class=" ml-3 border-left ">
-                    <div class="container ml-2">
-                        <a class="author">
-                            <span>User 2</span>
-                            <span class="summary-text small">2020-04-10 16:01:27</span>
-                        </a>
-                    </div>
-                    <div class="messageText ml-2 container m-2">Great!</div>
-                </div>
-            </div>
-            <div class="container comment  m-1 p-0">
-                <div class=" ml-3 border-left ">
-                    <div class="container ml-2">
-                        <a class="author">
-                            <span>User 3</span>
-                            <span class="summary-text small">2020-04-10 16:01:27</span>
-                        </a>
-                    </div>
-                    <div class="messageText ml-2 container m-2">Best time in my life!</div>
-                </div>
-            </div>
+            {% endfor %}
             <div id="comments"></div>
         </div>
     </form>
@@ -128,16 +108,7 @@
     <script src = "{% static 'destinationLikeDislikeFunction.js' %}"></script>
     <script src = "{% static 'destinationBookmarkFunction.js' %}"></script>
     <script src = "{% static 'index.js'%}"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-            crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-            crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-            integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-            crossorigin="anonymous"></script>
-
+    {% include 'external.html' %}
 </body>
 </html>
 
