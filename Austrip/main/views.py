@@ -1,9 +1,10 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
 from rest_framework import viewsets
 from django.db.models import Q
+from .decorators import *
 
 from .forms import CreateUserForm
 from .models import *
@@ -11,6 +12,16 @@ from .serializers import *
 from .search import *
 
 
+@login_required(login_url='login_user')
+def profile(request):
+    return render(request, "profile.html")
+
+
+def profile_change(request):
+    return render(request, "profile_change.html")
+
+
+@unauthenticated_user
 def login_user(request):
     if request.method == 'POST':
         user = authenticate(request, username=request.POST.get('username'), password=request.POST.get('password'))
@@ -24,22 +35,21 @@ def login_user(request):
 
 def logout_user(request):
     logout(request)
-    return redirect('login_user')
+    return redirect('home')
 
 
+@unauthenticated_user
 def signup(request):
-    if request.user.is_authenticated:
-        return redirect('home')
-    else:
-        form = CreateUserForm()
-        if request.method == 'POST':
-            form = CreateUserForm(request.POST)
-            if form.is_valid():
-                form.save()
-                user = form.cleaned_data.get('username')
-                messages.success(request, 'Sign up successful for ' + user)
-                return redirect('login_user')
-        return render(request, 'signup.html', {'form': form})
+    form = CreateUserForm()
+    if request.method == 'POST':
+        form = CreateUserForm(request.POST)
+        if form.is_valid():
+            form.save()
+            user = form.cleaned_data.get('username')
+            messages.success(request, 'Sign up successful for ' + user)
+            return redirect('login_user')
+    return render(request, 'signup.html', {'form': form})
+
 
 
 def home(request):
@@ -121,14 +131,6 @@ def filter_city(request):
         places = Attraction.objects.filter(name=city)
     return render(request, "search_result.html", {'places': places})
 
-
-# temporary
-def profile(request):
-    return render(request, "profile.html")
-
-
-def profile_change(request):
-    return render(request, "profile_change.html")
 ####
 
 
