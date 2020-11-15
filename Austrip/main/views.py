@@ -1,10 +1,8 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 from rest_framework import viewsets
 from django.db.models import Q
 from .models import *
 from .serializers import *
-from .search import *
 
 
 def home(request):
@@ -22,7 +20,11 @@ def destination_list(request):
 
 def attraction_list(request):
     Attractions = Attraction.objects.all()
-    return render(request, 'attractions.html', {'Attractions': Attractions})
+    city_list = []
+    for attraction in Attractions:
+        if attraction.city not in city_list:
+            city_list.append(attraction.city)
+    return render(request, 'attractions.html', {'Attractions': Attractions, 'city_list': city_list})
 
 
 def detailed_destination(request, destination):
@@ -53,18 +55,20 @@ def search_result(request):
 
     result_destination = Destination.objects.filter(condition1)
     result_attraction = Attraction.objects.filter(condition2)
+    result_recommendation = Recommendation.objects.filter(title__icontains=user_input)
 
-    if not result_destination and not result_attraction:
+    if not result_destination and not result_attraction and not result_recommendation:
         match = False
         result_destination = Destination.objects.all()[:3]
         result_attraction = Attraction.objects.all()[:3]
 
-    context = {'cities': result_destination, 'places': result_attraction, 'match': match}
+    context = {'cities': result_destination, 'places': result_attraction, 'rec': result_recommendation, 'match': match}
     return render(request, "search_result.html", context)
 
 
 def filter_state(request):
     state = ''
+    match = True
     if request.method == 'GET':
         state = request.GET.get('state')
 
@@ -72,11 +76,12 @@ def filter_state(request):
         cities = Destination.objects.all()
     else:
         cities = Destination.objects.filter(stateCode=state)
-    return render(request, "search_result.html", {'cities': cities})
+    return render(request, "search_result.html", {'cities': cities, 'match': match})
 
 
 def filter_city(request):
     city = ''
+    match = True
     if request.method == 'GET':
         city = request.GET.get('city')
 
@@ -84,7 +89,7 @@ def filter_city(request):
         places = Attraction.objects.all()
     else:
         places = Attraction.objects.filter(name=city)
-    return render(request, "search_result.html", {'places': places})
+    return render(request, "search_result.html", {'places': places,  'match': match})
 
 
 # temporary

@@ -22,8 +22,10 @@ class Destination(models.Model):
     likes = models.IntegerField()
     dislikes = models.IntegerField()
     click_count = models.IntegerField()
-    userLike = models.ManyToManyField(User,related_name="Dlike",default = None,blank=True);
-    bookmark = models.ManyToManyField(User,related_name="DBookmark",default = None,blank=True);
+
+    userLike = models.ManyToManyField(User, related_name="Dlike", default=None, blank=True)
+    bookmark = models.ManyToManyField(User, related_name="DBookmark", default=None, blank=True)
+
     def __str__(self):
         return self.name
 
@@ -39,8 +41,8 @@ class Attraction(models.Model):
     likes = models.IntegerField()
     dislikes = models.IntegerField()
     click_count = models.IntegerField()
-    userLike = models.ManyToManyField(User, related_name="ALike", default=None, blank=True);
-    bookmark = models.ManyToManyField(User, related_name="ABookmark", default=None, blank=True);
+    userLike = models.ManyToManyField(User, related_name="ALike", default=None, blank=True)
+    bookmark = models.ManyToManyField(User, related_name="ABookmark", default=None, blank=True)
 
     def __str__(self):
         return self.name

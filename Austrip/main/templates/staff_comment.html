@@ -1,4 +1,4 @@
-<!--{% load static %}-->
+{% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,35 +12,34 @@
           integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 </head>
 <body>
-{% include 'navbar.html' %}
+    {% include 'navbar.html' %}
 
     <div style="justify-content: center;
     display: flex;align-items:center;background:url({% static 'sydney1.webp'%});background-size:100%; height: 600px">
     </div>
 
     <div class="mt-5 ml-5 mr-5">
-    <div class="container-fluid ">
-        <div class="bg-transparent">
-
-            <p class="font-weight-bold" style="font-size: 3rem; line-height: 2rem">Sydney </p>
-            <h1 class="font-weight-light  " style="font-size: 1rem; line-height: 2rem">
-                Sydney is the first stop on many Australian itineraries, and for good reason. It's an inviting blend
-                of the exhilarating and easygoing. You can find excitement in the city, but drive just a few kilometres
-                and you'll hit the golden sand of famous beaches like Bondi and Manly. Plus, with endless nature at its
-                doorstep, Sydney is the starting point
-                for day trips serving up fresh air, unique flavours and locals who know a thing or two about living life
-                to the fullest.</h1>
+        <div class="container-fluid ">
+            <div class="bg-transparent">
+                <p class="font-weight-bold" style="font-size: 3rem; line-height: 2rem">Sydney </p>
+                <h1 class="font-weight-light  " style="font-size: 1rem; line-height: 2rem">
+                    Sydney is the first stop on many Australian itineraries, and for good reason. It's an inviting blend
+                    of the exhilarating and easygoing. You can find excitement in the city, but drive just a few kilometres
+                    and you'll hit the golden sand of famous beaches like Bondi and Manly. Plus, with endless nature at its
+                    doorstep, Sydney is the starting point
+                    for day trips serving up fresh air, unique flavours and locals who know a thing or two about living life
+                    to the fullest.</h1>
+            </div>
         </div>
-    </div>
     </div>
 
     <div class="mt-5 ml-5 mr-5">
-    <div class="container-fluid ">
-        <div class="bg-transparent">
+        <div class="container-fluid ">
+            <div class="bg-transparent">
 
-            <p class="font-weight-bold" style="font-size: 3rem; line-height: 2rem; color: lightseagreen">Comments </p>
+                <p class="font-weight-bold" style="font-size: 3rem; line-height: 2rem; color: lightseagreen">Comments </p>
+            </div>
         </div>
-    </div>
     </div>
 
     <form class=" container-fluid mt-2 border p-2 pl-5 pr-5" style="border-top: #17a2b8 solid 2px !important;">
@@ -112,16 +111,8 @@
 
 {% include 'footer.html' %}
 
-<script src="../statics/javascript/index.js"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-        crossorigin="anonymous"></script>
+    <script src = "{% static 'index.js'%}"></script>
+    {% include 'external.html' %}
 
 </body>
 </html>
