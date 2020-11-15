@@ -15,7 +15,7 @@
     {% include 'navbar.html' %}
 
     <div class="container-fluid userProfile">
-        <h2>User Profile</h2>
+        <h2>{{ request.user.get_full_name }}</h2>
         <!-- Profile Photo -->
         <form action="#" method="post">
             <div class="profileImg">
@@ -30,7 +30,7 @@
         <!-- button group -->
         <div class="btnGroup" style="text-align:center">
             <a class="btn btn-light" id="editBtn" href="{% url 'change_profile' %}" role="button">Edit Profile</a>
-            <a class="btn btn-secondary" id="logOutBtn" href="#" role="button">Log Out</a>
+            <a class="btn btn-secondary" id="logOutBtn" href="{% url 'logout' %}" role="button">Log Out</a>
         </div>
 
         <!-- Basic Information -->
@@ -38,17 +38,17 @@
             <h3>Basic Information</h3>
             <dl class="row">
                 <dt class="col-sm-3">Username</dt>
-                <dd class="col-sm-9">Username</dd>
+                <dd class="col-sm-9">{{ request.user }}</dd>
 
                 <dt class="col-sm-3">First Name</dt>
-                <dd class="col-sm-9">First Name</dd>
+                <dd class="col-sm-9">{{ request.user.first_name }}</dd>
 
                 <dt class="col-sm-3">Last Name</dt>
-                <dd class="col-sm-9">Last Name</dd>
+                <dd class="col-sm-9">{{ request.user.last_name }}</dd>
 
                 <dt class="col-sm-3">Bio</dt>
                 <dd class="col-sm-9">
-                  <p>Vestibulum id ligula porta felis euismod semper eget lacinia odio sem nec elit.</p>
+                  <p>{{ request.user.userinfo.bio}}</p>
                 </dd>
               </dl>
         </div>

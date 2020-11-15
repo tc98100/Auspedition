@@ -1,8 +1,65 @@
-from django.shortcuts import render
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import Group
+from django.shortcuts import render, redirect
 from rest_framework import viewsets
 from django.db.models import Q
+from .decorators import *
+
+from .forms import CreateUserForm, ChangeUserInfo
 from .models import *
 from .serializers import *
+
+
+@login_required(login_url='login_user')
+def profile(request):
+    return render(request, "profile.html")
+
+
+@login_required(login_url='login_user')
+def profile_change(request):
+    user = request.user.userinfo
+    form = ChangeUserInfo(instance=user)
+    return render(request, "profile_change.html", {'form': form})
+
+
+@unauthenticated_user
+def login_user(request):
+    if request.method == 'POST':
+        user = authenticate(request, username=request.POST.get('username'), password=request.POST.get('password'))
+        if user is not None:
+            login(request, user)
+            return redirect('home')
+        else:
+            messages.info(request, 'Invalid username or password :(')
+    return render(request, 'login_user.html')
+
+
+def logout_user(request):
+    logout(request)
+    return redirect('home')
+
+
+@unauthenticated_user
+def signup(request):
+    form = CreateUserForm()
+    if request.method == 'POST':
+        form = CreateUserForm(request.POST)
+        if form.is_valid():
+            new_user = form.save()
+            username = form.cleaned_data.get('username')
+
+            group = Group.objects.get(name='user')
+            new_user.groups.add(group)
+
+            UserInfo.objects.create(
+                user=new_user,
+            )
+
+            messages.success(request, 'Sign up successful for ' + username)
+            return redirect('login_user')
+    return render(request, 'signup.html', {'form': form})
 
 
 def home(request):
@@ -42,6 +99,11 @@ def detailed_attraction(request, attraction):
 def detailed_recommendation(request, recommendation):
     specific_recommendation = Recommendation.objects.get(recommendation_id=recommendation)
     return render(request, "recommendation.html", {'recommendation': specific_recommendation})
+
+
+def recommendation_edit(request, recommendation):
+    specific_recommendation = Recommendation.objects.get(recommendation_id=recommendation)
+    return render(request, "staff_recommendation.html", {'recommendation': specific_recommendation})
 
 
 def search_result(request):
@@ -93,19 +155,6 @@ def filter_city(request):
         places = Attraction.objects.filter(city__name=city)
     return render(request, "search_result.html", {'places': places, 'match': match, 'city': city})
 
-
-# temporary
-def profile(request):
-    return render(request, "profile.html")
-
-
-def profile_change(request):
-    return render(request, "profile_change.html")
-
-
-####
-
-
 # def count_increment_dest(destination):
 #     city = Destination.objects.get(destination_id=destination)
 #     city.click_count += 1
@@ -119,7 +168,7 @@ class DestinationModelViewSet(viewsets.ModelViewSet):
 
 class UserModelViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
-    queryset = User.objects.all()
+    queryset = UserInfo.objects.all()
 
 
 class AttractionModelViewSet(viewsets.ModelViewSet):

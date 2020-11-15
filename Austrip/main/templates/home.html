@@ -14,7 +14,7 @@
     <div id="home_background" class="bg-box mb-5">
         <div style="position:absolute; left: 60%; top: 20%; right: 10%;" class="text-white">
             <h4 class="text-monospace">Welcome to Auspedition</h4>
-            <h1 class="font-weight-bold" style="font-size: 2rem">We provide you best tourism service in Australia</h1>
+            <h1 class="font-weight-bold" style="font-size: 2rem">We will provide you best tourism service in Australia</h1>
         </div>
     </div>
     <div class="container-fluid">
@@ -36,7 +36,7 @@
                             <p class="font-weight-bold text-center" style="font-size: 1.5rem; line-height: 1rem">{{ article.title }}</p>
                             <hr>
                             <p>{{ article.short_description }}</p>
-                            <a class="btn btn-success my-2" href="{% url 'recommendation_details' recommendation=article.recommendation_id %}">have a read</a>
+                            <a class="btn btn-success my-2" href="{% url 'recommendation_edit' recommendation=article.recommendation_id %}">have a read</a>
                         </div>
                     </div>
                 </div>
