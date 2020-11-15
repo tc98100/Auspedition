@@ -86,6 +86,17 @@ def filter_city(request):
         places = Attraction.objects.filter(name=city)
     return render(request, "search_result.html", {'places': places})
 
+def load_more_attraction(request):
+    attraction = Attraction
+    response_data={}
+    try:
+        response_data['result']='Success'
+        response_data['message']=list(attraction)
+    except:
+        response_data['result']='Oh No!'
+        response_data['message'] = "Rip"
+    return HttpResponse(json.dumps(response_data),content_type="application/json")
+
 
 # temporary
 def profile(request):
