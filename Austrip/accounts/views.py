@@ -16,9 +16,9 @@ def signup_view(request):
 
 # @login_required
 def aLike(request):
-    print("lol");
-    if request.POST.get('action')=="post":
-        print("lol");
+    print("lol")
+    if request.POST.get('action') == "post":
+        print("lol")
         result = ''
         id = int(request.POST.get('attraction_id'))
         attraction = get_object_or_404(Attraction, id=id)

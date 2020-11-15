@@ -27,9 +27,7 @@ class Destination(models.Model):
 
 class Attraction(models.Model):
     attraction_id = models.CharField(max_length=40, primary_key=True)
-    state = models.CharField(max_length=30)
-    stateCode = models.CharField(max_length=10)
-    city = models.CharField(max_length=30)
+    city = models.ForeignKey(Destination, on_delete=models.CASCADE)
     name = models.CharField(max_length=30)
     description = models.TextField()
     image = models.ImageField()
