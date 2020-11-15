@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from rest_framework import viewsets
 from django.db.models import Q
 from .decorators import *
@@ -154,9 +154,6 @@ def filter_city(request):
     else:
         places = Attraction.objects.filter(city__name=city)
     return render(request, "search_result.html", {'places': places, 'match': match, 'city': city})
-
-####
-
 
 # def count_increment_dest(destination):
 #     city = Destination.objects.get(destination_id=destination)
