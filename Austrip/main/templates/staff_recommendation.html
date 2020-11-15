@@ -12,18 +12,46 @@
           integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 </head>
 <body>
-{% include 'navbar.html' %}
+    {% include 'navbar.html' %}
 
-    <div class=bg-box style="background-image: url({% static 'Background.jpg'%});">
+    <div id="home_background" class="bg-box mb-5">
         <div style="position:absolute; left: 60%; top: 20%; right: 10%;" class="text-white">
-            <h4 class="text-monospace">#1 Tourism Website Service since 2010</h4>
+            <h4 class="text-monospace">Welcome to Auspedition</h4>
             <h1 class="font-weight-bold" style="font-size: 2rem">We provide you best tourism service in Australia</h1>
-            <button type="button" class="btn btn btn-success mt-3 rounded-pill" style="font-size: 1rem">Where do you want
-                to go?
-            </button>
         </div>
     </div>
 
+    <div class="container-fluid">
+        <div class="bg-transparent">
+            <h1 class="font-weight-normal text-center mt-5" style="font-size: 4rem; color: lightseagreen">
+                Recommendations</h1>
+            <div class="text-center font-weight-light" style="font-size: 1.5rem; color: slategray">
+                <p>View amazing places picked by our editor</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row justify-content-between">
+            {% for article in Recommendations %}
+                <div class="col-4 mb-2">
+                    <div class="card rounded-cus shadow">
+                        <a class="attraction" style="background-image: url({{ article.image.url }}); display: block"></a>
+                        <div class="card-body text-center">
+                            <p class="font-weight-bold text-center" style="font-size: 1.5rem; line-height: 1rem">{{ article.title }}</p>
+                            <hr>
+                            <p>{{ article.short_description }}</p>
+                            <a class="btn btn-success my-2" href="{% url 'recommendation_details' recommendation=article.recommendation_id %}">have a read</a>
+                        </div>
+                    </div>
+                    <!--Update Recommendation-->
+                    <div class="upRecBtn">
+                        <a class="btn btn-outline-success" data-toggle="modal" href="#modalAddRec" role="button" onclick="">Update</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 
     <div class="container-fluid ">
         <div class="bg-transparent">
@@ -35,84 +63,64 @@
         </div>
     </div>
 
-    <div class="container-fluid mt-5">
-        <div class="row justify-content-between pl-4 pr-4">
-            <div class="col-4 ">
-                <div class="card rounded-cus">
-                    <div class="attraction" style="background-image: url({% static 'OprahHouse.jpg'%});">
-                    </div>
-
-                    <div class="card-body">
-                        <p class="font-weight-bold text-center" style="font-size: 1rem;">Sydney Oprah House</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="card rounded-cus">
-                    <div class="attraction" style="background-image: url({% static 'bridge.jpg'%});">
-                    </div>
-
-                    <div class="card-body">
-                        <p class="font-weight-bold text-center" style="font-size: 1rem;">Sydney Harbour Bridge</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-4 ">
-                <div class="card rounded-cus">
-                    <div class="attraction" style="background-image: url({% static 'AyersMountain.jpg'%});">
-                    </div>
-                    <div class="card-body">
-                        <p class="font-weight-bold text-center" style="font-size: 1rem;">Ayers Mountain</p>
+    <div class="container-fluid">
+        <div class="row justify-content-between">
+            {% for place in Attractions %}
+                <div class="col-4 mb-2">
+                    <div class="card rounded-cus shadow">
+                        <a class="attraction" style="background-image: url({{place.image.url}}); display: block"></a>
+                        <div class="card-body">
+                            <p class="font-weight-bold text-center" style="font-size: 1.5rem; line-height: 1rem">{{place.name}}</p>
+                            <hr>
+                            <div class="row text-center">
+                                <div class="col">
+                                    <p class=""><b>{{place.likes}}</b> people liked it</p>
+                                    <p><b>{{place.dislikes}}</b> people disliked it</p>
+                                </div>
+                                <div class="col">
+                                    <a class="btn btn-success my-2" href="{% url 'attraction_details' attraction=place.attraction_id %}">see more</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
 
-    <div class="container-fluid ">
+    <div class="container-fluid">
         <div class="bg-transparent">
-            <h1 class="font-weight-normal text-center mt-5" style="font-size: 4rem; color: lightseagreen">
-                Recommendations</h1>
+            <h1 class="font-weight-normal text-center mt-5" style="font-size: 4rem; color: lightseagreen">Trending
+                Attractions</h1>
             <div class="text-center font-weight-light" style="font-size: 1.5rem; color: slategray">
-                <p>Choose the place you want and we guide it for you </p>
+                <p>Check the best place near you</p>
             </div>
         </div>
     </div>
 
-    <div class="jumbotron mt-5 mr-5 ml-5 pl-5 rounded-cus"
-        style="background-image: url({% static 'rec_garden.jpeg'%}); color: white; background-repeat: no-repeat; background-size: cover">
-        <h1 class="display-3">EXPERIENCE AUSTRALIA</h1>
-        <p class="lead">Take a colour and sound journey through the country's most epic destinations with our new 8D video
-            escapes.</p>
-        <a class="btn btn-success btn-lg" href="#" role="button">Learn more</a>
-    </div>
-    <!--Update Recommendation 1-->
-    <div class="upRecBtn">
-        <a class="btn btn-outline-success" data-toggle="modal" href="#modalAddRec" role="button" onclick="">Update</a>
-    </div>
-
-    <div class="jumbotron mt-5 mr-5 ml-5 pl-5 rounded-cus"
-        style="background-image: url({% static 'rec_usyd.jpg'%}); color: white; background-repeat: no-repeat; background-size: cover">
-        <h1 class="display-3">EXPERIENCE AUSTRALIA</h1>
-        <p class="lead">Take a colour and sound journey through the country's most epic destinations with our new 8D video
-            escapes.</p>
-        <a class="btn btn-success btn-lg" href="#" role="button">Learn more</a>
-    </div>
-    <!--Update Recommendation 1-->
-    <div class="upRecBtn">
-        <a class="btn btn-outline-success" data-toggle="modal" href="#modalAddRec" role="button" onclick="">Update</a>
-    </div>
-
-    <div class="jumbotron mt-5 mr-5 ml-5 pl-5 rounded-cus"
-        style="background-image: url({% static 'rec_opera_house.jpg'%}); color: white; background-repeat: no-repeat; background-size: cover">
-        <h1 class="display-3">EXPERIENCE AUSTRALIA</h1>
-        <p class="lead">Take a colour and sound journey through the country's most epic destinations with our new 8D video
-            escapes.</p>
-        <a class="btn btn-success btn-lg" href="#" role="button">Learn more</a>
-    </div>
-    <!--Update Recommendation 1-->
-    <div class="upRecBtn">
-        <a class="btn btn-outline-success" data-toggle="modal" href="#modalAddRec" role="button" onclick="">Update</a>
+    <div class="container-fluid mb-5">
+        <div class="row justify-content-center">
+            {% for city in Destinations %}
+                <div class="col-4 mb-2">
+                    <div class="card rounded-cus shadow">
+                        <a class="attraction" style="background-image: url({{city.image.url}}); display: block"></a>
+                        <div class="card-body">
+                            <p class="font-weight-bold text-center" style="font-size: 1.5rem; line-height: 1rem">{{city.name}}</p>
+                            <hr>
+                            <div class="row text-center">
+                                <div class="col">
+                                    <p class=""><b>{{city.likes}}</b> people liked it</p>
+                                    <p><b>{{city.dislikes}}</b> people disliked it</p>
+                                </div>
+                                <div class="col">
+                                    <a class="btn btn-success my-2" href="{% url 'destination_details' destination=city.destination_id %}">see more</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     </div>
 
     <!--Modal for new redommendation-->
@@ -156,7 +164,7 @@
         </div>
     </div>
 
-{% include 'footer.html' %}
+    {% include 'footer.html' %}
 
 <script src="../statics/javascript/index.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
