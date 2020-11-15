@@ -76,39 +76,19 @@
 
     <form class=" container-fluid mt-2 border p-2 pl-5 pr-5" style="border-top: #17a2b8 solid 2px !important;">
         <div class="p-1 comments">
-            <div class="container comment  m-1 p-0">
-                <div class=" ml-3 border-left ">
-                    <div class="container ml-2">
-                        <a class="author">
-                            <span>User 1</span>
-                            <span class="summary-text small">2020-04-10 16:01:27</span>
-                        </a>
+            {% for comment in comments %}
+                <div class="container comment  m-1 p-0">
+                    <div class=" ml-3 border-left ">
+                        <div class="container ml-2">
+                            <a class="author">
+                                <span>{{ comment.user.username }}</span>
+                                <span class="summary-text small">{{ comment.created_time }}</span>
+                            </a>
+                        </div>
+                        <div class="messageText ml-2 container m-2">{{ comment.comment_content }}</div>
                     </div>
-                    <div class="messageText ml-2 container m-2">I love this place!</div>
                 </div>
-            </div>
-            <div class="container comment  m-1 p-0">
-                <div class=" ml-3 border-left ">
-                    <div class="container ml-2">
-                        <a class="author">
-                            <span>User 2</span>
-                            <span class="summary-text small">2020-04-10 16:01:27</span>
-                        </a>
-                    </div>
-                    <div class="messageText ml-2 container m-2">Great!</div>
-                </div>
-            </div>
-            <div class="container comment  m-1 p-0">
-                <div class=" ml-3 border-left ">
-                    <div class="container ml-2">
-                        <a class="author">
-                            <span>User 3</span>
-                            <span class="summary-text small">2020-04-10 16:01:27</span>
-                        </a>
-                    </div>
-                    <div class="messageText ml-2 container m-2">Best time in my life!</div>
-                </div>
-            </div>
+            {% endfor %}
             <div id="comments"></div>
         </div>
     </form>

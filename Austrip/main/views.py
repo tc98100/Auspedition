@@ -22,19 +22,21 @@ def attraction_list(request):
     Attractions = Attraction.objects.all()
     city_list = []
     for attraction in Attractions:
-        if attraction.city not in city_list:
-            city_list.append(attraction.city)
+        if attraction.city.name not in city_list:
+            city_list.append(attraction.city.name)
     return render(request, 'attractions.html', {'Attractions': Attractions, 'city_list': city_list})
 
 
 def detailed_destination(request, destination):
     city = Destination.objects.get(destination_id=destination)
-    return render(request, "destination_detail.html", {'city': city})
+    comments = city.destinationcomment_set.all()
+    return render(request, "destination_detail.html", {'city': city, 'comments': comments})
 
 
 def detailed_attraction(request, attraction):
     place = Attraction.objects.get(attraction_id=attraction)
-    return render(request, "attraction_detail.html", {'place': place})
+    comments = place.attractioncomment_set.all()
+    return render(request, "attraction_detail.html", {'place': place, 'comments': comments})
 
 
 def detailed_recommendation(request, recommendation):
@@ -50,8 +52,8 @@ def search_result(request):
         user_input = request.GET.get('input')
 
     condition1 = Q(name__icontains=user_input) | Q(stateCode__icontains=user_input) | Q(state__icontains=user_input)
-    condition2 = Q(name__icontains=user_input) | Q(city__icontains=user_input) | Q(state__icontains=user_input) | \
-                 Q(stateCode__icontains=user_input)
+    condition2 = Q(name__icontains=user_input) | Q(city__name__icontains=user_input) | \
+                 Q(city__state__icontains=user_input) | Q(city__stateCode__icontains=user_input)
 
     result_destination = Destination.objects.filter(condition1)
     result_attraction = Attraction.objects.filter(condition2)
@@ -88,8 +90,8 @@ def filter_city(request):
     if city == 'CITY':
         places = Attraction.objects.all()
     else:
-        places = Attraction.objects.filter(name=city)
-    return render(request, "search_result.html", {'places': places,  'match': match})
+        places = Attraction.objects.filter(city__name=city)
+    return render(request, "search_result.html", {'places': places, 'match': match, 'city': city})
 
 
 # temporary
@@ -99,6 +101,8 @@ def profile(request):
 
 def profile_change(request):
     return render(request, "profile_change.html")
+
+
 ####
 
 

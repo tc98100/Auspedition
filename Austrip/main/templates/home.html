@@ -11,15 +11,12 @@
 </head>
 <body>
     {% include 'navbar.html' %}
-
     <div id="home_background" class="bg-box mb-5">
         <div style="position:absolute; left: 60%; top: 20%; right: 10%;" class="text-white">
             <h4 class="text-monospace">Welcome to Auspedition</h4>
             <h1 class="font-weight-bold" style="font-size: 2rem">We provide you best tourism service in Australia</h1>
         </div>
     </div>
-
-
     <div class="container-fluid">
         <div class="bg-transparent">
             <h1 class="font-weight-normal text-center mt-5" style="font-size: 4rem; color: lightseagreen">
@@ -29,7 +26,6 @@
             </div>
         </div>
     </div>
-
     <div class="container-fluid">
         <div class="row justify-content-between">
             {% for article in Recommendations %}
@@ -47,17 +43,47 @@
             {% endfor %}
         </div>
     </div>
-
+    <div class="container-fluid">
+        <div class="bg-transparent">
+            <h1 class="font-weight-normal text-center mt-5" style="font-size: 4rem; color: lightseagreen">Popular Destinations</h1>
+            <div class="text-center font-weight-light" style="font-size: 1.5rem; color: slategray">
+                <p>View the popular cities</p>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid mb-5">
+        <div class="row justify-content-center">
+            {% for city in Destinations %}
+                <div class="col-4 mb-2">
+                    <div class="card rounded-cus shadow">
+                        <a class="attraction" style="background-image: url({{city.image.url}}); display: block"></a>
+                        <div class="card-body">
+                            <p class="font-weight-bold text-center" style="font-size: 1.5rem; line-height: 1rem">{{city.name}}</p>
+                            <hr>
+                            <div class="row text-center">
+                                <div class="col">
+                                    <p class=""><b>{{city.likes}}</b> people liked it</p>
+                                    <p><b>{{city.dislikes}}</b> people disliked it</p>
+                                </div>
+                                <div class="col">
+                                    <a class="btn btn-success my-2" href="{% url 'destination_details' destination=city.destination_id %}">see more</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
     <div class="container-fluid ">
         <div class="bg-transparent">
             <h1 class="font-weight-normal text-center mt-5" style="font-size: 4rem; color: lightseagreen">Trending
                 Attractions</h1>
             <div class="text-center font-weight-light" style="font-size: 1.5rem; color: slategray">
-                <p>Check the best place near you</p>
+                <p>Check out the best place</p>
             </div>
         </div>
     </div>
-
     <div class="container-fluid">
         <div class="row justify-content-between">
             {% for place in Attractions %}
@@ -82,44 +108,6 @@
             {% endfor %}
         </div>
     </div>
-
-
-
-    <div class="container-fluid">
-        <div class="bg-transparent">
-            <h1 class="font-weight-normal text-center mt-5" style="font-size: 4rem; color: lightseagreen">Trending
-                Attractions</h1>
-            <div class="text-center font-weight-light" style="font-size: 1.5rem; color: slategray">
-                <p>Check the best place near you</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="container-fluid mb-5">
-            <div class="row justify-content-center">
-                {% for city in Destinations %}
-                    <div class="col-4 mb-2">
-                        <div class="card rounded-cus shadow">
-                            <a class="attraction" style="background-image: url({{city.image.url}}); display: block"></a>
-                            <div class="card-body">
-                                <p class="font-weight-bold text-center" style="font-size: 1.5rem; line-height: 1rem">{{city.name}}</p>
-                                <hr>
-                                <div class="row text-center">
-                                    <div class="col">
-                                        <p class=""><b>{{city.likes}}</b> people liked it</p>
-                                        <p><b>{{city.dislikes}}</b> people disliked it</p>
-                                    </div>
-                                    <div class="col">
-                                        <a class="btn btn-success my-2" href="{% url 'destination_details' destination=city.destination_id %}">see more</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
-
     {% include 'footer.html' %}
     <script src = "{% static 'index.js'%}"></script>
     {% include 'external.html' %}
