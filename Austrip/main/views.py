@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import Group
 from django.shortcuts import render, redirect
 from rest_framework import viewsets
 from django.db.models import Q
@@ -44,12 +45,15 @@ def signup(request):
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
         if form.is_valid():
-            form.save()
-            user = form.cleaned_data.get('username')
-            messages.success(request, 'Sign up successful for ' + user)
+            user = form.save()
+            username = form.cleaned_data.get('username')
+
+            group = Group.objects.get(name='user')
+            user.groups.add(group)
+
+            messages.success(request, 'Sign up successful for ' + username)
             return redirect('login_user')
     return render(request, 'signup.html', {'form': form})
-
 
 
 def home(request):
@@ -147,7 +151,7 @@ class DestinationModelViewSet(viewsets.ModelViewSet):
 
 class UserModelViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
-    queryset = User.objects.all()
+    queryset = NormalUser.objects.all()
 
 
 class AttractionModelViewSet(viewsets.ModelViewSet):
