@@ -5,7 +5,13 @@ from django import forms
 from django.contrib.auth.models import User
 from django.forms import ModelForm
 
-from .models import UserInfo, Recommendation
+from .models import UserInfo, Recommendation, AttractionComment
+
+
+class AddCommentAttraction(ModelForm):
+    class Meta:
+        model = AttractionComment
+        fields = ['comment_content']
 
 
 class EditRecommendation(ModelForm):
