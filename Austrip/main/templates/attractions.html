@@ -38,10 +38,19 @@
             <div class="bg-transparent">
                 <h1 class="font-weight-bold" style="font-size: 1rem; color: lightseagreen">
                     Wow that looks good!</h1>
-                <p class="font-weight-light" style="font-size: 3rem; color: slategray; line-height: 2rem">Popular attractions</p>
+                <div class="row">
+                    <div class="col-8">
+                        <p class="font-weight-light" style="font-size: 3rem; color: slategray; line-height: 2rem">Popular Attractions
+                        </p>
+                    </div>
+                    <div class="col-4 text-right">
+                        <button type="button" id="loadAttractionBtn" class="btn btn-link" >LOAD MORE</button>
+                    </div>
+                </div>
             </div>
+
         </div>
-        <button id="loadAttractionBtn">load more</button>
+
         <div class="container-fluid">
             <div class="row justify-content-between">
                 {% for place in Attractions|slice:":4" %}
