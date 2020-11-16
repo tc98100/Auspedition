@@ -6,6 +6,7 @@ from django.shortcuts import render, redirect
 from rest_framework import viewsets
 from django.db.models import Q
 from .decorators import *
+from django_filters.rest_framework import DjangoFilterBackend
 
 from .forms import CreateUserForm, ChangeUserInfo
 from .models import *
@@ -179,13 +180,17 @@ class AttractionModelViewSet(viewsets.ModelViewSet):
 class DestinationCommentModelViewSet(viewsets.ModelViewSet):
     serializer_class = DestinationCommentSerializer
     queryset = DestinationComment.objects.all()
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['comment_on']
 
 
 class AttractionCommentModelViewSet(viewsets.ModelViewSet):
     serializer_class = AttractionCommentSerializer
     queryset = AttractionComment.objects.all()
-
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['comment_on']
 
 class RecommendationModelViewSet(viewsets.ModelViewSet):
     serializer_class = RecommendationSerializer
     queryset = Recommendation.objects.all()
+

@@ -77,12 +77,12 @@
 
  <form class=" container-fluid mt-2 border p-2 pl-5 pr-5" style="border-top: #17a2b8 solid 2px !important;">
         <div class="p-1 comments">
-            {% for comment in comments %}
+            {% for comment in comments|slice:":3" %}
                 <div class="container comment  m-1 p-0">
                     <div class=" ml-3 border-left ">
                         <div class="container ml-2">
                             <a class="author">
-                                <span>{{ comment.user.username }}</span>
+                                <span>User# {{ comment.user.id }}</span>
                                 <span class="summary-text small">{{ comment.created_time }}</span>
                             </a>
                         </div>
@@ -90,11 +90,11 @@
                     </div>
                 </div>
             {% endfor %}
-            <div id="aComments"></div>
         </div>
+     <div id="aComments" ></div>
     </form>
     <div class = "ml-4">
-        <button id="aLoadMoreBtn">Load more</button>
+        <button id="aLoadMoreBtn" value="{{ place.attraction_id }}">Load more</button>
     </div>
     <div class="ml-4">
         <form>
@@ -105,28 +105,10 @@
 
 
     {% include 'footer.html' %}
-    <script>
-      $(document).on('click', '#likeBtn', function (e) {
-        e.preventDefault();
-        $.ajax({
-          type: 'POST',
-          url: '{% url "accounts:aLike" %}',
-          data: {
-            attraction_id: $('#likeBtn').val(),
-            {#csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),#}
-            action: 'post'
-          },
-          success: function (json) {
-            document.getElementById("likeCount").innerHTML = json['result']
-          },
-          error: function (xhr, errmsg, err) {
-          }
-        });
-      })
-    </script>
+    <script src = "{% static 'load_attraction_comments.js' %}"></script>
     <script src = "{% static 'attractionBookmarkFunction.js' %}"></script>
     <script src = "{% static 'attractionLikeDislikeFunction.js' %}"></script>
-    <script src = "{% static 'loadMoreAttractionCommentsFunction.js'%}"></script>
+
     <script src = "{% static 'index.js'%}"></script>
     {% include 'external.html' %}
 
