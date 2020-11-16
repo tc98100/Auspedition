@@ -14,7 +14,7 @@ let attraction = document.getElementById("attractions")
                  url: "http://127.0.0.1:8000/viewset/attraction/",
                  success: function (response) {
                     let length = response.length
-                    cards += "<div class=\"row justify-content-between\">\n"
+                    cards += "<div class=\"row\">\n"
                      for(let i =count;i<count+3;i++){
                          if(i>=length){
                             alert("All content loaded.")

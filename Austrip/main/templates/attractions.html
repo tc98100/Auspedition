@@ -42,18 +42,18 @@
         </div>
         <button id="loadAttractionBtn">load more</button>
         <div class="container-fluid mb-5">
-            <div class="row justify-content-between">
+            <div class="row">
                 {% for place in Attractions|slice:":4" %}
                     <div class="col-3 mb-2">
                         <div class="card rounded-cus shadow">
                             <a class="attraction" style="background-image: url({{place.image.url}}); display: block"></a>
                             <div class="card-body">
-                                <p class="font-weight-bold text-center" style="font-size: 1.5rem; line-height: 1rem">{{place.name}}</p>
+                                <p class="font-weight-bold text-center" style="font-size: 1.1rem; line-height: 1rem">{{place.name}}</p>
                                 <hr>
                                 <div class="row text-center">
                                     <div class="col">
-                                        <p class=""><b>{{place.likes}}</b> people liked it</p>
-                                        <p><b>{{place.dislikes}}</b> people disliked it</p>
+                                        <p class=""><b>{{place.likes}}</b> likes</p>
+                                        <p><b>{{place.dislikes}}</b> dislikes</p>
                                     </div>
                                     <div class="col">
                                         <a class="btn btn-success my-2" href="{% url 'attraction_details' attraction=place.attraction_id %}">see more</a>

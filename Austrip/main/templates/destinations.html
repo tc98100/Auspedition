@@ -48,7 +48,7 @@
         </div>
     <button id="loadDestinationBtn">Load More</button>
         <div class="container-fluid">
-            <div class="row justify-content-between">
+            <div class="row">
                 {% for city in Destinations|slice:":4" %}
                     <div class="col-3 mb-2">
                         <div class="card rounded-cus shadow">
@@ -58,8 +58,8 @@
                                 <hr>
                                 <div class="row text-center">
                                     <div class="col">
-                                        <p class=""><b>{{city.likes}}</b> people liked it</p>
-                                        <p><b>{{city.dislikes}}</b> people disliked it</p>
+                                        <p class=""><b>{{city.likes}}</b> likes</p>
+                                        <p><b>{{city.dislikes}}</b> dislikes</p>
                                     </div>
                                     <div class="col">
                                         <a class="btn btn-success my-2" href="{% url 'destination_details' destination=city.destination_id %}">see more</a>

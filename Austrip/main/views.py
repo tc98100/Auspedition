@@ -97,12 +97,12 @@ def home(request):
 
 
 def destination_list(request):
-    Destinations = Destination.objects.all().order_by("name")
+    Destinations = Destination.objects.all().order_by("-click_count")
     return render(request, 'destinations.html', {'Destinations': Destinations})
 
 
 def attraction_list(request):
-    Attractions = Attraction.objects.all().order_by("name")
+    Attractions = Attraction.objects.all().order_by("-click_count")
     city_list = []
     for attraction in Attractions:
         if attraction.city.name not in city_list:
