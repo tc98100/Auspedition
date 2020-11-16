@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
@@ -8,7 +10,7 @@ apiRouter = DefaultRouter()
 apiRouter.register('destination', DestinationModelViewSet, basename='destination')
 apiRouter.register('attraction', AttractionModelViewSet, basename='attraction')
 apiRouter.register('destinationComment', DestinationCommentModelViewSet, basename='destinationComment')
-apiRouter.register('attractionComment', AttractionCommentModelViewSet, basename='destinationComment')
+apiRouter.register('attractionComment', AttractionCommentModelViewSet, basename='attractionComment')
 apiRouter.register('user', UserModelViewSet, basename='user')
 apiRouter.register('recommendation', RecommendationModelViewSet, basename='recommendation')
 
@@ -19,15 +21,23 @@ urlpatterns = [
     path('destinations/<str:destination>/', views.detailed_destination, name="destination_details"),
     path('attractions/<str:attraction>/', views.detailed_attraction, name="attraction_details"),
     path('recommendations/<str:recommendation>/', views.detailed_recommendation, name="recommendation_details"),
-
+    path('recommendations/<str:recommendation>/edit/', views.edit, name="edit"),
 
     path('search-result/', views.search_result, name="search_result"),
     path('destination-result/', views.filter_state, name="destination_result"),
     path('attraction-result/', views.filter_city, name="attraction_result"),
 
     # temporary use, needs to be changed
-    path('profile/', views.profile, name="profile"),
-    path('change-profile/', views.profile_change, name="change_profile"),
+    path('profile', views.profile, name="profile"),
+    path('change-profile', views.profile_change, name="change_profile"),
 
     path('viewset/', include(apiRouter.urls)),
+
+    # user
+    path('signup', views.signup, name="signup"),
+    path('login', views.login_user, name="login_user"),
+    path('logout', views.logout_user, name="logout")
+
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
