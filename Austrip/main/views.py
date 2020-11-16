@@ -7,9 +7,21 @@ from rest_framework import viewsets
 from django.db.models import Q
 from .decorators import *
 
-from .forms import CreateUserForm, ChangeUserInfo, ChangePicBio
+from .forms import CreateUserForm, ChangeUserInfo, ChangePicBio, EditRecommendation
 from .models import *
 from .serializers import *
+
+
+def edit(request, recommendation):
+    specific_recommendation = Recommendation.objects.get(recommendation_id=recommendation)
+    if request.method == 'POST':
+        edit_form = EditRecommendation(request.POST, request.FILES, instance=specific_recommendation)
+        if edit_form.is_valid:
+            edit_form.save()
+    else:
+        edit_form = EditRecommendation(instance=specific_recommendation)
+    context = {'recommendation': specific_recommendation, 'edit': edit_form}
+    return render(request, "staff_recommendation.html", context)
 
 
 @login_required(login_url='login_user')
@@ -108,12 +120,6 @@ def detailed_attraction(request, attraction):
 def detailed_recommendation(request, recommendation):
     specific_recommendation = Recommendation.objects.get(recommendation_id=recommendation)
     return render(request, "recommendation.html", {'recommendation': specific_recommendation})
-
-
-def recommendation_edit(request, recommendation):
-    specific_recommendation = Recommendation.objects.get(recommendation_id=recommendation)
-    return render(request, "staff_recommendation.html", {'recommendation': specific_recommendation})
-
 
 def search_result(request):
     user_input = ''
