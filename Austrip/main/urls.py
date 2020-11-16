@@ -8,7 +8,7 @@ apiRouter = DefaultRouter()
 apiRouter.register('destination', DestinationModelViewSet, basename='destination')
 apiRouter.register('attraction', AttractionModelViewSet, basename='attraction')
 apiRouter.register('destinationComment', DestinationCommentModelViewSet, basename='destinationComment')
-apiRouter.register('attractionComment', AttractionCommentModelViewSet, basename='destinationComment')
+apiRouter.register('attractionComment', AttractionCommentModelViewSet, basename='attractionComment')
 apiRouter.register('user', UserModelViewSet, basename='user')
 apiRouter.register('recommendation', RecommendationModelViewSet, basename='recommendation')
 
