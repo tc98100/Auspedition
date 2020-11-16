@@ -7,7 +7,7 @@ from rest_framework import viewsets
 from django.db.models import Q
 from .decorators import *
 
-from .forms import CreateUserForm, ChangeUserInfo
+from .forms import CreateUserForm, ChangeUserInfo, ChangePicBio
 from .models import *
 from .serializers import *
 
@@ -19,9 +19,18 @@ def profile(request):
 
 @login_required(login_url='login_user')
 def profile_change(request):
-    user = request.user.userinfo
-    form = ChangeUserInfo(instance=user)
-    return render(request, "profile_change.html", {'form': form})
+    if request.method == 'POST':
+        change_form = ChangeUserInfo(request.POST, instance=request.user)
+        change_pic_bio = ChangePicBio(request.POST, request.FILES, instance=request.user.userinfo)
+        if change_form.is_valid and change_pic_bio.is_valid:
+            change_form.save()
+            change_pic_bio.save()
+            messages.success(request, 'Your Profile has been updated!')
+            return redirect('profile')
+    else:
+        change_form = ChangeUserInfo(instance=request.user)
+        change_pic_bio = ChangePicBio(instance=request.user.userinfo)
+    return render(request, "profile_change.html", {'change_form': change_form, 'change_pic': change_pic_bio})
 
 
 @unauthenticated_user
