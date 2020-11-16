@@ -36,7 +36,7 @@
                             <p class="font-weight-bold text-center" style="font-size: 1.5rem; line-height: 1rem">{{ article.title }}</p>
                             <hr>
                             <p>{{ article.short_description }}</p>
-                            <a class="btn btn-success my-2" href="{% url 'recommendation_edit' recommendation=article.recommendation_id %}">have a read</a>
+                            <a class="btn btn-success my-2" href="{% url 'recommendation_details' recommendation=article.recommendation_id %}">See more</a>
                         </div>
                     </div>
                 </div>
@@ -66,7 +66,7 @@
                                     <p><b>{{city.dislikes}}</b> people disliked it</p>
                                 </div>
                                 <div class="col">
-                                    <a class="btn btn-success my-2" href="{% url 'destination_details' destination=city.destination_id %}">see more</a>
+                                    <a class="btn btn-success my-2" href="{% url 'destination_details' destination=city.destination_id %}">See more</a>
                                 </div>
                             </div>
                         </div>
@@ -99,7 +99,7 @@
                                     <p><b>{{place.dislikes}}</b> people disliked it</p>
                                 </div>
                                 <div class="col">
-                                    <a class="btn btn-success my-2" href="{% url 'attraction_details' attraction=place.attraction_id %}">see more</a>
+                                    <a class="btn btn-success my-2" href="{% url 'attraction_details' attraction=place.attraction_id %}">See more</a>
                                 </div>
                             </div>
                         </div>

@@ -6,10 +6,23 @@ from django.shortcuts import render, redirect
 from rest_framework import viewsets
 from django.db.models import Q
 from .decorators import *
+from django_filters.rest_framework import DjangoFilterBackend
 
-from .forms import CreateUserForm, ChangeUserInfo
+from .forms import CreateUserForm, ChangeUserInfo, ChangePicBio, EditRecommendation
 from .models import *
 from .serializers import *
+
+
+def edit(request, recommendation):
+    specific_recommendation = Recommendation.objects.get(recommendation_id=recommendation)
+    if request.method == 'POST':
+        edit_form = EditRecommendation(request.POST, request.FILES, instance=specific_recommendation)
+        if edit_form.is_valid:
+            edit_form.save()
+    else:
+        edit_form = EditRecommendation(instance=specific_recommendation)
+    context = {'recommendation': specific_recommendation, 'edit': edit_form}
+    return render(request, "staff_recommendation.html", context)
 
 
 @login_required(login_url='login_user')
@@ -19,9 +32,18 @@ def profile(request):
 
 @login_required(login_url='login_user')
 def profile_change(request):
-    user = request.user.userinfo
-    form = ChangeUserInfo(instance=user)
-    return render(request, "profile_change.html", {'form': form})
+    if request.method == 'POST':
+        change_form = ChangeUserInfo(request.POST, instance=request.user)
+        change_pic_bio = ChangePicBio(request.POST, request.FILES, instance=request.user.userinfo)
+        if change_form.is_valid and change_pic_bio.is_valid:
+            change_form.save()
+            change_pic_bio.save()
+            messages.success(request, 'Your Profile has been updated!')
+            return redirect('profile')
+    else:
+        change_form = ChangeUserInfo(instance=request.user)
+        change_pic_bio = ChangePicBio(instance=request.user.userinfo)
+    return render(request, "profile_change.html", {'change_form': change_form, 'change_pic': change_pic_bio})
 
 
 @unauthenticated_user
@@ -108,12 +130,6 @@ def detailed_recommendation(request, recommendation):
     specific_recommendation = Recommendation.objects.get(recommendation_id=recommendation)
     return render(request, "recommendation.html", {'recommendation': specific_recommendation})
 
-
-def recommendation_edit(request, recommendation):
-    specific_recommendation = Recommendation.objects.get(recommendation_id=recommendation)
-    return render(request, "staff_recommendation.html", {'recommendation': specific_recommendation})
-
-
 def search_result(request):
     user_input = ''
     match = True
@@ -182,13 +198,17 @@ class AttractionModelViewSet(viewsets.ModelViewSet):
 class DestinationCommentModelViewSet(viewsets.ModelViewSet):
     serializer_class = DestinationCommentSerializer
     queryset = DestinationComment.objects.all()
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['comment_on']
 
 
 class AttractionCommentModelViewSet(viewsets.ModelViewSet):
     serializer_class = AttractionCommentSerializer
     queryset = AttractionComment.objects.all()
-
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['comment_on']
 
 class RecommendationModelViewSet(viewsets.ModelViewSet):
     serializer_class = RecommendationSerializer
     queryset = Recommendation.objects.all()
+

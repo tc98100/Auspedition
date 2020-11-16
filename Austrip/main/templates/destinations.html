@@ -49,7 +49,7 @@
     <button id="loadDestinationBtn">Load More</button>
         <div class="container-fluid">
             <div class="row justify-content-between">
-                {% for city in Destinations %}
+                {% for city in Destinations|slice:":4" %}
                     <div class="col-3 mb-2">
                         <div class="card rounded-cus shadow">
                             <a class="attraction" style="background-image: url({{city.image.url}}); display: block"></a>
@@ -74,9 +74,8 @@
         <div id="destinations"></div>
             <div style="padding-bottom: 25px"></div>
     </div>
-
     {% include 'footer.html' %}
-    <script src = "{% static 'loadMoreDestinationFunction.js'%}"></script>
+    <script src = "{% static 'load-more-destination.js' %}"></script>
     <script src = "{% static 'index.js'%}"></script>
     {% include 'external.html' %}
 </body>

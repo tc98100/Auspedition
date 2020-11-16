@@ -41,9 +41,9 @@
             </div>
         </div>
         <button id="loadAttractionBtn">load more</button>
-        <div class="container-fluid">
+        <div class="container-fluid mb-5">
             <div class="row justify-content-between">
-                {% for place in Attractions %}
+                {% for place in Attractions|slice:":4" %}
                     <div class="col-3 mb-2">
                         <div class="card rounded-cus shadow">
                             <a class="attraction" style="background-image: url({{place.image.url}}); display: block"></a>
@@ -65,12 +65,10 @@
                 {% endfor %}
             </div>
         </div>
-        <div id="attractions"></div>
-        <div style="padding-bottom: 25px"></div>
     </div>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     {% include 'footer.html' %}
-    <script src = "{% static 'loadMoreAttractionFunction.js'%}"></script>
+    <script src = "{% static 'load-more-attraction.js' %}"></script>
     <script src = "{% static 'index.js'%}"></script>
     {% include 'external.html' %}
 </body>
