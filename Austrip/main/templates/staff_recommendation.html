@@ -16,7 +16,7 @@
                         <h4>Change Profile Information</h4>
                     </div>
                     <div align="center">
-                        <form class="form-horizontal" role="form" action="" method="POST" enctype="multipart/form-data">
+                        <form class="form-horizontal" role="form" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         {{ edit.as_p }}
                         <button type="submit" class="btn btn-success subBtn">Update Details</button>
