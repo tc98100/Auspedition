@@ -24,8 +24,8 @@
 
         <!-- button group -->
         <div class="btnGroup" style="text-align:center">
-            <a class="btn btn-light" id="editInfoBtn" href="{% url 'change_profile' %}" role="button">Edit Profile</a>
-            <a class="btn btn-light" id="editPswBtn" href="{% url 'change_password' %}" role="button">Change Password</a>
+            <a class="btn btn-light" id="editBtn" href="{% url 'change_profile' %}" role="button">Edit Profile</a>
+            <a class="btn btn-light" id="editBtn" href="{% url 'change_password' %}" role="button">Change Password</a>
             <a class="btn btn-secondary" id="logOutBtn" href="{% url 'logout' %}" role="button">Log Out</a>
         </div>
 
@@ -44,7 +44,7 @@
 
                 <dt class="col-sm-3">Bio</dt>
                 <dd class="col-sm-9">
-                  <p>{{ request.user.userinfo.bio }}</p>
+                  <p>{{ request.user.userinfo.bio}}</p>
                 </dd>
               </dl>
         </div>

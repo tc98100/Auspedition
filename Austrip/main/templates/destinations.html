@@ -48,9 +48,6 @@
                         <p class="font-weight-light" style="font-size: 3rem; color: slategray; line-height: 2rem">All Destinations
                         </p>
                     </div>
-                    <div class="col-4 text-right">
-                        <button type="button" id="loadDestinationBtn" class="btn btn-link" >LOAD MORE</button>
-                    </div>
                 </div>
             </div>
         </div>
@@ -80,6 +77,11 @@
         </div>
         <div id="destinations"></div>
             <div style="padding-bottom: 25px"></div>
+
+        <!--Load more button-->
+        <div class="loadMoreButton">
+            <button type="button" id="loadDestinationBtn" class="btn btn-link" >LOAD MORE</button>
+        </div>
     </div>
     {% include 'footer.html' %}
     <script src = "{% static 'load-more-destination.js' %}"></script>

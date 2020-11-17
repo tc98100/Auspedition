@@ -93,11 +93,13 @@
                 </div>
             {% endfor %}
         </div>
-     <div id="aComments" ></div>
+        <div id="aComments" ></div>
+        <!--Load more button-->
+        <div class="loadMoreButton">
+            <button type="button" id="aLoadMoreBtn" class="btn btn-link" value="{{ place.attraction_id }}">LOAD MORE</button>
+        </div>
     </form>
-    <div class = "ml-4">
-        <button id="aLoadMoreBtn" value="{{ place.attraction_id }}">Load more</button>
-    </div>
+
     <div class="ml-4">
         <form class="form-inline my-2 my-lg-0 mx-3" method="POST" action="{% url 'attraction_details' attraction=place.attraction_id %}">
             {% csrf_token %}

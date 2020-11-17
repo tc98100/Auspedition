@@ -93,11 +93,13 @@
                 </div>
             {% endfor %}
             <div id="d-comments"></div>
+            <!--Load more button-->
+            <div class="loadMoreButton">
+                <button type="button" id="d-load-comment-div" class="btn btn-link" value="{{ city.destination_id }}">LOAD MORE</button>
+            </div>
         </div>
     </form>
-    <div class = "ml-4">
-        <button id="d-load-comment-div" value="{{ city.destination_id }}">Load more</button>
-    </div>
+
     <div class="ml-4">
         <form class="form-inline my-2 my-lg-0 mx-3" method="POST" action="{% url 'destination_details' destination=city.destination_id%}">
             {% csrf_token %}
