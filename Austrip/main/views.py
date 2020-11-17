@@ -25,8 +25,7 @@ def edit(request, recommendation):
             edit_form.save()
     else:
         edit_form = EditRecommendation(instance=specific_recommendation)
-    context = {'recommendation': specific_recommendation, 'edit': edit_form}
-    return render(request, "staff_recommendation.html", context)
+    return render(request, "staff_recommendation.html", {'recommendation': specific_recommendation, 'edit': edit_form})
 
 
 @login_required(login_url='login_user')
@@ -71,15 +70,19 @@ def login_user(request):
         user = authenticate(request, username=request.POST.get('username'), password=request.POST.get('password'))
         if user is not None:
             login(request, user)
-            return redirect('home')
+            response = redirect('home')
+            response.set_cookie('username', request.POST.get('username'), 60)
+            return response
         else:
             messages.info(request, 'Invalid username or password :(')
     return render(request, 'login_user.html')
 
 
 def logout_user(request):
+    response = redirect('home')
+    response.delete_cookie('username')
     logout(request)
-    return redirect('home')
+    return response
 
 
 @unauthenticated_user
@@ -101,20 +104,20 @@ def signup(request):
 
 
 def home(request):
-    Destinations = Destination.objects.order_by('likes')[:3]
-    Attractions = Attraction.objects.order_by('likes')[:3]
+    Destinations = Destination.objects.order_by('-click_count')[:3]
+    Attractions = Attraction.objects.order_by('-click_count')[:3]
     Recommendations = Recommendation.objects.all()[:3]
-    context = {'Destinations': Destinations, 'Attractions': Attractions, 'Recommendations': Recommendations}
-    return render(request, 'home.html', context)
+    context_home = {'Destinations': Destinations, 'Attractions': Attractions, 'Recommendations': Recommendations}
+    return render(request, 'home.html', context_home)
 
 
 def destination_list(request):
-    Destinations = Destination.objects.all()
+    Destinations = Destination.objects.all().order_by("-click_count")
     return render(request, 'destinations.html', {'Destinations': Destinations})
 
 
 def attraction_list(request):
-    Attractions = Attraction.objects.all()
+    Attractions = Attraction.objects.all().order_by("-click_count")
     city_list = []
     for attraction in Attractions:
         if attraction.city.name not in city_list:
@@ -124,7 +127,9 @@ def attraction_list(request):
 
 def detailed_destination(request, destination):
     city = Destination.objects.get(destination_id=destination)
-    comments = city.destinationcomment_set.all()
+    city.click_count += 1
+    city.save()
+    comments = city.destinationcomment_set.all().order_by('-created_time')
     if request.method == 'POST':
         add_comment = request.POST.get('add_comment')
         DestinationComment.objects.create(
@@ -132,12 +137,13 @@ def detailed_destination(request, destination):
             comment_on=city,
             comment_content=add_comment
         )
-    context = {'city': city, 'comments': comments}
-    return render(request, "destination_detail.html", context)
+    return render(request, "destination_detail.html", {'city': city, 'comments': comments})
 
 
 def detailed_attraction(request, attraction):
     place = Attraction.objects.get(attraction_id=attraction)
+    place.click_count += 1
+    place.save()
     comments = place.attractioncomment_set.all()
     if request.method == 'POST':
         add_comment = request.POST.get('add_comment')
@@ -160,7 +166,7 @@ def delete_comment_destination(request, comment_id, destination):
     city = Destination.objects.get(destination_id=destination)
     comment = DestinationComment.objects.get(commentId=comment_id)
     comment.delete()
-    context = {'comment': comment, 'city': city}
+    # context = {'comment': comment, 'city': city}
     return render(request, 'test.html', {'comment': comment})
 
 
@@ -200,9 +206,9 @@ def filter_state(request):
         state = request.GET.get('state')
 
     if state == 'STATE':
-        cities = Destination.objects.all()
+        cities = Destination.objects.all().order_by("name")
     else:
-        cities = Destination.objects.filter(stateCode=state)
+        cities = Destination.objects.filter(stateCode=state).order_by("name")
     return render(request, "search_result.html", {'cities': cities, 'match': match})
 
 
@@ -213,15 +219,11 @@ def filter_city(request):
         city = request.GET.get('city')
 
     if city == 'CITY':
-        places = Attraction.objects.all()
+        places = Attraction.objects.all().order_by("name")
     else:
-        places = Attraction.objects.filter(city__name=city)
+        places = Attraction.objects.filter(city__name=city).order_by("name")
     return render(request, "search_result.html", {'places': places, 'match': match, 'city': city})
 
-# def count_increment_dest(destination):
-#     city = Destination.objects.get(destination_id=destination)
-#     city.click_count += 1
-#     city.save(update_fields=['click_field'])
 
 class DestinationModelViewSet(viewsets.ModelViewSet):
     serializer_class = DestinationSerializer
