@@ -16,7 +16,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from .forms import CreateUserForm, ChangeUserInfo, ChangePicBio, EditRecommendation, AddCommentAttraction
 from .models import *
 from .serializers import *
-
+from django.http import HttpResponse
 
 def edit(request, recommendation):
     specific_recommendation = Recommendation.objects.get(recommendation_id=recommendation)

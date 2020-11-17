@@ -22,24 +22,25 @@ btn.addEventListener("click", () => {
                 }
                 let link = "/attractions/" + response[i].attraction_id + "/"
                 cards += "<div class=\"col-3 mb-2\">\n" +
-                    "                    <div class=\"card rounded-cus shadow\">\n" +
-                    "                        <a class=\"attraction\" style=\"background-image: url(" + response[i].image + "); display: block\"></a>\n" +
-                    "                        <div class=\"card-body\">\n" +
-                    "                            <p class=\"font-weight-bold text-center\" style=\"font-size: 1.5rem; line-height: 1rem\">" + response[i].name + "</p>\n" +
-                    "                            <hr>\n" +
-                    "                            <div class=\"row text-center\">\n" +
-                    "                                <div class=\"col\">\n" +
-                    "                                    <p class=\"\">" + response[i].likes + " people liked it</p>\n" +
-                    "                                    <p>" + response[i].dislikes + " people disliked it</p>\n" +
-                    "                                </div>\n" +
-                    "                                <div class=\"col\">\n" +
-                    "                                    <a class=\"btn btn-success my-2\" href=" + link + ">see more</a>\n" +
-                    "                                </div>\n" +
-                    "                            </div>\n" +
-                    "                        </div>\n" +
-                    "                    </div>\n" +
-                    "                </div>";
-
+                "                    <div class=\"card rounded-cus shadow\">\n" +
+                "                        <a class=\"attraction\" style=\"background-image: url(" + response[i].image + "); display: block\"></a>\n" +
+                "                        <div class=\"card-body\">\n" +
+                "                            <p class=\"font-weight-bold text-center\"\n" +
+                "                               style=\"font-size: 1.1rem; line-height: 1rem\">" + response[i].name + "</p>\n" +
+                "                            <hr>\n" +
+                "                            <div class=\"row text-center\">\n" +
+                "                                <div class=\"col\">\n" +
+                "                                    <p class=\"\"><b>" + response[i].likes + "</b> likes</p>\n" +
+                "                                    <p><b>" + response[i].dislikes + "</b> dislikes</p>\n" +
+                "                                </div>\n" +
+                "                                <div class=\"col\">\n" +
+                "                                    <a class=\"btn btn-success my-2\"\n" +
+                "                                       href=" + link + ">see more</a>\n" +
+                "                                </div>\n" +
+                "                            </div>\n" +
+                "                        </div>\n" +
+                "                    </div>\n" +
+                "                </div>";
             }
             cards += "</div>"
             if (count - 1 >= response.length) {

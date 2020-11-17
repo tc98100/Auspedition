@@ -81,49 +81,43 @@
     </div>
 </div>
 
-    <form class=" container-fluid mt-2 border p-2 pl-5 pr-5" style="border-top: #17a2b8 solid 2px !important;">
-        <div class="p-1 comments">
-            {% for comment in comments|slice:":3" %}
-                <div class="container comment  m-1 p-0">
-                    <div class=" ml-3 border-left ">
-                        <div class="container ml-2">
-                            <a class="author">
-                                <span>User# {{ comment.user.id }}</span>
-                                <span class="summary-text small">{{ comment.created_time }}</span>
-                            </a>
-                            {% if request.user.is_superuser %}
-                                <a class="btn btn-success my-2"
-                                   href="{% url 'delete_comment_destination' comment_id=comment.commentId destination=city.destination_id %}">Delete</a>
-                            {% endif %}
-                        </div>
-                        <div class="messageText ml-2 container m-2">{{ comment.comment_content }}</div>
+<form class=" container-fluid mt-2 border p-2 pl-5 pr-5" style="border-top: #17a2b8 solid 2px !important;">
+    <div class="p-1 comments">
+        {% for comment in comments|slice:":3" %}
+            <div class="container comment  m-1 p-0">
+                <div class=" ml-3 border-left ">
+                    <div class="container ml-2">
+                        <a class="author">
+                            <span>User# {{ comment.user.id }}</span>
+                            <span class="summary-text small">{{ comment.created_time }}</span>
+                        </a>
+                        {% if request.user.is_superuser %}
+                            <a class="btn btn-success my-2"
+                               href="{% url 'delete_comment_destination' comment_id=comment.commentId destination=city.destination_id %}">Delete</a>
+                        {% endif %}
                     </div>
                     <div class="messageText ml-2 container m-2">{{ comment.comment_content }}</div>
                 </div>
-            {% endfor %}
-            <div id="d-comments"></div>
-        </div>
-    </form>
-    <div class = "ml-4">
-        <button id="d-load-comment-div" value="{{ city.destination_id }}">Load more</button>
-    </div>
-    <div class="ml-4">
-        <form class="form-inline my-2 my-lg-0 mx-3" method="POST" action="{% url 'destination_details' destination=city.destination_id%}">
-            {% csrf_token %}
-            <input class="form-control mr-sm-2 px-3" type="text" placeholder="Add a comment..." name="add_comment" value="{{ request.POST.add_comment }}">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Post</button>
-        </form>
+                <div class="messageText ml-2 container m-2">{{ comment.comment_content }}</div>
+            </div>
+        {% endfor %}
+        <div id="d-comments"></div>
     </div>
 </form>
 <div class="ml-4">
     <button id="d-load-comment-div" value="{{ city.destination_id }}">Load more</button>
 </div>
 <div class="ml-4">
-    <form>
-        <textarea name="note" style="width: 100%;"></textarea>
-        <button type="submit" class="btn  btn-info">Sent</button>
+    <form class="form-inline my-2 my-lg-0 mx-3" method="POST"
+          action="{% url 'destination_details' destination=city.destination_id %}">
+        {% csrf_token %}
+        <input class="form-control mr-sm-2 px-3" type="text" placeholder="Add a comment..." name="add_comment"
+               value="{{ request.POST.add_comment }}">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Post</button>
     </form>
 </div>
+</form>
+
 
 <script src="{% static 'destination-like-dislike-function.js' %}"></script>
 <script src="{% static 'destination-check-like-function.js' %}"></script>
