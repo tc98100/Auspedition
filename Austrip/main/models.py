@@ -19,6 +19,8 @@ class Destination(models.Model):
     dislikes = models.IntegerField()
     click_count = models.IntegerField()
     userLike = models.ManyToManyField(User, related_name="Dlike", default=None, blank=True)
+    userDislike = models.ManyToManyField(User, related_name="DDislike", default=None, blank=True)
+
     bookmark = models.ManyToManyField(User, related_name="DBookmark", default=None, blank=True)
 
     def __str__(self):
@@ -35,6 +37,7 @@ class Attraction(models.Model):
     dislikes = models.IntegerField()
     click_count = models.IntegerField()
     userLike = models.ManyToManyField(User, related_name="ALike", default=None, blank=True)
+    userDislike = models.ManyToManyField(User, related_name="ADislike", default=None, blank=True)
     bookmark = models.ManyToManyField(User, related_name="ABookmark", default=None, blank=True)
 
     def __str__(self):

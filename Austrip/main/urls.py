@@ -34,5 +34,17 @@ urlpatterns = [
     # user
     path('signup', views.signup, name="signup"),
     path('login', views.login_user, name="login_user"),
-    path('logout', views.logout_user, name="logout")
+    path('logout', views.logout_user, name="logout"),
+
+
+    path('attractions/<str:attraction>/dislike/', views.dislike_post, name='dislike'),
+    path('attractions/<str:attraction>/like/', views.like_post, name='like'),
+    path('destinations/<str:destination>/like/', views.d_like_post, name='d_like'),
+    path('destinations/<str:destination>/dislike/', views.d_dislike_post, name='d_dislike'),
+
+    path('attractions/<str:attraction>/checkDislike/', views.a_check_dislike, name='a_check_dislike'),
+    path('attractions/<str:attraction>/checkLike/', views.a_check_like, name='a_check_like'),
+    path('destinations/<str:destination>/checkDislike/', views.d_check_dislike, name='d_check_dislike'),
+    path('destinations/<str:destination>/checkLike/', views.d_check_like, name='d_check_like'),
+
 ]

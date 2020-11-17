@@ -44,7 +44,7 @@
     color: red;
 }
 #funcDislike:visited {
-    color: red;
+    color: #ff0000;
 }
 
 #funcLike:focus {
