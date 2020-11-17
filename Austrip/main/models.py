@@ -1,3 +1,4 @@
+from PIL import Image
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -6,6 +7,16 @@ class UserInfo(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     bio = models.TextField()
     image = models.ImageField()
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        image = Image.open(self.image.path)
+        if image.mode in ("RGBA", "P"):
+            image = image.convert("RGB")
+        if image.height > 300 or image.width > 300:
+            output_size = (300, 300)
+            image.thumbnail(output_size)
+            image.save(self.image.path)
 
 
 class Destination(models.Model):

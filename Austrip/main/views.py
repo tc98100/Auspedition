@@ -1,16 +1,32 @@
+import urllib
+
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import Group
 from django.shortcuts import render, redirect,get_object_or_404
+from django.urls import reverse
+from django.shortcuts import render, redirect
 from rest_framework import viewsets
 from django.db.models import Q,F
 from .decorators import *
 from django_filters.rest_framework import DjangoFilterBackend
-from django.http import JsonResponse
-from .forms import CreateUserForm, ChangeUserInfo
+
+from .forms import CreateUserForm, ChangeUserInfo, ChangePicBio, EditRecommendation, AddCommentAttraction
 from .models import *
 from .serializers import *
+
+
+def edit(request, recommendation):
+    specific_recommendation = Recommendation.objects.get(recommendation_id=recommendation)
+    if request.method == 'POST':
+        edit_form = EditRecommendation(request.POST, request.FILES, instance=specific_recommendation)
+        if edit_form.is_valid:
+            edit_form.save()
+    else:
+        edit_form = EditRecommendation(instance=specific_recommendation)
+    return render(request, "staff_recommendation.html", {'recommendation': specific_recommendation, 'edit': edit_form})
 
 
 @login_required(login_url='login_user')
@@ -20,9 +36,33 @@ def profile(request):
 
 @login_required(login_url='login_user')
 def profile_change(request):
-    user = request.user.userinfo
-    form = ChangeUserInfo(instance=user)
-    return render(request, "profile_change.html", {'form': form})
+    if request.method == 'POST':
+        change_form = ChangeUserInfo(request.POST, instance=request.user)
+        change_pic_bio = ChangePicBio(request.POST, request.FILES, instance=request.user.userinfo)
+        if change_form.is_valid and change_pic_bio.is_valid:
+            change_form.save()
+            change_pic_bio.save()
+            messages.success(request, 'Your Profile has been updated!')
+            return redirect('profile')
+    else:
+        change_form = ChangeUserInfo(instance=request.user)
+        change_pic_bio = ChangePicBio(instance=request.user.userinfo)
+    return render(request, "profile_change.html", {'change_form': change_form, 'change_pic': change_pic_bio})
+
+
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('profile')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'change_password.html', {'form': form})
 
 
 @unauthenticated_user
@@ -31,15 +71,19 @@ def login_user(request):
         user = authenticate(request, username=request.POST.get('username'), password=request.POST.get('password'))
         if user is not None:
             login(request, user)
-            return redirect('home')
+            response = redirect('home')
+            response.set_cookie('username', request.POST.get('username'), 60)
+            return response
         else:
             messages.info(request, 'Invalid username or password :(')
     return render(request, 'login_user.html')
 
 
 def logout_user(request):
+    response = redirect('home')
+    response.delete_cookie('username')
     logout(request)
-    return redirect('home')
+    return response
 
 
 @login_required(login_url='login_user')
@@ -148,9 +192,6 @@ def signup(request):
             new_user = form.save()
             username = form.cleaned_data.get('username')
 
-            group = Group.objects.get(name='user')
-            new_user.groups.add(group)
-
             UserInfo.objects.create(
                 user=new_user,
             )
@@ -161,20 +202,20 @@ def signup(request):
 
 
 def home(request):
-    Destinations = Destination.objects.order_by('likes')[:3]
-    Attractions = Attraction.objects.order_by('likes')[:3]
+    Destinations = Destination.objects.order_by('-click_count')[:3]
+    Attractions = Attraction.objects.order_by('-click_count')[:3]
     Recommendations = Recommendation.objects.all()[:3]
-    context = {'Destinations': Destinations, 'Attractions': Attractions, 'Recommendations': Recommendations}
-    return render(request, 'home.html', context)
+    context_home = {'Destinations': Destinations, 'Attractions': Attractions, 'Recommendations': Recommendations}
+    return render(request, 'home.html', context_home)
 
 
 def destination_list(request):
-    Destinations = Destination.objects.all()
+    Destinations = Destination.objects.all().order_by("-click_count")
     return render(request, 'destinations.html', {'Destinations': Destinations})
 
 
 def attraction_list(request):
-    Attractions = Attraction.objects.all()
+    Attractions = Attraction.objects.all().order_by("-click_count")
     city_list = []
     for attraction in Attractions:
         if attraction.city.name not in city_list:
@@ -184,24 +225,52 @@ def attraction_list(request):
 
 def detailed_destination(request, destination):
     city = Destination.objects.get(destination_id=destination)
-    comments = city.destinationcomment_set.all()
+    city.click_count += 1
+    city.save()
+    comments = city.destinationcomment_set.all().order_by('-created_time')
+    if request.method == 'POST':
+        add_comment = request.POST.get('add_comment')
+        DestinationComment.objects.create(
+            user=request.user,
+            comment_on=city,
+            comment_content=add_comment
+        )
     return render(request, "destination_detail.html", {'city': city, 'comments': comments})
 
 
 def detailed_attraction(request, attraction):
     place = Attraction.objects.get(attraction_id=attraction)
+    place.click_count += 1
+    place.save()
     comments = place.attractioncomment_set.all()
-    return render(request, "attraction_detail.html", {'place': place, 'comments': comments})
+    if request.method == 'POST':
+        add_comment = request.POST.get('add_comment')
+        AttractionComment.objects.create(
+            user=request.user,
+            comment_on=place,
+            comment_content=add_comment
+        )
+    context = {'place': place, 'comments': comments}
+    return render(request, "attraction_detail.html", context)
+
+
+def delete_comment_attraction(request, comment_id):
+    comment = AttractionComment.objects.get(commentId=comment_id)
+    comment.delete()
+    return render(request, 'test.html', {'comment': comment})
+
+
+def delete_comment_destination(request, comment_id, destination):
+    city = Destination.objects.get(destination_id=destination)
+    comment = DestinationComment.objects.get(commentId=comment_id)
+    comment.delete()
+    # context = {'comment': comment, 'city': city}
+    return render(request, 'test.html', {'comment': comment})
 
 
 def detailed_recommendation(request, recommendation):
     specific_recommendation = Recommendation.objects.get(recommendation_id=recommendation)
     return render(request, "recommendation.html", {'recommendation': specific_recommendation})
-
-
-def recommendation_edit(request, recommendation):
-    specific_recommendation = Recommendation.objects.get(recommendation_id=recommendation)
-    return render(request, "staff_recommendation.html", {'recommendation': specific_recommendation})
 
 
 def search_result(request):
@@ -235,9 +304,9 @@ def filter_state(request):
         state = request.GET.get('state')
 
     if state == 'STATE':
-        cities = Destination.objects.all()
+        cities = Destination.objects.all().order_by("name")
     else:
-        cities = Destination.objects.filter(stateCode=state)
+        cities = Destination.objects.filter(stateCode=state).order_by("name")
     return render(request, "search_result.html", {'cities': cities, 'match': match})
 
 
@@ -248,15 +317,10 @@ def filter_city(request):
         city = request.GET.get('city')
 
     if city == 'CITY':
-        places = Attraction.objects.all()
+        places = Attraction.objects.all().order_by("name")
     else:
-        places = Attraction.objects.filter(city__name=city)
+        places = Attraction.objects.filter(city__name=city).order_by("name")
     return render(request, "search_result.html", {'places': places, 'match': match, 'city': city})
-
-# def count_increment_dest(destination):
-#     city = Destination.objects.get(destination_id=destination)
-#     city.click_count += 1
-#     city.save(update_fields=['click_field'])
 
 
 class DestinationModelViewSet(viewsets.ModelViewSet):

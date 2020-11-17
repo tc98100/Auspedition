@@ -13,7 +13,7 @@ let count = 3;
         method: "GET",
          url: "http://127.0.0.1:8000/viewset/destinationComment/?comment_on="+btn.value,
          success: function (response) {
-            cards += "<div class=\"row justify-content-between\">\n"
+            cards += "<div class=\"row\">\n"
              for(let i =count;i<count+3;i++){
                  if(i>=response.length){
                     alert("All content loaded.")

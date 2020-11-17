@@ -17,19 +17,15 @@
     <div class="container-fluid userProfile">
         <h2>{{ request.user.get_full_name }}</h2>
         <!-- Profile Photo -->
-        <form action="#" method="post">
-            <div class="profileImg">
-                <img class="img-thumbnail" src="{% static 'rec_garden.jpeg'%}" alt="Profile Image">
-                <div class="btn btn-sm btn-success uploadedFile">
-                    Change Profile Photo
-                    <input type="file" name="profileImage" accept="image/png, image/jpeg, image/gif, image/jpg">
-                </div>
-            </div>
-        </form>
+        <div align="center">
+            <img class="profile-pic" src="{{ request.user.userinfo.image.url }}">
+        </div>
+
 
         <!-- button group -->
         <div class="btnGroup" style="text-align:center">
             <a class="btn btn-light" id="editBtn" href="{% url 'change_profile' %}" role="button">Edit Profile</a>
+            <a class="btn btn-light" id="editBtn" href="{% url 'change_password' %}" role="button">Change Password</a>
             <a class="btn btn-secondary" id="logOutBtn" href="{% url 'logout' %}" role="button">Log Out</a>
         </div>
 

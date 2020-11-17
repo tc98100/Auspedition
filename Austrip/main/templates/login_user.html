@@ -3,9 +3,7 @@
 
 <head>
 	<title>Login</title>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
 
 	<style>
@@ -14,13 +12,13 @@
 			margin: 0;
 			padding: 0;
 			height: 100%;
-			background: #7abecc !important;
+			background: white !important;
 		}
 		.user_card {
 			width: 350px;
 			margin-top: auto;
 			margin-bottom: auto;
-			background: #74cfbf;
+			background: white;
 			position: relative;
 			display: flex;
 			justify-content: center;
@@ -38,13 +36,13 @@
 		}
 
 		#form-title{
-			color: #fff;
+			color: lightseagreen;
 
 		}
 
 		.login_btn {
 			width: 100%;
-			background: #33ccff !important;
+			background: lightseagreen !important;
 			color: white !important;
 		}
 		.login_btn:focus {
@@ -55,17 +53,11 @@
 			padding: 0 2rem;
 		}
 		.input-group-text {
-			background: #f7ba5b !important;
+			background: lightseagreen !important;
 			color: white !important;
 			border: 0 !important;
 			border-radius: 0.25rem 0 0 0.25rem !important;
 		}
-		.input_user,
-		.input_pass:focus {
-			box-shadow: none !important;
-			outline: 0px !important;
-		}
-
 		#messages{
 			background-color: grey;
 			color: #fff;
@@ -80,8 +72,6 @@
 		<div class="d-flex justify-content-center h-100">
 			<div class="user_card">
 				<div class="d-flex justify-content-center">
-
-
 					<h3 id="form-title">LOGIN</h3>
 				</div>
 				<div class="d-flex justify-content-center form_container">
@@ -97,25 +87,21 @@
 							<div class="input-group-append">
 								<span class="input-group-text"><i class="fas fa-key"></i></span>
 							</div>
-								<input type="password" name="password" placeholder="Password..." class="form-control" >
+								<input type="password" name="password" placeholder="Password..." class="form-control">
 						</div>
 
 							<div class="d-flex justify-content-center mt-3 login_container">
 				 				<input class="btn login_btn" type="submit" value="Login">
 				   			</div>
 					</form>
-
 				</div>
 				<div class="mt-4">
-
                     {% for message in messages %}
                         <p id="messages"> {{ message }}</p>
                     {% endfor %}
-
 					<div class="d-flex justify-content-center links">
-						Don't have an account? <a href="{% url 'signup' %}" class="ml-2">Sign Up</a>
+						Don't have an account? <a href="{% url 'signup' %}" class="ml-2" style="color: lightseagreen">Sign Up</a>
 					</div>
-
 				</div>
 			</div>
 		</div>
