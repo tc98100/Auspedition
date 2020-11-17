@@ -20,23 +20,39 @@ urlpatterns = [
     path('attractions/', views.attraction_list, name="attraction_list"),
     path('destinations/<str:destination>/', views.detailed_destination, name="destination_details"),
     path('attractions/<str:attraction>/', views.detailed_attraction, name="attraction_details"),
+
     path('recommendations/<str:recommendation>/', views.detailed_recommendation, name="recommendation_details"),
     path('recommendations/<str:recommendation>/edit/', views.edit, name="edit"),
+
+    path('attractions/delete/<str:comment_id>', views.delete_comment_attraction, name='delete_comment_attraction'),
+    path('destinations/delete/<str:comment_id>/<str:destination>/', views.delete_comment_destination, name='delete_comment_destination'),
 
     path('search-result/', views.search_result, name="search_result"),
     path('destination-result/', views.filter_state, name="destination_result"),
     path('attraction-result/', views.filter_city, name="attraction_result"),
 
     # temporary use, needs to be changed
-    path('profile', views.profile, name="profile"),
-    path('change-profile', views.profile_change, name="change_profile"),
+    path('profile/', views.profile, name="profile"),
+    path('change-profile/', views.profile_change, name="change_profile"),
 
     path('viewset/', include(apiRouter.urls)),
 
     # user
-    path('signup', views.signup, name="signup"),
-    path('login', views.login_user, name="login_user"),
-    path('logout', views.logout_user, name="logout")
+    path('signup/', views.signup, name="signup"),
+    path('login/', views.login_user, name="login_user"),
+    path('logout/', views.logout_user, name="logout"),
+    path('profile/change-password/', views.change_password, name='change_password'),
+
+
+    path('attractions/<str:attraction>/dislike/', views.dislike_post, name='dislike'),
+    path('attractions/<str:attraction>/like/', views.like_post, name='like'),
+    path('destinations/<str:destination>/like/', views.d_like_post, name='d_like'),
+    path('destinations/<str:destination>/dislike/', views.d_dislike_post, name='d_dislike'),
+
+    path('attractions/<str:attraction>/checkDislike/', views.a_check_dislike, name='a_check_dislike'),
+    path('attractions/<str:attraction>/checkLike/', views.a_check_like, name='a_check_like'),
+    path('destinations/<str:destination>/checkDislike/', views.d_check_dislike, name='d_check_dislike'),
+    path('destinations/<str:destination>/checkLike/', views.d_check_like, name='d_check_like'),
 
 ]
 
