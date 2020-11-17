@@ -4,79 +4,90 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Attractions</title>
-    <link rel="stylesheet" href="{% static 'custom.css'%}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-    </head>
+    <link rel="stylesheet" href="{% static 'custom.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+          integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+</head>
 <body>
-    {% include 'navbar.html' %}
-    <div id="attraction_jumbo">
-        <div class="container-fluid">
-            <div class="row rounded-pill mx-auto justify-content-center" style="width: 50%;margin:15%;font-size: 2.5rem;background-color: white;padding:0.5rem">
-                <form method="GET" style="width: 100%; margin: 0" action="{% url 'attraction_result' %}">
-                    <div class="form-row align-items-center">
-                        <div class="col-8 pl-3">
-                           <select class="custom-select custom-select-lg border-0 mb-1" id="inputGroupSelect01" name="city">
-                                <option selected>CITY</option>
-                                {% for place in city_list %}
+{% include 'navbar.html' %}
+<div id="attraction_jumbo">
+    <div class="container-fluid">
+        <div class="row rounded-pill mx-auto justify-content-center"
+             style="width: 50%;margin:15%;font-size: 2.5rem;background-color: white;padding:0.5rem">
+            <form method="GET" style="width: 100%; margin: 0" action="{% url 'attraction_result' %}">
+                <div class="form-row align-items-center">
+                    <div class="col-8 pl-3">
+                        <select class="custom-select custom-select-lg border-0 mb-1" id="inputGroupSelect01"
+                                name="city">
+                            <option selected>CITY</option>
+                            {% for place in city_list %}
                                 <option value="{{ place }}">{{ place }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="col-4">
-                            <button class="btn btn-outline-success btn-lg btn-block rounded-pill " type="submit">SEARCH</button>
-                        </div>
+                            {% endfor %}
+                        </select>
                     </div>
-                </form>
-            </div>
+                    <div class="col-4">
+                        <button class="btn btn-outline-success btn-lg btn-block rounded-pill " type="submit">SEARCH
+                        </button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
-    <div class="mt-5 ml-5 mr-5">
-        <div class="container-fluid ">
-            <div class="bg-transparent">
-                <h1 class="font-weight-bold" style="font-size: 1rem; color: lightseagreen">
-                    Wow that looks good!</h1>
-                <div class="row">
-                    <div class="col-8">
-                        <p class="font-weight-light" style="font-size: 3rem; color: slategray; line-height: 2rem">All Attractions
-                        </p>
-                    </div>
-                    <div class="col-4 text-right">
-                        <button type="button" id="loadAttractionBtn" class="btn btn-link" >LOAD MORE</button>
-                    </div>
+</div>
+<div class="mt-5 ml-5 mr-5">
+    <div class="container-fluid ">
+        <div class="bg-transparent">
+            <h1 class="font-weight-bold" style="font-size: 1rem; color: lightseagreen">
+                Wow that looks good!</h1>
+            <div class="row">
+                <div class="col-8">
+                    <p class="font-weight-light" style="font-size: 3rem; color: slategray; line-height: 2rem">All
+                        Attractions
+                    </p>
+                </div>
+                <div class="col-4 text-right">
+                    <button type="button" id="loadAttractionBtn" class="btn btn-link">LOAD MORE</button>
                 </div>
             </div>
         </div>
-        <div class="container-fluid mb-5">
-            <div class="row">
-                {% for place in Attractions|slice:":4" %}
-                    <div class="col-3 mb-2">
-                        <div class="card rounded-cus shadow">
-                            <a class="attraction" style="background-image: url({{place.image.url}}); display: block"></a>
-                            <div class="card-body">
-                                <p class="font-weight-bold text-center" style="font-size: 1.1rem; line-height: 1rem">{{place.name}}</p>
-                                <hr>
-                                <div class="row text-center">
-                                    <div class="col">
-                                        <p class=""><b>{{place.likes}}</b> likes</p>
-                                        <p><b>{{place.dislikes}}</b> dislikes</p>
-                                    </div>
-                                    <div class="col">
-                                        <a class="btn btn-success my-2" href="{% url 'attraction_details' attraction=place.attraction_id %}">see more</a>
-                                    </div>
+    </div>
+    <div class="container-fluid mb-5">
+        <div class="row">
+            {% for place in Attractions|slice:":4" %}
+                <div class="col-3 mb-2">
+                    <div class="card rounded-cus shadow">
+                        <a class="attraction" style="background-image: url({{ place.image.url }}); display: block"></a>
+                        <div class="card-body">
+                            <p class="font-weight-bold text-center"
+                               style="font-size: 1.1rem; line-height: 1rem">{{ place.name }}</p>
+                            <hr>
+                            <div class="row text-center">
+                                <div class="col">
+                                    <p class=""><b>{{ place.likes }}</b> likes</p>
+                                    <p><b>{{ place.dislikes }}</b> dislikes</p>
+                                </div>
+                                <div class="col">
+                                    <a class="btn btn-success my-2"
+                                       href="{% url 'attraction_details' attraction=place.attraction_id %}">see more</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                {% endfor %}
-            </div>
+                </div>
+            {% endfor %}
         </div>
+        <div id="attractions">
+
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    {% include 'footer.html' %}
-    <script src = "{% static 'load-more-attraction.js' %}"></script>
-    <script src = "{% static 'index.js'%}"></script>
-    {% include 'external.html' %}
+</div>
+</div>
+<div style="padding-bottom: 25px"></div>
+</div>
+{% include 'footer.html' %}
+<script src="{% static 'load-attraction.js' %}"></script>
+
+{% include 'external.html' %}
 </body>
 </html>
