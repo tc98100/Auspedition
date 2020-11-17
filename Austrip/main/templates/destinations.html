@@ -16,7 +16,6 @@
         <div class="container-fluid">
             <div class="row rounded-pill mx-auto justify-content-center" style="width: 50%;margin:15%;font-size: 2.5rem;background-color: white;padding:0.5rem">
                 <form style="width: 100%; margin: 0" method="GET" action="{% url 'destination_result' %}">
-                    {% csrf_token %}
                     <div class="form-row align-items-center">
                         <div class="col-8 pl-3">
                             <select class="custom-select custom-select-lg border-0 mb-1"  id="inputGroupSelect01" name="state">
@@ -36,10 +35,6 @@
                         </div>
                     </div>
                 </form>
-
-{#                <div class="col-2" style="justify-content: center;display: flex;align-items:center;">#}
-{#                    <button style="margin-right: -0.5rem" class="btn btn-outline-success btn-lg btn-block rounded-pill" type="submit">SEARCH</button>#}
-{#                </div>#}
             </div>
         </div>
     </div>
@@ -48,10 +43,9 @@
             <div class="bg-transparent">
                 <h1 class="font-weight-bold "style="font-size: 1rem; color: lightseagreen">
                     VISIT AMAZING PLACES</h1>
-
                 <div class="row">
                     <div class="col-8">
-                        <p class="font-weight-light" style="font-size: 3rem; color: slategray; line-height: 2rem">Popular Destinations
+                        <p class="font-weight-light" style="font-size: 3rem; color: slategray; line-height: 2rem">All Destinations
                         </p>
                     </div>
                     <div class="col-4 text-right">
@@ -61,7 +55,7 @@
             </div>
         </div>
         <div class="container-fluid">
-            <div class="row justify-content-between">
+            <div class="row">
                 {% for city in Destinations|slice:":4" %}
                     <div class="col-3 mb-2">
                         <div class="card rounded-cus shadow">
@@ -71,8 +65,8 @@
                                 <hr>
                                 <div class="row text-center">
                                     <div class="col">
-                                        <p class=""><b>{{city.likes}}</b> people liked it</p>
-                                        <p><b>{{city.dislikes}}</b> people disliked it</p>
+                                        <p class=""><b>{{city.likes}}</b> likes</p>
+                                        <p><b>{{city.dislikes}}</b> dislikes</p>
                                     </div>
                                     <div class="col">
                                         <a class="btn btn-success my-2" href="{% url 'destination_details' destination=city.destination_id %}">see more</a>

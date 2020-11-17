@@ -32,16 +32,17 @@ urlpatterns = [
     path('attraction-result/', views.filter_city, name="attraction_result"),
 
     # temporary use, needs to be changed
-    path('profile', views.profile, name="profile"),
-    path('change-profile', views.profile_change, name="change_profile"),
+    path('profile/', views.profile, name="profile"),
+    path('change-profile/', views.profile_change, name="change_profile"),
 
     path('viewset/', include(apiRouter.urls)),
 
     # user
-    path('signup', views.signup, name="signup"),
-    path('login', views.login_user, name="login_user"),
-    path('logout', views.logout_user, name="logout"),
-    path('profile/change-password', views.change_password, name='change_password')
+    path('signup/', views.signup, name="signup"),
+    path('login/', views.login_user, name="login_user"),
+    path('logout/', views.logout_user, name="logout"),
+    path('profile/change-password/', views.change_password, name='change_password'),
+
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
