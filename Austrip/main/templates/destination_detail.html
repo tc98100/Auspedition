@@ -98,7 +98,6 @@
                     </div>
                     <div class="messageText ml-2 container m-2">{{ comment.comment_content }}</div>
                 </div>
-                <div class="messageText ml-2 container m-2">{{ comment.comment_content }}</div>
             </div>
         {% endfor %}
         <div id="d-comments"></div>
@@ -118,13 +117,11 @@
 </div>
 </form>
 
-
-<script src="{% static 'destination-like-dislike-function.js' %}"></script>
-<script src="{% static 'destination-check-like-function.js' %}"></script>
+<script src="{% static 'destination-like-functions.js' %}"></script>
+<script src="{% static 'destination-bookmark-function.js' %}"></script>
 
 {% include 'footer.html' %}
 <script src="{% static 'load_destination_comments.js' %}"></script>
-<script src="{% static 'destinationBookmarkFunction.js' %}"></script>
 <script src="{% static 'index.js' %}"></script>
 {% include 'external.html' %}
 </body>

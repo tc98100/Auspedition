@@ -1,10 +1,16 @@
 var script = document.createElement('script');
 script.src = '//code.jquery.com/jquery-1.11.0.min.js';
+
 document.getElementsByTagName('head')[0].appendChild(script);
-window.onload = function () {
-    checkLikes()
-    checkDislikes()
-}
+
+window.addEventListener("load", checkLikes, false);
+window.addEventListener("load", checkDislikes, false);
+
+let destinationLikeBtn = document.getElementById("d-like-btn")
+let destinationLikeCount = document.getElementById("d-like-count")
+
+let destinationDislikeBtn = document.getElementById("d-dislike-btn")
+let destinationDislikeCount = document.getElementById("d-dislike-count")
 
 function checkLikes() {
     $.ajax({
@@ -14,14 +20,9 @@ function checkLikes() {
             csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value,
         },
         success: function (data) {
-            if (data.toString() === "1") {
-                likeBtn.style.color = "#008000"
-            } else {
-                likeBtn.style.color = "#a9a9a9"
-            }
+            destinationLikeBtn.style.color = data
         },
         error: function (xhr, errmsg, err) {
-
         }
     });
 }
@@ -34,55 +35,51 @@ function checkDislikes() {
             csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value,
         },
         success: function (data) {
-            if (data.toString() === "0") {
-                dislikeBtn.style.color = "#a9a9a9"
-            } else {
-                dislikeBtn.style.color = "#ff0000"
-            }
+            destinationDislikeBtn.style.color = data
         },
         error: function (xhr, errmsg, err) {
-
         }
     });
 }
 
-let likeBtn = document.getElementById("d-like-btn")
-likeBtn.addEventListener("click", () => {
+
+destinationLikeBtn.addEventListener('click', () => {
+    alert("Like button clicked, data update process may be slow.")
     $.ajax({
-        type: 'GET',
-        url: 'checkLike/',
+        type: 'POST',
+        url: 'like/',
         data: {
             csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value,
         },
         success: function (data) {
-            if (data.toString() === "0") {
-                likeBtn.style.color = "#008000"
-            } else {
-                likeBtn.style.color = "#a9a9a9"
-            }
+            destinationLikeCount.innerHTML = data
         },
         error: function (xhr, errmsg, err) {
 
+        },
+        complete: function (response) {
+            checkLikes()
         }
     });
 })
-let dislikeBtn = document.getElementById("d-dislike-btn")
-dislikeBtn.addEventListener("click", () => {
+destinationDislikeBtn.addEventListener('click', () => {
+    alert("Dislike button clicked, data update process may be slow")
     $.ajax({
-        type: 'GET',
-        url: 'checkDislike/',
+        type: 'POST',
+        url: 'dislike/',
         data: {
             csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value,
         },
         success: function (data) {
-            if (data.toString() === "1") {
-                dislikeBtn.style.color = "#a9a9a9"
-            } else {
-                dislikeBtn.style.color = "#ff0000"
-            }
+            destinationDislikeCount.innerHTML = data
+
         },
         error: function (xhr, errmsg, err) {
 
+        },
+        complete: function (response) {
+            checkDislikes()
         }
-    });
-})
+
+    })
+});

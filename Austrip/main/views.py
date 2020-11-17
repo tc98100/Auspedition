@@ -5,11 +5,11 @@ from django.contrib.auth import authenticate, login, logout, update_session_auth
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import Group
-from django.shortcuts import render, redirect,get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.shortcuts import render, redirect
 from rest_framework import viewsets
-from django.db.models import Q,F
+from django.db.models import Q, F
 from .decorators import *
 from django_filters.rest_framework import DjangoFilterBackend
 
@@ -17,6 +17,7 @@ from .forms import CreateUserForm, ChangeUserInfo, ChangePicBio, EditRecommendat
 from .models import *
 from .serializers import *
 from django.http import HttpResponse
+
 
 def edit(request, recommendation):
     specific_recommendation = Recommendation.objects.get(recommendation_id=recommendation)
@@ -87,24 +88,25 @@ def logout_user(request):
 
 
 @login_required(login_url='login_user')
-def d_like_post(request,destination):
-    result=''
-    destinationObj = get_object_or_404(Destination,destination_id=destination)
-    if(destinationObj.userLike.filter(id=request.user.id)).exists():
+def d_like_post(request, destination):
+    result = ''
+    destinationObj = get_object_or_404(Destination, destination_id=destination)
+    if (destinationObj.userLike.filter(id=request.user.id)).exists():
         destinationObj.userLike.remove(request.user)
-        destinationObj.likes-=1
-        result=destinationObj.likes
+        destinationObj.likes -= 1
+        result = destinationObj.likes
         destinationObj.save()
     else:
         destinationObj.userLike.add(request.user)
         destinationObj.likes += 1
-        result=destinationObj.likes
+        result = destinationObj.likes
         destinationObj.save()
 
     return HttpResponse(result)
 
+
 @login_required(login_url='login_user')
-def d_dislike_post(request,destination):
+def d_dislike_post(request, destination):
     result = ''
     destinationObj = get_object_or_404(Destination, destination_id=destination)
     if (destinationObj.userDislike.filter(id=request.user.id)).exists():
@@ -119,56 +121,113 @@ def d_dislike_post(request,destination):
         destinationObj.save()
     return HttpResponse(result)
 
+
 @login_required(login_url='login_user')
-def d_check_like(request,destination):
+def d_check_like(request, destination):
     destination_obj = get_object_or_404(Destination, destination_id=destination)
     if (destination_obj.userLike.filter(id=request.user.id)).exists():
-        return HttpResponse(1);
+        return HttpResponse("#008000")
     else:
-       return HttpResponse(0);
+        return HttpResponse("#a9a9a9")
+
+
 @login_required(login_url='login_user')
-def d_check_dislike(request,destination):
+def d_check_dislike(request, destination):
     destination_obj = get_object_or_404(Destination, destination_id=destination)
     if (destination_obj.userDislike.filter(id=request.user.id)).exists():
-        return HttpResponse(1);
+        return HttpResponse("#ff0000")
     else:
-       return HttpResponse(0);
+        return HttpResponse("#a9a9a9")
+
 
 @login_required(login_url='login_user')
-def a_check_like(request,attraction):
+def a_check_like(request, attraction):
     attraction_obj = get_object_or_404(Attraction, attraction_id=attraction)
     if (attraction_obj.userLike.filter(id=request.user.id)).exists():
-        return HttpResponse(1);
+        return HttpResponse("#008000")
     else:
-       return HttpResponse(0);
+        return HttpResponse("#a9a9a9")
+
+
+
+
 @login_required(login_url='login_user')
-def a_check_dislike(request,attraction):
+def a_check_dislike(request, attraction):
     attraction_obj = get_object_or_404(Attraction, attraction_id=attraction)
     if (attraction_obj.userDislike.filter(id=request.user.id)).exists():
-        return HttpResponse(1);
+        return HttpResponse("#ff0000")
     else:
-       return HttpResponse(0);
+        return HttpResponse("#a9a9a9")
+
+
 
 
 @login_required(login_url='login_user')
-def like_post(request,attraction):
-    result=''
-    attraction2 = get_object_or_404(Attraction,attraction_id=attraction)
-    if(attraction2.userLike.filter(id=request.user.id)).exists():
+def a_check_bookmark(request, attraction):
+    attraction_obj = get_object_or_404(Attraction, attraction_id=attraction)
+    if (attraction_obj.bookmark.filter(id=request.user.id)).exists():
+        return HttpResponse("#daa520")
+    else:
+        return HttpResponse("#a9a9a9")
+
+
+@login_required(login_url='login_user')
+def d_check_bookmark(request, destination):
+    destination_obj = get_object_or_404(Destination, destination_id=destination)
+    if (destination_obj.bookmark.filter(id=request.user.id)).exists():
+        return HttpResponse("#daa520")
+    else:
+        return HttpResponse("#a9a9a9")
+
+
+@login_required(login_url='login_user')
+def d_bookmark(request, destination):
+    destinationObj = get_object_or_404(Destination, destination_id=destination)
+    if (destinationObj.bookmark.filter(id=request.user.id)).exists():
+        destinationObj.bookmark.remove(request.user)
+        destinationObj.save()
+        return HttpResponse("#a9a9a9")
+
+    else:
+        destinationObj.bookmark.add(request.user)
+        destinationObj.save()
+        return HttpResponse("#daa520")
+
+
+@login_required(login_url='login_user')
+def a_bookmark(request, attraction):
+    attractionObj = get_object_or_404(Attraction, attraction_id=attraction)
+    if (attractionObj.bookmark.filter(id=request.user.id)).exists():
+        attractionObj.bookmark.remove(request.user)
+        attractionObj.save()
+        return HttpResponse("#a9a9a9")
+
+    else:
+        attractionObj.bookmark.add(request.user)
+        attractionObj.save()
+        return HttpResponse("#daa520")
+
+
+@login_required(login_url='login_user')
+def like_post(request, attraction):
+    result = ''
+    attraction2 = get_object_or_404(Attraction, attraction_id=attraction)
+    if (attraction2.userLike.filter(id=request.user.id)).exists():
         attraction2.userLike.remove(request.user)
-        attraction2.likes-=1
-        result=attraction2.likes
+        attraction2.likes -= 1
+        result = attraction2.likes
         attraction2.save()
     else:
         attraction2.userLike.add(request.user)
         attraction2.likes += 1
-        result=attraction2.likes
+        result = attraction2.likes
         attraction2.save()
 
     return HttpResponse(result)
 
+
 @login_required(login_url='login_user')
-def dislike_post(request,attraction):
+def dislike_post(request, attraction):
     result = ''
     attraction2 = get_object_or_404(Attraction, attraction_id=attraction)
     if (attraction2.userDislike.filter(id=request.user.id)).exists():
@@ -182,6 +241,7 @@ def dislike_post(request,attraction):
         result = attraction2.dislikes
         attraction2.save()
     return HttpResponse(result)
+
 
 @unauthenticated_user
 def signup(request):
@@ -351,7 +411,7 @@ class AttractionCommentModelViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['comment_on']
 
+
 class RecommendationModelViewSet(viewsets.ModelViewSet):
     serializer_class = RecommendationSerializer
     queryset = Recommendation.objects.all()
-

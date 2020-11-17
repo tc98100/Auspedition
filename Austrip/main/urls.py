@@ -54,6 +54,12 @@ urlpatterns = [
     path('destinations/<str:destination>/checkDislike/', views.d_check_dislike, name='d_check_dislike'),
     path('destinations/<str:destination>/checkLike/', views.d_check_like, name='d_check_like'),
 
+    path('destinations/<str:destination>/checkBookmark/', views.d_check_bookmark, name='d_check_bookmark'),
+    path('attractions/<str:attraction>/checkBookmark/', views.a_check_bookmark, name='a_check_bookmark'),
+
+    path('destinations/<str:destination>/bookmark/', views.d_bookmark, name='d_bookmark'),
+    path('attractions/<str:attraction>/bookmark/', views.a_bookmark, name='a_bookmark'),
+
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
