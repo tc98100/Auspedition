@@ -169,16 +169,6 @@
 
 .profileImg{
     margin: auto;
-    text-align: center;
-    width:  12rem;
-    height: 12rem;
-
-}
-
-.profileImg img{
-    width:  12rem;
-    height: 12rem;
-    object-fit: cover;
 }
 
 .profileImg .uploadedFile {
@@ -227,7 +217,7 @@ body .userProfile{
 }
 
 #editBtn:hover{
-    background-color: #4CAF50;
+    background-color: #0c180c;
     border-color: #4CAF50;
     color: white;
 }
