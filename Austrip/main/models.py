@@ -2,23 +2,6 @@ from PIL import Image
 from django.db import models
 from django.contrib.auth.models import User
 
-
-class UserInfo(models.Model):
-    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
-    bio = models.TextField()
-    image = models.ImageField()
-
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-        image = Image.open(self.image.path)
-        if image.mode in ("RGBA", "P"):
-            image = image.convert("RGB")
-        if image.height > 300 or image.width > 300:
-            output_size = (300, 300)
-            image.thumbnail(output_size)
-            image.save(self.image.path)
-
-
 class Destination(models.Model):
     destination_id = models.CharField(max_length=40, primary_key=True)
     state = models.CharField(max_length=30)
@@ -31,7 +14,6 @@ class Destination(models.Model):
     click_count = models.IntegerField()
     userLike = models.ManyToManyField(User, related_name="Dlike", default=None, blank=True)
     userDislike = models.ManyToManyField(User, related_name="DDislike", default=None, blank=True)
-
     bookmark = models.ManyToManyField(User, related_name="DBookmark", default=None, blank=True)
 
     def __str__(self):
@@ -53,6 +35,24 @@ class Attraction(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class UserInfo(models.Model):
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    bio = models.TextField()
+    image = models.ImageField(default='image.png')
+    # attraction_bookmark = models.ManyToManyField(Attraction, related_name="Abook", default=None, blank=True)
+    # destination_bookmark = models.ManyToManyField(Destination, related_name="Dbook", default=None, blank=True)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        image = Image.open(self.image.path)
+        if image.mode in ("RGBA", "P"):
+            image = image.convert("RGB")
+        if image.height > 300 or image.width > 300:
+            output_size = (300, 300)
+            image.thumbnail(output_size)
+            image.save(self.image.path)
 
 
 class DestinationComment(models.Model):
