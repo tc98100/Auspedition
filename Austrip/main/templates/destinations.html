@@ -43,10 +43,17 @@
             <div class="bg-transparent">
                 <h1 class="font-weight-bold "style="font-size: 1rem; color: lightseagreen">
                     VISIT AMAZING PLACES</h1>
-                    <p class="font-weight-light" style="font-size: 3rem; color: slategray; line-height: 2rem">All destinations</p>
+                <div class="row">
+                    <div class="col-8">
+                        <p class="font-weight-light" style="font-size: 3rem; color: slategray; line-height: 2rem">All Destinations
+                        </p>
+                    </div>
+                    <div class="col-4 text-right">
+                        <button type="button" id="loadDestinationBtn" class="btn btn-link" >LOAD MORE</button>
+                    </div>
+                </div>
             </div>
         </div>
-    <button id="loadDestinationBtn">Load More</button>
         <div class="container-fluid">
             <div class="row">
                 {% for city in Destinations|slice:":4" %}

@@ -1,14 +1,18 @@
+import urllib
+
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import Group
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from rest_framework import viewsets
 from django.db.models import Q
 from .decorators import *
 from django_filters.rest_framework import DjangoFilterBackend
 
-from .forms import CreateUserForm, ChangeUserInfo, ChangePicBio, EditRecommendation
+from .forms import CreateUserForm, ChangeUserInfo, ChangePicBio, EditRecommendation, AddCommentAttraction
 from .models import *
 from .serializers import *
 
@@ -21,8 +25,7 @@ def edit(request, recommendation):
             edit_form.save()
     else:
         edit_form = EditRecommendation(instance=specific_recommendation)
-    context = {'recommendation': specific_recommendation, 'edit': edit_form}
-    return render(request, "staff_recommendation.html", context)
+    return render(request, "staff_recommendation.html", {'recommendation': specific_recommendation, 'edit': edit_form})
 
 
 @login_required(login_url='login_user')
@@ -44,6 +47,21 @@ def profile_change(request):
         change_form = ChangeUserInfo(instance=request.user)
         change_pic_bio = ChangePicBio(instance=request.user.userinfo)
     return render(request, "profile_change.html", {'change_form': change_form, 'change_pic': change_pic_bio})
+
+
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('profile')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'change_password.html', {'form': form})
 
 
 @unauthenticated_user
@@ -76,9 +94,6 @@ def signup(request):
             new_user = form.save()
             username = form.cleaned_data.get('username')
 
-            group = Group.objects.get(name='user')
-            new_user.groups.add(group)
-
             UserInfo.objects.create(
                 user=new_user,
             )
@@ -92,8 +107,8 @@ def home(request):
     Destinations = Destination.objects.order_by('-click_count')[:3]
     Attractions = Attraction.objects.order_by('-click_count')[:3]
     Recommendations = Recommendation.objects.all()[:3]
-    context = {'Destinations': Destinations, 'Attractions': Attractions, 'Recommendations': Recommendations}
-    return render(request, 'home.html', context)
+    context_home = {'Destinations': Destinations, 'Attractions': Attractions, 'Recommendations': Recommendations}
+    return render(request, 'home.html', context_home)
 
 
 def destination_list(request):
@@ -115,6 +130,13 @@ def detailed_destination(request, destination):
     city.click_count += 1
     city.save()
     comments = city.destinationcomment_set.all().order_by('-created_time')
+    if request.method == 'POST':
+        add_comment = request.POST.get('add_comment')
+        DestinationComment.objects.create(
+            user=request.user,
+            comment_on=city,
+            comment_content=add_comment
+        )
     return render(request, "destination_detail.html", {'city': city, 'comments': comments})
 
 
@@ -123,12 +145,35 @@ def detailed_attraction(request, attraction):
     place.click_count += 1
     place.save()
     comments = place.attractioncomment_set.all()
-    return render(request, "attraction_detail.html", {'place': place, 'comments': comments})
+    if request.method == 'POST':
+        add_comment = request.POST.get('add_comment')
+        AttractionComment.objects.create(
+            user=request.user,
+            comment_on=place,
+            comment_content=add_comment
+        )
+    context = {'place': place, 'comments': comments}
+    return render(request, "attraction_detail.html", context)
+
+
+def delete_comment_attraction(request, comment_id):
+    comment = AttractionComment.objects.get(commentId=comment_id)
+    comment.delete()
+    return render(request, 'test.html', {'comment': comment})
+
+
+def delete_comment_destination(request, comment_id, destination):
+    city = Destination.objects.get(destination_id=destination)
+    comment = DestinationComment.objects.get(commentId=comment_id)
+    comment.delete()
+    # context = {'comment': comment, 'city': city}
+    return render(request, 'test.html', {'comment': comment})
 
 
 def detailed_recommendation(request, recommendation):
     specific_recommendation = Recommendation.objects.get(recommendation_id=recommendation)
     return render(request, "recommendation.html", {'recommendation': specific_recommendation})
+
 
 def search_result(request):
     user_input = ''
