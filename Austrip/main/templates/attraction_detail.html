@@ -85,6 +85,9 @@
                                 <span>User# {{ comment.user.id }}</span>
                                 <span class="summary-text small">{{ comment.created_time }}</span>
                             </a>
+                            {% if request.user.is_superuser %}
+                                <a class="btn btn-success my-2" href="{% url 'delete_comment_attraction' comment_id=comment.commentId %}">Delete</a>
+                            {% endif %}
                         </div>
                         <div class="messageText ml-2 container m-2">{{ comment.comment_content }}</div>
                     </div>
@@ -97,10 +100,22 @@
         <button id="aLoadMoreBtn" value="{{ place.attraction_id }}">Load more</button>
     </div>
     <div class="ml-4">
-        <form>
-            <textarea name="note" style="width: 100%;"></textarea>
-            <button type="submit" class="btn  btn-info" >Sent</button>
+        <form class="form-inline my-2 my-lg-0 mx-3" method="POST" action="{% url 'attraction_details' attraction=place.attraction_id %}">
+            {% csrf_token %}
+            <input class="form-control mr-sm-2 px-3" type="text" placeholder="Add a comment..." name="add_comment" value="{{ request.POST.add_comment }}">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Post</button>
         </form>
+
+{#        <input class="form-control mr-sm-2 px-3" type="text" placeholder="Add a comment..." name="add_comment" value="{{ request.POST.add_comment }}">#}
+{#        <form method='POST' name="add_comment">#}
+{#            {% csrf_token %}#}
+{#            {{ add_comment }}#}
+{#            <input class="btn comment" type="submit" value="Comment">#}
+{#        </form>#}
+{#        <form>#}
+{#            <textarea name="note" style="width: 100%;"></textarea>#}
+{#            <button type="submit" class="btn  btn-info" >Sent</button>#}
+{#        </form>#}
     </div>
 
 

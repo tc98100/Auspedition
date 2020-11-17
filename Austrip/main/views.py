@@ -1,14 +1,18 @@
+import urllib
+
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import Group
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from rest_framework import viewsets
 from django.db.models import Q
 from .decorators import *
 from django_filters.rest_framework import DjangoFilterBackend
 
-from .forms import CreateUserForm, ChangeUserInfo, ChangePicBio, EditRecommendation
+from .forms import CreateUserForm, ChangeUserInfo, ChangePicBio, EditRecommendation, AddCommentAttraction
 from .models import *
 from .serializers import *
 
@@ -46,6 +50,21 @@ def profile_change(request):
     return render(request, "profile_change.html", {'change_form': change_form, 'change_pic': change_pic_bio})
 
 
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('profile')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'change_password.html', {'form': form})
+
+
 @unauthenticated_user
 def login_user(request):
     if request.method == 'POST':
@@ -71,9 +90,6 @@ def signup(request):
         if form.is_valid():
             new_user = form.save()
             username = form.cleaned_data.get('username')
-
-            group = Group.objects.get(name='user')
-            new_user.groups.add(group)
 
             UserInfo.objects.create(
                 user=new_user,
@@ -109,18 +125,49 @@ def attraction_list(request):
 def detailed_destination(request, destination):
     city = Destination.objects.get(destination_id=destination)
     comments = city.destinationcomment_set.all()
-    return render(request, "destination_detail.html", {'city': city, 'comments': comments})
+    if request.method == 'POST':
+        add_comment = request.POST.get('add_comment')
+        DestinationComment.objects.create(
+            user=request.user,
+            comment_on=city,
+            comment_content=add_comment
+        )
+    context = {'city': city, 'comments': comments}
+    return render(request, "destination_detail.html", context)
 
 
 def detailed_attraction(request, attraction):
     place = Attraction.objects.get(attraction_id=attraction)
     comments = place.attractioncomment_set.all()
-    return render(request, "attraction_detail.html", {'place': place, 'comments': comments})
+    if request.method == 'POST':
+        add_comment = request.POST.get('add_comment')
+        AttractionComment.objects.create(
+            user=request.user,
+            comment_on=place,
+            comment_content=add_comment
+        )
+    context = {'place': place, 'comments': comments}
+    return render(request, "attraction_detail.html", context)
+
+
+def delete_comment_attraction(request, comment_id):
+    comment = AttractionComment.objects.get(commentId=comment_id)
+    comment.delete()
+    return render(request, 'test.html', {'comment': comment})
+
+
+def delete_comment_destination(request, comment_id, destination):
+    city = Destination.objects.get(destination_id=destination)
+    comment = DestinationComment.objects.get(commentId=comment_id)
+    comment.delete()
+    context = {'comment': comment, 'city': city}
+    return render(request, 'test.html', {'comment': comment})
 
 
 def detailed_recommendation(request, recommendation):
     specific_recommendation = Recommendation.objects.get(recommendation_id=recommendation)
     return render(request, "recommendation.html", {'recommendation': specific_recommendation})
+
 
 def search_result(request):
     user_input = ''
@@ -175,7 +222,6 @@ def filter_city(request):
 #     city = Destination.objects.get(destination_id=destination)
 #     city.click_count += 1
 #     city.save(update_fields=['click_field'])
-
 
 class DestinationModelViewSet(viewsets.ModelViewSet):
     serializer_class = DestinationSerializer
