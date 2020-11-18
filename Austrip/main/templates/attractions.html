@@ -12,11 +12,11 @@
 </head>
 <body>
     {% include 'navbar.html' %}
+    <!--Search bar in attraction -->
     <div id="attraction_jumbo">
         <div class="container-fluid">
-            <div class="row rounded-pill mx-auto justify-content-center"
-                style="width: 50%;margin:15%;font-size: 2.5rem;background-color: white;padding:0.5rem">
-                <form method="GET" style="width: 100%; margin: 0" action="{% url 'attraction_result' %}">
+            <div class="row rounded-pill mx-auto justify-content-center attractionSearchPic">
+                <form class="attractionForm" method="GET" action="{% url 'attraction_result' %}">
                     <div class="form-row align-items-center">
                         <div class="col-8 pl-3">
                             <select class="custom-select custom-select-lg border-0 mb-1" id="inputGroupSelect01"
@@ -36,22 +36,22 @@
             </div>
         </div>
     </div>
-
+    <!--attraction Font-->
     <div class="mt-5 ml-5 mr-5">
         <div class="container-fluid ">
             <div class="bg-transparent">
-                <h1 class="font-weight-bold" style="font-size: 1rem; color: lightseagreen">
+                <h1 class="font-weight-bold attractionFontA">
                     Wow that looks good!</h1>
                 <div class="row">
                     <div class="col-8">
-                        <p class="font-weight-light" style="font-size: 3rem; color: slategray; line-height: 2rem">All
+                        <p class="font-weight-light attractionFontB">All
                             Attractions
                         </p>
                     </div>
                 </div>
             </div>
         </div>
-
+        <!--Attraction Lists-->
         <div class="container-fluid mb-5">
             <div class="row">
                 {% for place in Attractions|slice:":4" %}
@@ -59,8 +59,8 @@
                         <div class="card rounded-cus shadow">
                             <a class="attraction" style="background-image: url({{ place.image.url }}); display: block"></a>
                             <div class="card-body">
-                                <p class="font-weight-bold text-center"
-                                style="font-size: 1.1rem; line-height: 1rem">{{ place.name }}</p>
+                                <p class="font-weight-bold text-center attractionCardText"
+                                >{{ place.name }}</p>
                                 <hr>
                                 <div class="row text-center">
                                     <div class="col">
