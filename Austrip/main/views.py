@@ -1,24 +1,16 @@
-import urllib
-
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
-from django.contrib.auth.models import Group
 from django.shortcuts import render, redirect, get_object_or_404
-from django.urls import reverse
-from django.shortcuts import render, redirect
-from rest_framework import viewsets
 from django.db.models import Q, F
-from .decorators import *
 from django_filters.rest_framework import DjangoFilterBackend
-from django.forms.models import model_to_dict
+from rest_framework import viewsets
 
+from .decorators import *
 from .forms import CreateUserForm, ChangeUserInfo, ChangePicBio, EditRecommendation, AddCommentAttraction
-from .models import *
 from .serializers import *
-from django.http import HttpResponse,JsonResponse
-import json as simplejson
+from django.http import HttpResponse, JsonResponse
 
 
 def edit(request, recommendation):
@@ -82,15 +74,12 @@ def change_password(request):
     return render(request, 'change_password.html', {'form': form})
 
 
-@unauthenticated_user
 def login_user(request):
     if request.method == 'POST':
         user = authenticate(request, username=request.POST.get('username'), password=request.POST.get('password'))
         if user is not None:
             login(request, user)
-            response = redirect('home')
-            response.set_cookie('username', request.POST.get('username'), 60)
-            return response
+            return redirect('home')
         else:
             messages.info(request, 'Invalid username or password :(')
     return render(request, 'login_user.html')
@@ -98,7 +87,6 @@ def login_user(request):
 
 def logout_user(request):
     response = redirect('home')
-    response.delete_cookie('username')
     logout(request)
     return response
 
@@ -165,8 +153,6 @@ def a_check_like(request, attraction):
         return HttpResponse("#a9a9a9")
 
 
-
-
 @login_required(login_url='login_user')
 def a_check_dislike(request, attraction):
     attraction_obj = get_object_or_404(Attraction, attraction_id=attraction)
@@ -176,8 +162,6 @@ def a_check_dislike(request, attraction):
         return HttpResponse("#a9a9a9")
 
 
-
-
 @login_required(login_url='login_user')
 def a_check_bookmark(request, attraction):
     userObj = get_object_or_404(UserInfo, user=request.user.id)
@@ -185,7 +169,6 @@ def a_check_bookmark(request, attraction):
         return HttpResponse("#daa520")
     else:
         return HttpResponse("#a9a9a9")
-
 
 
 @login_required(login_url='login_user')
@@ -301,7 +284,7 @@ def attraction_list(request):
 
 
 def detailed_destination(request, destination):
-    city = get_object_or_404(Destination,destination_id=destination)
+    city = get_object_or_404(Destination, destination_id=destination)
     city.click_count += 1
     city.save()
     comments = city.destinationcomment_set.all()
