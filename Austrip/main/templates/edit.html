@@ -9,7 +9,7 @@
     <form method="POST" action="">
         {{ form.comment_content }}
         {% csrf_token %}
-        <input class="btn login_btn" type="submit" href="{% url 'edit_comment_destination' comment_id=comment.commentId %}" value="Change Password">
+        <input class="btn login_btn" type="submit" href="{% url 'edit_comment_destination' comment_id=comment.commentId destination=city.destination_id %}" value="Submit">
     </form>
 </body>
 </html>

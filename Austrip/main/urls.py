@@ -28,7 +28,7 @@ urlpatterns = [
     path('attractions/edit/<str:comment_id>/', views.edit_comment_attraction, name='edit_comment_attraction'),
 
     path('destinations/<str:destination>/delete/<str:comment_id>/', views.delete_comment_destination, name='delete_comment_destination'),
-    path('destinations/edit/<str:comment_id>/', views.edit_comment_destination, name='edit_comment_destination'),
+    path('destinations/<str:destination>/edit/<str:comment_id>/', views.edit_comment_destination, name='edit_comment_destination'),
 
     path('search-result/', views.search_result, name="search_result"),
     path('destination-result/', views.filter_state, name="destination_result"),
