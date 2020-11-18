@@ -12,11 +12,13 @@ from rest_framework import viewsets
 from django.db.models import Q, F
 from .decorators import *
 from django_filters.rest_framework import DjangoFilterBackend
+from django.forms.models import model_to_dict
 
 from .forms import CreateUserForm, ChangeUserInfo, ChangePicBio, EditRecommendation, AddCommentAttraction
 from .models import *
 from .serializers import *
-from django.http import HttpResponse
+from django.http import HttpResponse,JsonResponse
+import json as simplejson
 
 
 def edit(request, recommendation):
@@ -33,6 +35,20 @@ def edit(request, recommendation):
 @login_required(login_url='login_user')
 def profile(request):
     return render(request, "profile.html")
+
+@login_required(login_url='login_user')
+def profile_a_bookmarks(request):
+    userObj = get_object_or_404(UserInfo, user=request.user.id)
+    aBook = userObj.attraction_bookmark.all()
+    all_pro = aBook.values('name', 'image', 'attraction_id')
+    return JsonResponse(list(all_pro),safe =False)
+
+@login_required(login_url='login_user')
+def profile_d_bookmarks(request):
+    userObj = get_object_or_404(UserInfo, user=request.user.id)
+    dBook = userObj.destination_bookmark.all()
+    all_pro = dBook.values('name', 'image', 'destination_id')
+    return JsonResponse(list(all_pro),safe =False)
 
 
 @login_required(login_url='login_user')
@@ -164,17 +180,18 @@ def a_check_dislike(request, attraction):
 
 @login_required(login_url='login_user')
 def a_check_bookmark(request, attraction):
-    attraction_obj = get_object_or_404(Attraction, attraction_id=attraction)
-    if (attraction_obj.bookmark.filter(id=request.user.id)).exists():
+    userObj = get_object_or_404(UserInfo, user=request.user.id)
+    if(userObj.attraction_bookmark.filter(attraction_id=attraction)).exists():
         return HttpResponse("#daa520")
     else:
         return HttpResponse("#a9a9a9")
 
 
+
 @login_required(login_url='login_user')
 def d_check_bookmark(request, destination):
-    destination_obj = get_object_or_404(Destination, destination_id=destination)
-    if (destination_obj.bookmark.filter(id=request.user.id)).exists():
+    userObj = get_object_or_404(UserInfo, user=request.user.id)
+    if (userObj.destination_bookmark.filter(destination_id=destination)).exists():
         return HttpResponse("#daa520")
     else:
         return HttpResponse("#a9a9a9")
@@ -182,29 +199,29 @@ def d_check_bookmark(request, destination):
 
 @login_required(login_url='login_user')
 def d_bookmark(request, destination):
-    destinationObj = get_object_or_404(Destination, destination_id=destination)
-    if (destinationObj.bookmark.filter(id=request.user.id)).exists():
-        destinationObj.bookmark.remove(request.user)
-        destinationObj.save()
+    userObj = get_object_or_404(UserInfo, user=request.user.id)
+    destinationObj = get_object_or_404(Destination,destination_id = destination)
+    if (userObj.destination_bookmark.filter(destination_id=destination)).exists():
+        userObj.destination_bookmark.remove(destinationObj)
+        userObj.save()
         return HttpResponse("#a9a9a9")
-
     else:
-        destinationObj.bookmark.add(request.user)
-        destinationObj.save()
+        userObj.destination_bookmark.add(destinationObj)
+        userObj.save()
         return HttpResponse("#daa520")
 
 
 @login_required(login_url='login_user')
 def a_bookmark(request, attraction):
+    userObj = get_object_or_404(UserInfo, user=request.user.id)
     attractionObj = get_object_or_404(Attraction, attraction_id=attraction)
-    if (attractionObj.bookmark.filter(id=request.user.id)).exists():
-        attractionObj.bookmark.remove(request.user)
-        attractionObj.save()
+    if (userObj.attraction_bookmark.filter(attraction_id=attraction)).exists():
+        userObj.attraction_bookmark.remove(attractionObj)
+        userObj.save()
         return HttpResponse("#a9a9a9")
-
     else:
-        attractionObj.bookmark.add(request.user)
-        attractionObj.save()
+        userObj.attraction_bookmark.add(attractionObj)
+        userObj.save()
         return HttpResponse("#daa520")
 
 
@@ -270,12 +287,12 @@ def home(request):
 
 
 def destination_list(request):
-    Destinations = Destination.objects.all().order_by("-click_count")
+    Destinations = Destination.objects.all()
     return render(request, 'destinations.html', {'Destinations': Destinations})
 
 
 def attraction_list(request):
-    Attractions = Attraction.objects.all().order_by("-click_count")
+    Attractions = Attraction.objects.all()
     city_list = []
     for attraction in Attractions:
         if attraction.city.name not in city_list:
@@ -284,10 +301,10 @@ def attraction_list(request):
 
 
 def detailed_destination(request, destination):
-    city = Destination.objects.get(destination_id=destination)
+    city = get_object_or_404(Destination,destination_id=destination)
     city.click_count += 1
     city.save()
-    comments = city.destinationcomment_set.all().order_by('-created_time')
+    comments = city.destinationcomment_set.all()
     if request.method == 'POST':
         add_comment = request.POST.get('add_comment')
         DestinationComment.objects.create(

@@ -43,6 +43,8 @@ urlpatterns = [
     path('logout/', views.logout_user, name="logout"),
     path('profile/change-password/', views.change_password, name='change_password'),
 
+    path('profile/abookmark/',views.profile_a_bookmarks,name='a_profile_bookmark'),
+    path('profile/dbookmark/', views.profile_d_bookmarks, name='d_profile_bookmark'),
 
     path('attractions/<str:attraction>/dislike/', views.dislike_post, name='dislike'),
     path('attractions/<str:attraction>/like/', views.like_post, name='like'),
