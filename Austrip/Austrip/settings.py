@@ -26,7 +26,6 @@ SECRET_KEY = 's$d0+v0zz1=o7pc4*mzgphvk(ptxn_omqocnjdq*e6hcksm*^t'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-CORS_ORIGIN_ALLOW_ALL=True
 
 
 # Application definition
@@ -39,16 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main',
-    'accounts',
     'rest_framework',
     'rest_framework.authtoken',
     'django_filters',
-    'corsheaders',
-
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -78,9 +73,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Austrip.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
     'default': {
@@ -115,9 +107,6 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Internationalization
-# https://docs.djangoproject.com/en/3.1/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -128,9 +117,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.1/howto/static-files/
+SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 
 STATIC_URL = '/static/'
 
