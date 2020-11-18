@@ -3,6 +3,9 @@ from django.contrib.auth import authenticate, login, logout, update_session_auth
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm, AuthenticationForm
 from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
+from django.shortcuts import render, redirect
+from rest_framework import viewsets
 from django.db.models import Q, F
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets
