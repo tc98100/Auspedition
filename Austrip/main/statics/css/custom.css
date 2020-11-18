@@ -24,15 +24,15 @@
 }
 
 #funcBookmark:hover {
-    color: goldenrod;
+    color: #daa520;
 }
 
 #funcDislike:hover {
-    color: red;
+    color: #ff0000;
 }
 
 #funcLike:hover {
-    color: green;
+    color: #008000;
 }
 
 #funcBookmark:focus {
