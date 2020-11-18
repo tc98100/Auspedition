@@ -10,7 +10,7 @@ from rest_framework import viewsets
 from .decorators import *
 from .forms import CreateUserForm, ChangeUserInfo, ChangePicBio, EditRecommendation, AddCommentAttraction
 from .serializers import *
-from django.http import HttpResponse,JsonResponse
+from django.http import HttpResponse, JsonResponse
 
 
 def edit(request, recommendation):
