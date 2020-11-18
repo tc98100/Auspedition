@@ -244,9 +244,7 @@ body .userProfile{
 }
 
 .backBtn{
-    margin: auto;
-    margin-top: 3rem;
-    margin-bottom: -1rem;
+    margin: 3rem auto -1rem;
 }
 
 /* Add Recommendation */

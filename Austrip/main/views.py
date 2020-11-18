@@ -1,25 +1,16 @@
-import urllib
-
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
-from django.contrib.auth.models import Group
-from django.shortcuts import render, redirect, get_object_or_404, render_to_response
-from django.template import RequestContext
-from django.urls import reverse
-from django.shortcuts import render, redirect
-from rest_framework import viewsets
+from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Q, F
-from .decorators import *
 from django_filters.rest_framework import DjangoFilterBackend
-from django.forms.models import model_to_dict
+from rest_framework import viewsets
 
+from .decorators import *
 from .forms import CreateUserForm, ChangeUserInfo, ChangePicBio, EditRecommendation, AddCommentAttraction
-from .models import *
 from .serializers import *
 from django.http import HttpResponse, JsonResponse
-import json as simplejson
 
 
 def edit(request, recommendation):
@@ -40,17 +31,17 @@ def profile(request):
 
 @login_required(login_url='login_user')
 def profile_a_bookmarks(request):
-    userObj = get_object_or_404(UserInfo, user=request.user.id)
-    aBook = userObj.attraction_bookmark.all()
-    all_pro = aBook.values('name', 'image', 'attraction_id')
+    user_obj = get_object_or_404(UserInfo, user=request.user.id)
+    a_book = user_obj.attraction_bookmark.all()
+    all_pro = a_book.values('name', 'image', 'attraction_id')
     return JsonResponse(list(all_pro), safe=False)
 
 
 @login_required(login_url='login_user')
 def profile_d_bookmarks(request):
-    userObj = get_object_or_404(UserInfo, user=request.user.id)
-    dBook = userObj.destination_bookmark.all()
-    all_pro = dBook.values('name', 'image', 'destination_id')
+    user_obj = get_object_or_404(UserInfo, user=request.user.id)
+    d_book = user_obj.destination_bookmark.all()
+    all_pro = d_book.values('name', 'image', 'destination_id')
     return JsonResponse(list(all_pro), safe=False)
 
 
@@ -85,15 +76,12 @@ def change_password(request):
     return render(request, 'change_password.html', {'form': form})
 
 
-@unauthenticated_user
 def login_user(request):
     if request.method == 'POST':
         user = authenticate(request, username=request.POST.get('username'), password=request.POST.get('password'))
         if user is not None:
             login(request, user)
-            response = redirect('home')
-            response.set_cookie('username', request.POST.get('username'), 60)
-            return response
+            return redirect('home')
         else:
             messages.info(request, 'Invalid username or password :(')
     return render(request, 'login_user.html')
@@ -101,7 +89,6 @@ def login_user(request):
 
 def logout_user(request):
     response = redirect('home')
-    response.delete_cookie('username')
     logout(request)
     return response
 
@@ -109,17 +96,17 @@ def logout_user(request):
 @login_required(login_url='login_user')
 def d_like_post(request, destination):
     result = ''
-    destinationObj = get_object_or_404(Destination, destination_id=destination)
-    if (destinationObj.userLike.filter(id=request.user.id)).exists():
-        destinationObj.userLike.remove(request.user)
-        destinationObj.likes -= 1
-        result = destinationObj.likes
-        destinationObj.save()
+    destination_obj = get_object_or_404(Destination, destination_id=destination)
+    if (destination_obj.userLike.filter(id=request.user.id)).exists():
+        destination_obj.userLike.remove(request.user)
+        destination_obj.likes -= 1
+        result = destination_obj.likes
+        destination_obj.save()
     else:
-        destinationObj.userLike.add(request.user)
-        destinationObj.likes += 1
-        result = destinationObj.likes
-        destinationObj.save()
+        destination_obj.userLike.add(request.user)
+        destination_obj.likes += 1
+        result = destination_obj.likes
+        destination_obj.save()
 
     return HttpResponse(result)
 
@@ -127,17 +114,17 @@ def d_like_post(request, destination):
 @login_required(login_url='login_user')
 def d_dislike_post(request, destination):
     result = ''
-    destinationObj = get_object_or_404(Destination, destination_id=destination)
-    if (destinationObj.userDislike.filter(id=request.user.id)).exists():
-        destinationObj.userDislike.remove(request.user)
-        destinationObj.dislikes -= 1
-        result = destinationObj.dislikes
-        destinationObj.save()
+    destination_obj = get_object_or_404(Destination, destination_id=destination)
+    if (destination_obj.userDislike.filter(id=request.user.id)).exists():
+        destination_obj.userDislike.remove(request.user)
+        destination_obj.dislikes -= 1
+        result = destination_obj.dislikes
+        destination_obj.save()
     else:
-        destinationObj.userDislike.add(request.user)
-        destinationObj.dislikes += 1
-        result = destinationObj.dislikes
-        destinationObj.save()
+        destination_obj.userDislike.add(request.user)
+        destination_obj.dislikes += 1
+        result = destination_obj.dislikes
+        destination_obj.save()
     return HttpResponse(result)
 
 
@@ -179,8 +166,8 @@ def a_check_dislike(request, attraction):
 
 @login_required(login_url='login_user')
 def a_check_bookmark(request, attraction):
-    userObj = get_object_or_404(UserInfo, user=request.user.id)
-    if (userObj.attraction_bookmark.filter(attraction_id=attraction)).exists():
+    user_obj = get_object_or_404(UserInfo, user=request.user.id)
+    if (user_obj.attraction_bookmark.filter(attraction_id=attraction)).exists():
         return HttpResponse("#daa520")
     else:
         return HttpResponse("#a9a9a9")
@@ -188,8 +175,8 @@ def a_check_bookmark(request, attraction):
 
 @login_required(login_url='login_user')
 def d_check_bookmark(request, destination):
-    userObj = get_object_or_404(UserInfo, user=request.user.id)
-    if (userObj.destination_bookmark.filter(destination_id=destination)).exists():
+    user_obj = get_object_or_404(UserInfo, user=request.user.id)
+    if (user_obj.destination_bookmark.filter(destination_id=destination)).exists():
         return HttpResponse("#daa520")
     else:
         return HttpResponse("#a9a9a9")
@@ -197,29 +184,29 @@ def d_check_bookmark(request, destination):
 
 @login_required(login_url='login_user')
 def d_bookmark(request, destination):
-    userObj = get_object_or_404(UserInfo, user=request.user.id)
-    destinationObj = get_object_or_404(Destination, destination_id=destination)
-    if (userObj.destination_bookmark.filter(destination_id=destination)).exists():
-        userObj.destination_bookmark.remove(destinationObj)
-        userObj.save()
+    user_obj = get_object_or_404(UserInfo, user=request.user.id)
+    destination_obj = get_object_or_404(Destination, destination_id=destination)
+    if (user_obj.destination_bookmark.filter(destination_id=destination)).exists():
+        user_obj.destination_bookmark.remove(destination_obj)
+        user_obj.save()
         return HttpResponse("#a9a9a9")
     else:
-        userObj.destination_bookmark.add(destinationObj)
-        userObj.save()
+        user_obj.destination_bookmark.add(destination_obj)
+        user_obj.save()
         return HttpResponse("#daa520")
 
 
 @login_required(login_url='login_user')
 def a_bookmark(request, attraction):
-    userObj = get_object_or_404(UserInfo, user=request.user.id)
-    attractionObj = get_object_or_404(Attraction, attraction_id=attraction)
-    if (userObj.attraction_bookmark.filter(attraction_id=attraction)).exists():
-        userObj.attraction_bookmark.remove(attractionObj)
-        userObj.save()
+    user_obj = get_object_or_404(UserInfo, user=request.user.id)
+    attraction_obj = get_object_or_404(Attraction, attraction_id=attraction)
+    if (user_obj.attraction_bookmark.filter(attraction_id=attraction)).exists():
+        user_obj.attraction_bookmark.remove(attraction_obj)
+        user_obj.save()
         return HttpResponse("#a9a9a9")
     else:
-        userObj.attraction_bookmark.add(attractionObj)
-        userObj.save()
+        user_obj.attraction_bookmark.add(attraction_obj)
+        user_obj.save()
         return HttpResponse("#daa520")
 
 
@@ -277,10 +264,10 @@ def signup(request):
 
 
 def home(request):
-    Destinations = Destination.objects.order_by('-click_count')[:3]
-    Attractions = Attraction.objects.order_by('-click_count')[:3]
-    Recommendations = Recommendation.objects.all()[:3]
-    context_home = {'Destinations': Destinations, 'Attractions': Attractions, 'Recommendations': Recommendations}
+    destinations = Destination.objects.order_by('-click_count')[:3]
+    attractions = Attraction.objects.order_by('-click_count')[:3]
+    recommendations = Recommendation.objects.all()[:3]
+    context_home = {'Destinations': destinations, 'Attractions': attractions, 'Recommendations': recommendations}
     return render(request, 'home.html', context_home)
 
 
