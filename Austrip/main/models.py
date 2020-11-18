@@ -2,8 +2,6 @@ from PIL import Image
 from django.db import models
 from django.contrib.auth.models import User
 
-
-
 class Destination(models.Model):
     destination_id = models.CharField(max_length=40, primary_key=True)
     state = models.CharField(max_length=30)
@@ -36,10 +34,11 @@ class Attraction(models.Model):
     def __str__(self):
         return self.name
 
+
 class UserInfo(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     bio = models.TextField()
-    image = models.ImageField()
+    image = models.ImageField(default='image.png')
     attraction_bookmark = models.ManyToManyField(Attraction, related_name="Abook", default=None, blank=True)
     destination_bookmark = models.ManyToManyField(Destination, related_name="Dbook", default=None, blank=True)
 

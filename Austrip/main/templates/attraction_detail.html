@@ -21,10 +21,11 @@
             <div class="bg-transparent">
                 <div class="row">
                     <div class="col-6">
-                        <p class="font-weight-bold" style="font-size: 3rem; line-height: 2rem">{{ place.name }}</p>
+                        <p class="font-weight-bold destinationFontD">{{ place.name }}</p>
                     </div>
                     <div class="col-6">
                         <div>
+                        {% if not request.user.is_superuser %}
                             {% if request.user.is_authenticated %}
                             <div class="row">
                                 <div class="col-6">
@@ -97,10 +98,12 @@
                                 </div>
                             </div>
                                 {% endif %}
+                                                        {% endif %}
+
                         </div>
                     </div>
                 </div>
-                <h1 class="font-weight-light" style="font-size: 1rem; line-height: 2rem">{{ place.description }}</h1>
+                <h1 class="font-weight-light destinationFontF">{{ place.description }}</h1>
             </div>
         </div>
     </div>
@@ -109,8 +112,7 @@
     <div class="mt-5 ml-5 mr-5">
         <div class="container-fluid ">
             <div class="bg-transparent">
-
-                <p class="font-weight-bold" style="font-size: 3rem; line-height: 2rem; color: lightseagreen">Comments</p>
+                <p class="font-weight-bold destinationFontE">Comments</p>
             </div>
         </div>
     </div>
@@ -125,9 +127,19 @@
                                 <span>User# {{ comment.user.id }}</span>
                                 <span class="summary-text small">{{ comment.created_time }}</span>
                             </a>
+
                             {% if request.user.is_superuser %}
-                                <a class="btn btn-success my-2" href="{% url 'delete_comment_attraction' comment_id=comment.commentId %}">Delete</a>
+                                <a class="btn btn-success my-2"
+                                       href="{% url 'delete_comment_attraction' comment_id=comment.commentId attraction=place.attraction_id %}">Delete</a>
+                            {% else %}
+                                {% if request.user == comment.user %}
+                                    <a class="btn btn-success my-2 ml-5"
+                                       href="{% url 'edit_comment_attraction' comment_id=comment.commentId attraction=place.attraction_id %}">Edit</a>
+                                    <a class="btn btn-success my-2 ml-2"
+                                        href="{% url 'delete_comment_attraction' comment_id=comment.commentId attraction=place.attraction_id%}">Delete</a>
+                                {% endif %}
                             {% endif %}
+
                         </div>
                         <div class="messageText ml-2 container m-2">{{ comment.comment_content }}</div>
                     </div>
@@ -137,22 +149,26 @@
     </div>
     <div id="aComments"></div>
 </form>
-<div class="ml-4">
-    <button id="aLoadMoreBtn" value="{{ place.attraction_id }}">Load more</button>
-</div>
+    <div class="loadMoreButton">
+        <button type="button" id="aLoadMoreBtn" class="btn btn-link" value="{{ place.attraction_id }}">LOAD MORE
+        </button>
+    </div>
 <div class="ml-4">
     <form class="form-inline my-2 my-lg-0 mx-3" method="POST"
           action="{% url 'attraction_details' attraction=place.attraction_id %}">
         {% csrf_token %}
-        <input class="form-control mr-sm-2 px-3" type="text" placeholder="Add a comment..." name="add_comment"
+        {% if request.user.is_authenticated and not request.user.is_superuser %}
+            <input id="sub_input" class="form-control mr-sm-2 px-3 m-3" type="text" placeholder="Add a comment..." name="add_comment"
                value="{{ request.POST.add_comment }}">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Post</button>
+            <button class="btn btn-outline-success my-2 my-sm-0" id="post-button" type="submit">Post</button>
+        {% endif %}
     </form>
-
 </div>
 
 {% include 'footer.html' %}
     <script>
+        document.getElementById('sub_input').value = ''
+
         let btn=document.getElementById("not-log-dislike-button")
         let btn2=document.getElementById("not-log-like-button")
         btn.addEventListener("click",()=>{
