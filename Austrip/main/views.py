@@ -77,23 +77,6 @@ def change_password(request):
     return render(request, 'change_password.html', {'form': form})
 
 
-# def login_user(request):
-#     if request.method == 'POST':
-#         form = AuthenticationForm(request.POST)
-#         if form.is_valid:
-#             user = authenticate(request, username=form.cleaned_data['username'], password=form.cleaned_data['password1'])
-#             # user = form.get_user
-#             if user is not None:
-#                 login(request, user)
-#                 return redirect('home')
-#             else:
-#                 messages.info(request, 'Invalid username or password :(')
-#     else:
-#         form = AuthenticationForm()
-#     context = {'form': form}
-#     return render(request, 'login_restyled.html', context)
-#
-
 def login_user(request):
     if request.method == 'POST':
         user = authenticate(request, username=request.POST.get('username'), password=request.POST.get('password'))
@@ -103,7 +86,6 @@ def login_user(request):
         else:
             messages.info(request, 'Invalid username or password :(')
     return render(request, 'login_restyled.html')
-    # return render(request, 'login_restyled.html')
 
 
 def logout_user(request):

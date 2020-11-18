@@ -31,7 +31,7 @@
         </div>
 
         <!-- Basic Information -->
-        <div class="basicInfo text-light">
+        <div class="basicInfo text-dark">
             <h3>Basic Information</h3>
             <dl class="row">
                 <dt class="col-sm-3">Username</dt>
@@ -49,18 +49,18 @@
                 </dd>
             </dl>
         </div>
-
+        {% if not request.user.is_superuser %}
+            <div class="bookmarkList">
+                <h3>Attraction Bookmarked List</h3>
+                <div class="card-group" id="a-book-cards"></div>
+            </div>
+            <div class="bookmarkList">
+                <h3>Destination Bookmarked List</h3>
+            <div class="card-group" id="d-book-cards"></div>
+            </div>
+        {% endif %}
         <!-- Bookmark List -->
-        <div class="bookmarkList">
-            <h3>Attraction Bookmarked List</h3>
-            <div class="card-group" id="a-book-cards">
-            </div>
-        </div>
-        <div class="bookmarkList">
-            <h3>Destination Bookmarked List</h3>
-            <div class="card-group" id="d-book-cards">
-            </div>
-        </div>
+
     </div>
 {% include 'footer.html' %}
 <script src="{% static 'profile-bookmark-list.js' %}"></script>

@@ -22,7 +22,6 @@
                 Log In
             </h1>
             <hr>
-
             <div class="form-group">
                 <h5>
                     <label for="username">Username</label>
@@ -33,12 +32,12 @@
                 <h5>
                     <label for="password">Password</label>
                 </h5>
-                <input type="password" name="password" placeholder="Password" class="form-control">
+                <input type="password" name="password" placeholder="Password" class="form-control" value="{{ request.POST.password }}">
             </div>
             {% if messages %}
                 {% for message in messages %}
                     <div class="alert alert-danger">
-                        <strong>{{ message|escape }}</strong>
+                        <strong>{{ message }}</strong>
                     </div>
                 {% endfor %}
             {% endif %}
