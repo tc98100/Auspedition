@@ -42,10 +42,3 @@ class CreateUserForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'first_name', 'last_name', 'password1', 'password2']
-        # widgets = {
-        #     'username': forms.TextInput(attrs={'class': 'input', 'placeholder': 'Enter Username'}),
-        #     'first_name': forms.TextInput(attrs={'class': 'input', 'placeholder': 'Enter Firstname'}),
-        #     'last_name': forms.TextInput(attrs={'class': 'input'}),
-        #     'password1': forms.TextInput(attrs={'class': 'input'}),
-        #     'password2': forms.TextInput(attrs={'class': 'input'}),
-        # }
