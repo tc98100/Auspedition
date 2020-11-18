@@ -125,8 +125,16 @@
                                 <span>User# {{ comment.user.id }}</span>
                                 <span class="summary-text small">{{ comment.created_time }}</span>
                             </a>
+                            {% if request.user == comment.user %}
+                                <a class="btn btn-success my-2"
+                                   href="{% url 'edit_comment_attraction' comment_id=comment.commentId %}">Edit</a>
+                                <a class="btn btn-success my-2"
+                                   href="{% url 'delete_comment_attraction' comment_id=comment.commentId %}">Delete</a>
+                            {% endif %}
                             {% if request.user.is_superuser %}
-                                <a class="btn btn-success my-2" href="{% url 'delete_comment_attraction' comment_id=comment.commentId %}">Delete</a>
+                                <a class="btn btn-success my-2"
+                                   href="{% url 'delete_comment_attraction' comment_id=comment.commentId %}">Admin
+                                    Delete</a>
                             {% endif %}
                         </div>
                         <div class="messageText ml-2 container m-2">{{ comment.comment_content }}</div>

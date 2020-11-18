@@ -1,0 +1,15 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form method="POST" action="">
+        {{ form.comment_content }}
+        {% csrf_token %}
+        <input class="btn login_btn" type="submit" href="{% url 'edit_comment_destination' comment_id=comment.commentId %}" value="Change Password">
+    </form>
+</body>
+</html>

@@ -331,10 +331,36 @@ def detailed_attraction(request, attraction):
     return render(request, "attraction_detail.html", context)
 
 
+def edit_comment_destination(request, comment_id):
+    comment = DestinationComment.objects.get(commentId=comment_id)
+    if request.method == 'POST':
+        edit_form = AddCommentAttraction(request.POST, instance=comment)
+        if edit_form.is_valid:
+            edit_form.save()
+            return redirect('home')
+    else:
+        edit_form = AddCommentAttraction(instance=comment)
+    context = {'form': edit_form, 'comment': comment}
+    return render(request, 'testing.html', context)
+
+
 def delete_comment_attraction(request, comment_id):
     comment = AttractionComment.objects.get(commentId=comment_id)
     comment.delete()
     return render(request, 'test.html', {'comment': comment})
+
+
+def edit_comment_attraction(request, comment_id):
+    comment = AttractionComment.objects.get(commentId=comment_id)
+    if request.method == 'POST':
+        edit_form = AddCommentAttraction(request.POST, instance=comment)
+        if edit_form.is_valid:
+            edit_form.save()
+            return redirect('home')
+    else:
+        edit_form = AddCommentAttraction(instance=comment)
+    context = {'form': edit_form, 'comment': comment}
+    return render(request, 'testing.html', context)
 
 
 def delete_comment_destination(request, comment_id, destination):
