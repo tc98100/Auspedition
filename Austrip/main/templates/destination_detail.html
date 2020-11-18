@@ -129,6 +129,9 @@
                         {% if request.user == comment.user %}
                             <a class="btn btn-success my-2"
                                href="{% url 'edit_comment_destination' comment_id=comment.commentId %}">Edit</a>
+                            <a class="btn btn-success my-2"
+                               href="{% url 'delete_comment_destination' comment_id=comment.commentId destination=city.destination_id %}">
+                                Delete</a>
                         {% endif %}
                         {% if request.user.is_superuser %}
                             <a class="btn btn-success my-2"
@@ -154,9 +157,11 @@
     <form class="form-inline my-2 my-lg-0 mx-3" method="POST"
           action="{% url 'destination_details' destination=city.destination_id %}">
         {% csrf_token %}
-        <input class="form-control mr-sm-2 px-3" type="text" placeholder="Add a comment..." name="add_comment"
+        {% if request.user.is_authenticated %}
+            <input class="form-control mr-sm-2 px-3" type="text" placeholder="Add a comment..." name="add_comment"
                value="{{ request.POST.add_comment }}">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Post</button>
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Post</button>
+        {% endif %}
     </form>
 </div>
 

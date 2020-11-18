@@ -17,7 +17,7 @@ from django.forms.models import model_to_dict
 from .forms import CreateUserForm, ChangeUserInfo, ChangePicBio, EditRecommendation, AddCommentAttraction
 from .models import *
 from .serializers import *
-from django.http import HttpResponse,JsonResponse
+from django.http import HttpResponse, JsonResponse
 import json as simplejson
 
 
@@ -36,19 +36,21 @@ def edit(request, recommendation):
 def profile(request):
     return render(request, "profile.html")
 
+
 @login_required(login_url='login_user')
 def profile_a_bookmarks(request):
     userObj = get_object_or_404(UserInfo, user=request.user.id)
     aBook = userObj.attraction_bookmark.all()
     all_pro = aBook.values('name', 'image', 'attraction_id')
-    return JsonResponse(list(all_pro),safe =False)
+    return JsonResponse(list(all_pro), safe=False)
+
 
 @login_required(login_url='login_user')
 def profile_d_bookmarks(request):
     userObj = get_object_or_404(UserInfo, user=request.user.id)
     dBook = userObj.destination_bookmark.all()
     all_pro = dBook.values('name', 'image', 'destination_id')
-    return JsonResponse(list(all_pro),safe =False)
+    return JsonResponse(list(all_pro), safe=False)
 
 
 @login_required(login_url='login_user')
@@ -165,8 +167,6 @@ def a_check_like(request, attraction):
         return HttpResponse("#a9a9a9")
 
 
-
-
 @login_required(login_url='login_user')
 def a_check_dislike(request, attraction):
     attraction_obj = get_object_or_404(Attraction, attraction_id=attraction)
@@ -176,16 +176,13 @@ def a_check_dislike(request, attraction):
         return HttpResponse("#a9a9a9")
 
 
-
-
 @login_required(login_url='login_user')
 def a_check_bookmark(request, attraction):
     userObj = get_object_or_404(UserInfo, user=request.user.id)
-    if(userObj.attraction_bookmark.filter(attraction_id=attraction)).exists():
+    if (userObj.attraction_bookmark.filter(attraction_id=attraction)).exists():
         return HttpResponse("#daa520")
     else:
         return HttpResponse("#a9a9a9")
-
 
 
 @login_required(login_url='login_user')
@@ -200,7 +197,7 @@ def d_check_bookmark(request, destination):
 @login_required(login_url='login_user')
 def d_bookmark(request, destination):
     userObj = get_object_or_404(UserInfo, user=request.user.id)
-    destinationObj = get_object_or_404(Destination,destination_id = destination)
+    destinationObj = get_object_or_404(Destination, destination_id=destination)
     if (userObj.destination_bookmark.filter(destination_id=destination)).exists():
         userObj.destination_bookmark.remove(destinationObj)
         userObj.save()
@@ -275,7 +272,7 @@ def signup(request):
 
             messages.success(request, 'Sign up successful for ' + username)
             return redirect('login_user')
-    return render(request, 'signup.html', {'form': form})
+    return render(request, 'signup_restyled.html', {'form': form})
 
 
 def home(request):
@@ -287,21 +284,21 @@ def home(request):
 
 
 def destination_list(request):
-    Destinations = Destination.objects.all()
-    return render(request, 'destinations.html', {'Destinations': Destinations})
+    destinations = Destination.objects.all()
+    return render(request, 'destinations.html', {'Destinations': destinations})
 
 
 def attraction_list(request):
-    Attractions = Attraction.objects.all()
+    attractions = Attraction.objects.all()
     city_list = []
-    for attraction in Attractions:
+    for attraction in attractions:
         if attraction.city.name not in city_list:
             city_list.append(attraction.city.name)
-    return render(request, 'attractions.html', {'Attractions': Attractions, 'city_list': city_list})
+    return render(request, 'attractions.html', {'Attractions': attractions, 'city_list': city_list})
 
 
 def detailed_destination(request, destination):
-    city = get_object_or_404(Destination,destination_id=destination)
+    city = get_object_or_404(Destination, destination_id=destination)
     city.click_count += 1
     city.save()
     comments = city.destinationcomment_set.all()
@@ -344,10 +341,13 @@ def edit_comment_destination(request, comment_id):
     return render(request, 'testing.html', context)
 
 
-def delete_comment_attraction(request, comment_id):
+def delete_comment_attraction(request, comment_id, attraction):
+    place = Attraction.objects.get(attraction_id=attraction)
+    comments = place.attractioncomment_set.all()
     comment = AttractionComment.objects.get(commentId=comment_id)
     comment.delete()
-    return render(request, 'test.html', {'comment': comment})
+    context = {'comments': comments, 'comment': comment, 'place': place}
+    return render(request, 'attraction_detail.html', context)
 
 
 def edit_comment_attraction(request, comment_id):
@@ -366,9 +366,11 @@ def edit_comment_attraction(request, comment_id):
 def delete_comment_destination(request, comment_id, destination):
     city = Destination.objects.get(destination_id=destination)
     comment = DestinationComment.objects.get(commentId=comment_id)
+    comments = city.destinationcomment_set.all()
     comment.delete()
-    # context = {'comment': comment, 'city': city}
-    return render(request, 'test.html', {'comment': comment})
+    context = {'comments': comments, 'comment': comment, 'city': city}
+    # return redirect('destination_list')
+    return render(request, 'destination_detail.html', context)
 
 
 def detailed_recommendation(request, recommendation):
