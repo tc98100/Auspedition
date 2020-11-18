@@ -16,12 +16,12 @@
 {% include 'navbar.html' %}
 
 
-    <div class="container-fluid userProfile">
-        <h2>{{ request.user.get_full_name }}</h2>
-        <!-- Profile Photo -->
-        <div class="profileImg">
-            <img class="profile-pic" src="{{ request.user.userinfo.image.url }}">
-        </div>
+<div class="container-fluid userProfile">
+    <h2>{{ request.user.get_full_name }}</h2>
+    <!-- Profile Photo -->
+    <div class="profileImg text-center">
+        <img src="{{ request.user.userinfo.image.url }}">
+    </div>
 
 
     <!-- button group -->

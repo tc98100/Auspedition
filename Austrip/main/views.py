@@ -338,7 +338,9 @@ def search_result(request):
     match = True
 
     if request.method == 'GET':
-        user_input = request.GET.get('input')
+        raw_input = request.GET.get('input')
+        if raw_input != '':
+            user_input = raw_input.strip()
 
     condition1 = Q(name__icontains=user_input) | Q(stateCode__icontains=user_input) | Q(state__icontains=user_input)
     condition2 = Q(name__icontains=user_input) | Q(city__name__icontains=user_input) | \
@@ -348,7 +350,7 @@ def search_result(request):
     result_attraction = Attraction.objects.filter(condition2)
     result_recommendation = Recommendation.objects.filter(title__icontains=user_input)
 
-    if not result_destination and not result_attraction and not result_recommendation:
+    if (not result_destination and not result_attraction and not result_recommendation) or not user_input:
         match = False
         result_destination = Destination.objects.all()[:3]
         result_attraction = Attraction.objects.all()[:3]

@@ -20,10 +20,9 @@ urlpatterns = [
     path('attractions/', views.attraction_list, name="attraction_list"),
     path('destinations/<str:destination>/', views.detailed_destination, name="destination_details"),
     path('attractions/<str:attraction>/', views.detailed_attraction, name="attraction_details"),
-
     path('recommendations/<str:recommendation>/', views.detailed_recommendation, name="recommendation_details"),
-    path('recommendations/<str:recommendation>/edit/', views.edit, name="edit"),
 
+    path('recommendations/<str:recommendation>/edit/', views.edit, name="edit"),
     path('attractions/delete/<str:comment_id>', views.delete_comment_attraction, name='delete_comment_attraction'),
     path('destinations/delete/<str:comment_id>/<str:destination>/', views.delete_comment_destination, name='delete_comment_destination'),
 
@@ -31,7 +30,6 @@ urlpatterns = [
     path('destination-result/', views.filter_state, name="destination_result"),
     path('attraction-result/', views.filter_city, name="attraction_result"),
 
-    # temporary use, needs to be changed
     path('profile/', views.profile, name="profile"),
     path('change-profile/', views.profile_change, name="change_profile"),
 
@@ -43,7 +41,7 @@ urlpatterns = [
     path('logout/', views.logout_user, name="logout"),
     path('profile/change-password/', views.change_password, name='change_password'),
 
-    path('profile/abookmark/',views.profile_a_bookmarks,name='a_profile_bookmark'),
+    path('profile/abookmark/', views.profile_a_bookmarks, name='a_profile_bookmark'),
     path('profile/dbookmark/', views.profile_d_bookmarks, name='d_profile_bookmark'),
 
     path('attractions/<str:attraction>/dislike/', views.dislike_post, name='dislike'),

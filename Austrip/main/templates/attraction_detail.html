@@ -140,19 +140,20 @@
 <div class="ml-4">
     <button id="aLoadMoreBtn" value="{{ place.attraction_id }}">Load more</button>
 </div>
+
 <div class="ml-4">
     <form class="form-inline my-2 my-lg-0 mx-3" method="POST"
           action="{% url 'attraction_details' attraction=place.attraction_id %}">
         {% csrf_token %}
-        <input class="form-control mr-sm-2 px-3" type="text" placeholder="Add a comment..." name="add_comment"
+        <input id="sub_input" class="form-control mr-sm-2 px-3" type="text" placeholder="Add a comment..." name="add_comment"
                value="{{ request.POST.add_comment }}">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Post</button>
     </form>
-
 </div>
 
 {% include 'footer.html' %}
     <script>
+        document.getElementById('sub_input').value = '';
         let btn=document.getElementById("not-log-dislike-button")
         let btn2=document.getElementById("not-log-like-button")
         btn.addEventListener("click",()=>{
