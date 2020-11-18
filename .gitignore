@@ -131,4 +131,5 @@ dmypy.json
 # idea
 .idea/
 
-
+.DS_Store
+.Austrip/main/.DS_Store
