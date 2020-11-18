@@ -18,7 +18,7 @@
                 {% csrf_token %}
                 <div class="form-group text-center">
                     <h5>Edit your comment</h5>
-                    {% render_field form.comment_content class="form-control" placeholder="Edit comment" %}
+                    {% render_field form.comment_content class="form-control mb-4" placeholder="Edit comment" %}
                     <input class="btn btn-outline-success text-center btn-lg w-75" type="submit" href="{% url 'edit_comment_destination' comment_id=comment.commentId destination=city.destination_id %}" value="Save">
                 </div>
             </form>
