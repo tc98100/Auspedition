@@ -1,5 +1,6 @@
 @charset "utf-8";
 
+/* Home page */
 #logo {
     color: cadetblue;
     font-size: 2em;
@@ -15,6 +16,7 @@
     margin-right: 1rem;
 }
 
+/* Detailed attraction and destination */
 #funcBookmark, #funcDislike, #funcLike {
     width: 2.5rem;
     height: 2.5rem;
@@ -22,15 +24,15 @@
 }
 
 #funcBookmark:hover {
-    color: goldenrod;
+    color: #daa520;
 }
 
 #funcDislike:hover {
-    color: red;
+    color: #ff0000;
 }
 
 #funcLike:hover {
-    color: green;
+    color: #008000;
 }
 
 #funcBookmark:focus {
@@ -40,9 +42,11 @@
 #funcDislike:focus {
     color: red;
 }
+
 #funcDislike:active {
     color: red;
 }
+
 #funcDislike:visited {
     color: #ff0000;
 }
@@ -50,12 +54,15 @@
 #funcLike:focus {
     color: green;
 }
+
 #funcLike:visited {
     color: green;
 }
+
 #funcLike:active {
     color: green;
 }
+
 .backBtn{
     text-align: center;
     margin-top: 5px;
@@ -63,6 +70,11 @@
 
 .form-check{
     margin-bottom: 10px;
+}
+
+.loadMoreButton{
+    text-align: center;
+    margin-bottom: 2rem;
 }
 
 /* Sunny */
@@ -117,24 +129,6 @@
     background-image: url('/../../assets/home_background.jpg')
 }
 
-/* Log in and sign up */
-.bottomBtns{
-    margin: 20px auto;
-}
-
-.myModal-header{
-    background-color: #F5F5F5;
-}
-
-.myModal-body{
-    background-color: #F5F5F5;
-}
-
-.form-check{
-    margin-bottom: 20px;
-}
-
-
 /* Recommendation page */
 .container.recommendationBox{
     width: 70%;
@@ -159,7 +153,6 @@
     margin-right: 0.5rem;
 }
 
-
 /* User Profile */
 .userProfile h2{
     text-align: center;
@@ -169,18 +162,9 @@
 
 .profileImg{
     margin: auto;
-    text-align: center;
-    width:  12rem;
-    height: 12rem;
-
 }
 
-.profileImg img{
-    width:  12rem;
-    height: 12rem;
-    object-fit: cover;
-}
-
+/*
 .profileImg .uploadedFile {
     position: relative;
     overflow: hidden;
@@ -194,7 +178,7 @@
     opacity: 0;
     right: 0;
     top: 0;
-}
+}*/
 
 body .userProfile{
     background-image: radial-gradient(circle at 20% 20%, #99CCCC, #7171B7);
@@ -227,7 +211,7 @@ body .userProfile{
 }
 
 #editBtn:hover{
-    background-color: #4CAF50;
+    background-color: #0c180c;
     border-color: #4CAF50;
     color: white;
 }

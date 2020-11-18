@@ -15,6 +15,7 @@
 <div class="container">
     <img class="img-fluid rounded" src="{{ city.image.url }}" alt="{{ city.name }}">
 </div>
+
 <div class="mt-5 ml-5 mr-5">
     <div class="container">
         <div class="bg-transparent">
@@ -24,45 +25,80 @@
                 </div>
                 <div class="col-6">
                     <div>
-                        <div class="row">
-                            <div class="col-6">
+                        {% if request.user.is_authenticated %}
+                            <div class="row">
+                                <div class="col-6">
+                                </div>
+                                <div class="col-2">
+                                    <button class="btn" id="d-bookmark-btn">
+                                        <svg id="funcBookmark" viewBox="0 0 16 16" class="bi bi-bookmark-fill"
+                                             fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd"
+                                                  d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5V2z"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="col-2">
+                                    <button class="btn" id="d-like-btn">
+                                        <svg id="funcLike" viewBox="0 0 16 16" class="bi bi-emoji-smile"
+                                             fill="currentColor"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd"
+                                                  d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                                            <path fill-rule="evenodd"
+                                                  d="M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683z"></path>
+                                            <path d="M7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z"></path>
+                                        </svg>
+                                    </button>
+                                    <p class="text-center mb-0" id="d-like-count">{{ city.likes }}</p>
+                                </div>
+                                <div class="col-2">
+                                    <button class="btn" id="d-dislike-btn">
+                                        <svg id="funcDislike" viewBox="0 0 16 16" class="bi bi-emoji-frown"
+                                             fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd"
+                                                  d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                                            <path fill-rule="evenodd"
+                                                  d="M4.285 12.433a.5.5 0 0 0 .683-.183A3.498 3.498 0 0 1 8 10.5c1.295 0 2.426.703 3.032 1.75a.5.5 0 0 0 .866-.5A4.498 4.498 0 0 0 8 9.5a4.5 4.5 0 0 0-3.898 2.25.5.5 0 0 0 .183.683z"></path>
+                                            <path d="M7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z"></path>
+                                        </svg>
+                                    </button>
+                                    <p class="text-center mb-0" id="d-dislike-count">{{ city.dislikes }}</p>
+                                </div>
                             </div>
-                            <div class="col-2">
-                                <button class="btn" id="d-bookmark-btn">
-                                    <svg id="funcBookmark" viewBox="0 0 16 16" class="bi bi-bookmark-fill"
-                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd"
-                                              d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5V2z"></path>
-                                    </svg>
-                                </button>
+                        {% else %}
+                            <div class="row">
+                                <div class="col-6">
+                                </div>
+                                <div class="col-2">
+                                    <button class="btn" id="not-log-d-like-btn">
+                                        <svg id="funcLike" viewBox="0 0 16 16" class="bi bi-emoji-smile"
+                                             fill="currentColor"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd"
+                                                  d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                                            <path fill-rule="evenodd"
+                                                  d="M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683z"></path>
+                                            <path d="M7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z"></path>
+                                        </svg>
+                                    </button>
+                                    <p class="text-center mb-0" id="d-like-count">{{ city.likes }}</p>
+                                </div>
+                                <div class="col-2">
+                                    <button class="btn" id="not-log-d-dislike-btn">
+                                        <svg id="funcDislike" viewBox="0 0 16 16" class="bi bi-emoji-frown"
+                                             fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd"
+                                                  d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                                            <path fill-rule="evenodd"
+                                                  d="M4.285 12.433a.5.5 0 0 0 .683-.183A3.498 3.498 0 0 1 8 10.5c1.295 0 2.426.703 3.032 1.75a.5.5 0 0 0 .866-.5A4.498 4.498 0 0 0 8 9.5a4.5 4.5 0 0 0-3.898 2.25.5.5 0 0 0 .183.683z"></path>
+                                            <path d="M7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z"></path>
+                                        </svg>
+                                    </button>
+                                    <p class="text-center mb-0" id="d-dislike-count">{{ city.dislikes }}</p>
+                                </div>
                             </div>
-                            <div class="col-2">
-                                <button class="btn" id="d-like-btn">
-                                    <svg id="funcLike" viewBox="0 0 16 16" class="bi bi-emoji-smile" fill="currentColor"
-                                         xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd"
-                                              d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
-                                        <path fill-rule="evenodd"
-                                              d="M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683z"></path>
-                                        <path d="M7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z"></path>
-                                    </svg>
-                                </button>
-                                <p class="text-center mb-0" id="d-like-count">{{ city.likes }}</p>
-                            </div>
-                            <div class="col-2">
-                                <button class="btn" id="d-dislike-btn">
-                                    <svg id="funcDislike" viewBox="0 0 16 16" class="bi bi-emoji-frown"
-                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd"
-                                              d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
-                                        <path fill-rule="evenodd"
-                                              d="M4.285 12.433a.5.5 0 0 0 .683-.183A3.498 3.498 0 0 1 8 10.5c1.295 0 2.426.703 3.032 1.75a.5.5 0 0 0 .866-.5A4.498 4.498 0 0 0 8 9.5a4.5 4.5 0 0 0-3.898 2.25.5.5 0 0 0 .183.683z"></path>
-                                        <path d="M7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z"></path>
-                                    </svg>
-                                </button>
-                                <p class="text-center mb-0" id="d-dislike-count">{{ city.dislikes }}</p>
-                            </div>
-                        </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -70,7 +106,6 @@
         </div>
     </div>
 </div>
-
 
 <div class="mt-5 ml-5 mr-5">
     <div class="container-fluid">
@@ -100,12 +135,16 @@
                 </div>
             </div>
         {% endfor %}
-        <div id="d-comments"></div>
+    </div>
+    <div id="d-comments"></div>
+    <!--Load more button-->
+    <div class="loadMoreButton">
+        <button type="button" id="d-load-comment-div" class="btn btn-link" value="{{ city.destination_id }}">LOAD MORE
+        </button>
     </div>
 </form>
-<div class="ml-4">
-    <button id="d-load-comment-div" value="{{ city.destination_id }}">Load more</button>
-</div>
+
+
 <div class="ml-4">
     <form class="form-inline my-2 my-lg-0 mx-3" method="POST"
           action="{% url 'destination_details' destination=city.destination_id %}">
@@ -115,17 +154,25 @@
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Post</button>
     </form>
 </div>
-</form>
 
 
-<script src="{% static 'destination-like-dislike-function.js' %}"></script>
-<script src="{% static 'destination-check-like-function.js' %}"></script>
-
+<script>
+    let btn = document.getElementById("not-log-d-like-btn")
+    let btn2 = document.getElementById("not-log-d-dislike-btn")
+    btn.addEventListener("click", () => {
+        alert("Please Login")
+    })
+    btn2.addEventListener("click", () => {
+        alert("Please Login")
+    })
+</script>
 {% include 'footer.html' %}
+<script src="{% static 'destination-like-functions.js' %}"></script>
+<script src="{% static 'destination-bookmark-function.js' %}"></script>
 <script src="{% static 'load_destination_comments.js' %}"></script>
-<script src="{% static 'destinationBookmarkFunction.js' %}"></script>
 <script src="{% static 'index.js' %}"></script>
 {% include 'external.html' %}
+
 </body>
 </html>
 

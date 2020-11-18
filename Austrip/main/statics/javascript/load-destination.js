@@ -8,15 +8,14 @@ let btn = document.getElementById("loadDestinationBtn")
 let cards = ""
 let count = 4;
 btn.addEventListener("click", () => {
-    btn.style.visibility = "hidden";
-    alert("Loading in progress,Please wait for a while.");
-    cards = "";
+    alert("Loading in progress,Please wait for 2 seconds.")
+    cards = ""
     $.ajax({
         method: "GET",
         url: "http://127.0.0.1:8000/viewset/destination/",
         success: function (response) {
-            cards += "<div class=\"row \">\n";
-            for (let i = 0; i < response.length; i++) {
+            cards += "<div class=\"row \">\n"
+            for (let i = count; i < count + 4; i++) {
                 if (i >= response.length) {
                     alert("All content loaded.")
                     break;
@@ -24,7 +23,7 @@ btn.addEventListener("click", () => {
                 let link = "/destinations/" + response[i].destination_id + "/"
                 cards += "<div class=\"col-3 mb-2\">\n" +
                     "                    <div class=\"card rounded-cus shadow\">\n" +
-                    // "                        <a class=\"attraction\" style=\"background-image: url(" + response[i].image + "); display: block\"></a>\n" +
+                    "                        <a class=\"attraction\" style=\"background-image: url(" + response[i].image + "); display: block\"></a>\n" +
                     "                        <div class=\"card-body\">\n" +
                     "                            <p class=\"font-weight-bold text-center\" style=\"font-size: 1.5rem; line-height: 1rem\">" + response[i].name + "</p>\n" +
                     "                            <hr>\n" +

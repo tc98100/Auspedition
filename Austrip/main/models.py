@@ -14,7 +14,6 @@ class Destination(models.Model):
     click_count = models.IntegerField()
     userLike = models.ManyToManyField(User, related_name="Dlike", default=None, blank=True)
     userDislike = models.ManyToManyField(User, related_name="DDislike", default=None, blank=True)
-    bookmark = models.ManyToManyField(User, related_name="DBookmark", default=None, blank=True)
 
     def __str__(self):
         return self.name
@@ -31,7 +30,6 @@ class Attraction(models.Model):
     click_count = models.IntegerField()
     userLike = models.ManyToManyField(User, related_name="ALike", default=None, blank=True)
     userDislike = models.ManyToManyField(User, related_name="ADislike", default=None, blank=True)
-    bookmark = models.ManyToManyField(User, related_name="ABookmark", default=None, blank=True)
 
     def __str__(self):
         return self.name
@@ -41,8 +39,8 @@ class UserInfo(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     bio = models.TextField()
     image = models.ImageField(default='image.png')
-    # attraction_bookmark = models.ManyToManyField(Attraction, related_name="Abook", default=None, blank=True)
-    # destination_bookmark = models.ManyToManyField(Destination, related_name="Dbook", default=None, blank=True)
+    attraction_bookmark = models.ManyToManyField(Attraction, related_name="Abook", default=None, blank=True)
+    destination_bookmark = models.ManyToManyField(Destination, related_name="Dbook", default=None, blank=True)
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
