@@ -14,14 +14,13 @@
 
 <body>
 {% include 'navbar.html' %}
+<div class="container-fluid userProfile">
+    <h2>{{ request.user.get_full_name }}</h2>
 
-
-    <div class="container-fluid userProfile">
-        <h2>{{ request.user.get_full_name }}</h2>
-        <!-- Profile Photo -->
-        <div class="profileImg">
-            <img class="profile-pic" src="{{ request.user.userinfo.image.url }}">
-        </div>
+    <!-- Profile Photo -->
+    <div class="profileImg text-center">
+        <img src="{{ request.user.userinfo.image.url }}">
+    </div>
 
 
     <!-- button group -->
@@ -32,7 +31,7 @@
     </div>
 
     <!-- Basic Information -->
-    <div class="basicInfo">
+    <div class="basicInfo text-dark">
         <h3>Basic Information</h3>
         <dl class="row">
             <dt class="col-sm-3">Username</dt>
@@ -49,7 +48,8 @@
                 <p>{{ request.user.userinfo.bio }}</p>
             </dd>
         </dl>
-    </div>{% csrf_token %}
+    </div>
+    {% csrf_token %}
 
     <!-- Bookmark List -->
     <div class="bookmarkList">
@@ -61,12 +61,22 @@
         <h3>Destination Bookmarked List</h3>
         <div class="card-group" id="d-book-cards">
         </div>
-    </div>
-</div>
+        {% if not request.user.is_superuser %}
+        <div class="bookmarkList">
+            <h3>Attraction Bookmarked List</h3>
+            <div class="card-group" id="a-book-cards"></div>
+        </div>
+        <div class="bookmarkList">
+            <h3>Destination Bookmarked List</h3>
+            <div class="card-group" id="d-book-cards"></div>
+        </div>
+        {% endif %}
+        <!-- Bookmark List -->
 
-{% include 'footer.html' %}
-<script src="{% static 'profile-bookmark-list.js' %}"></script>
-<script src="{% static 'index.js' %}"></script>
-{% include 'external.html' %}
+    </div>
+    {% include 'footer.html' %}
+    <script src="{% static 'profile-bookmark-list.js' %}"></script>
+    <script src="{% static 'index.js' %}"></script>
+    {% include 'external.html' %}
 </body>
 </html>

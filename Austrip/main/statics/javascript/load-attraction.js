@@ -8,7 +8,7 @@ let btn = document.getElementById("loadAttractionBtn")
 let count = 4;
 btn.addEventListener("click", () => {
     let cards = ""
-    alert("Loading in progress,Please wait for 2 seconds.")
+    alert("Loading in progress,Please wait for a while.")
     $.ajax({
         method: "GET",
         url: "http://127.0.0.1:8000/viewset/attraction/",

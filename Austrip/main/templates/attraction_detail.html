@@ -16,16 +16,17 @@
     <img class="img-fluid rounded" src="{{ place.image.url }}" alt="{{ place.name }}">
 </div>
 
-<div class="mt-5 ml-5 mr-5">
-    <div class="container">
-        <div class="bg-transparent">
-            <div class="row">
-                <div class="col-6">
-                    <p class="font-weight-bold" style="font-size: 3rem; line-height: 2rem">{{ place.name }}</p>
-                </div>
-                <div class="col-6">
-                    <div>
-                        {% if request.user.is_authenticated %}
+    <div class="mt-5 ml-5 mr-5">
+        <div class="container">
+            <div class="bg-transparent">
+                <div class="row">
+                    <div class="col-6">
+                        <p class="font-weight-bold destinationFontD">{{ place.name }}</p>
+                    </div>
+                    <div class="col-6">
+                        <div>
+                        {% if not request.user.is_superuser %}
+                            {% if request.user.is_authenticated %}
                             <div class="row">
                                 <div class="col-6">
                                 </div>
@@ -108,11 +109,11 @@
 </div>
 
 
-<div class="mt-5 ml-5 mr-5">
-    <div class="container-fluid ">
-        <div class="bg-transparent">
-
-            <p class="font-weight-bold" style="font-size: 3rem; line-height: 2rem; color: lightseagreen">Comments</p>
+    <div class="mt-5 ml-5 mr-5">
+        <div class="container-fluid ">
+            <div class="bg-transparent">
+                <p class="font-weight-bold destinationFontE">Comments</p>
+            </div>
         </div>
     </div>
 </div>
@@ -131,8 +132,32 @@
                             <a class="btn btn-success my-2"
                                href="{% url 'delete_comment_attraction' comment_id=comment.commentId %}">Delete</a>
                         {% endif %}
+    <form class=" container-fluid mt-2 border p-2 pl-5 pr-5" style="border-top: #17a2b8 solid 2px !important;">
+        <div class="p-1 comments">
+            {% for comment in comments|slice:":3" %}
+                <div class="container comment  m-1 p-0">
+                    <div class=" ml-3 border-left ">
+                        <div class="container ml-2">
+                            <a class="author">
+                                <span>User# {{ comment.user.id }}</span>
+                                <span class="summary-text small">{{ comment.created_time }}</span>
+                            </a>
+
+                            {% if request.user.is_superuser %}
+                                <a class="btn btn-success my-2"
+                                       href="{% url 'delete_comment_attraction' comment_id=comment.commentId attraction=place.attraction_id %}">Delete</a>
+                            {% else %}
+                                {% if request.user == comment.user %}
+                                    <a class="btn btn-success my-2 ml-5"
+                                       href="{% url 'edit_comment_attraction' comment_id=comment.commentId attraction=place.attraction_id %}">Edit</a>
+                                    <a class="btn btn-success my-2 ml-2"
+                                        href="{% url 'delete_comment_attraction' comment_id=comment.commentId attraction=place.attraction_id%}">Delete</a>
+                                {% endif %}
+                            {% endif %}
+
+                        </div>
+                        <div class="messageText ml-2 container m-2">{{ comment.comment_content }}</div>
                     </div>
-                    <div class="messageText ml-2 container m-2">{{ comment.comment_content }}</div>
                 </div>
             </div>
             </div>
@@ -140,31 +165,35 @@
     </div>
     <div id="aComments"></div>
 </form>
-<div class="ml-4">
-    <button id="aLoadMoreBtn" value="{{ place.attraction_id }}">Load more</button>
-</div>
+    <div class="loadMoreButton">
+        <button type="button" id="aLoadMoreBtn" class="btn btn-link" value="{{ place.attraction_id }}">LOAD MORE
+        </button>
+    </div>
 <div class="ml-4">
     <form class="form-inline my-2 my-lg-0 mx-3" method="POST"
           action="{% url 'attraction_details' attraction=place.attraction_id %}">
         {% csrf_token %}
-        <input class="form-control mr-sm-2 px-3" type="text" placeholder="Add a comment..." name="add_comment"
+        {% if request.user.is_authenticated and not request.user.is_superuser %}
+            <input id="sub_input" class="form-control mr-sm-2 px-3 m-3" type="text" placeholder="Add a comment..." name="add_comment"
                value="{{ request.POST.add_comment }}">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Post</button>
+            <button class="btn btn-outline-success my-2 my-sm-0" id="post-button" type="submit">Post</button>
+        {% endif %}
     </form>
-
 </div>
 
 {% include 'footer.html' %}
-<script>
-    let btn = document.getElementById("not-log-dislike-button")
-    let btn2 = document.getElementById("not-log-like-button")
-    btn.addEventListener("click", () => {
-        alert("Please Login")
-    })
-    btn2.addEventListener("click", () => {
-        alert("Please Login")
-    })
-</script>
+    <script>
+        document.getElementById('sub_input').value = ''
+
+        let btn=document.getElementById("not-log-dislike-button")
+        let btn2=document.getElementById("not-log-like-button")
+        btn.addEventListener("click",()=>{
+            alert("Please Login")
+        })
+        btn2.addEventListener("click",()=>{
+            alert("Please Login")
+        })
+    </script>
 <script src="{% static 'attraction-bookmark.js' %}"></script>
 <script src="{% static 'attraction-like-functions.js' %}"></script>
 <script src="{% static 'load_more_attraction_comment.js' %}"></script>
