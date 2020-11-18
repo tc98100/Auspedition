@@ -98,31 +98,32 @@
                         </div>
                         <div class="messageText ml-2 container m-2">{{ comment.comment_content }}</div>
                     </div>
+                    <div class="messageText ml-2 container m-2">{{ comment.comment_content }}</div>
                 </div>
-            {% endfor %}
-        </div>
-        <div id="aComments" ></div>
-        <!--Load more button-->
-        <div class="loadMoreButton">
-            <button type="button" id="aLoadMoreBtn" class="btn btn-link" value="{{ place.attraction_id }}">LOAD MORE</button>
-        </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div id="aComments"></div>
+</form>
+<div class="ml-4">
+    <button id="aLoadMoreBtn" value="{{ place.attraction_id }}">Load more</button>
+</div>
+<div class="ml-4">
+    <form class="form-inline my-2 my-lg-0 mx-3" method="POST"
+          action="{% url 'attraction_details' attraction=place.attraction_id %}">
+        {% csrf_token %}
+        <input class="form-control mr-sm-2 px-3" type="text" placeholder="Add a comment..." name="add_comment"
+               value="{{ request.POST.add_comment }}">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Post</button>
     </form>
 
-    <div class="ml-4">
-        <form class="form-inline my-2 my-lg-0 mx-3" method="POST" action="{% url 'attraction_details' attraction=place.attraction_id %}">
-            {% csrf_token %}
-            <input class="form-control mr-sm-2 px-3" type="text" placeholder="Add a comment..." name="add_comment" value="{{ request.POST.add_comment }}">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Post</button>
-        </form>
-    </div>
+</div>
 
-    <script src="{% static 'attraction-like-dislike-function.js' %}"></script>
-    <script src="{% static 'attraction-check-like-function.js' %}"></script>
+{% include 'footer.html' %}
+<script src="{% static 'attraction-bookmark.js' %}"></script>
+<script src="{% static 'attraction-like-functions.js' %}"></script>
 
-    {% include 'footer.html' %}
-    <script src="{% static 'load_attraction_comments.js' %}"></script>
-    <script src="{% static 'attractionBookmarkFunction.js' %}"></script>
-    <script src="{% static 'attraction-like-dislike-function.js' %}"></script>
+<script src="{% static 'load_attraction_comments.js' %}"></script>
 
     <script src="{% static 'index.js' %}"></script>
     {% include 'external.html' %}

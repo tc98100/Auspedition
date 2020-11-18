@@ -43,6 +43,8 @@ urlpatterns = [
     path('logout/', views.logout_user, name="logout"),
     path('profile/change-password/', views.change_password, name='change_password'),
 
+    path('profile/abookmark/',views.profile_a_bookmarks,name='a_profile_bookmark'),
+    path('profile/dbookmark/', views.profile_d_bookmarks, name='d_profile_bookmark'),
 
     path('attractions/<str:attraction>/dislike/', views.dislike_post, name='dislike'),
     path('attractions/<str:attraction>/like/', views.like_post, name='like'),
@@ -53,6 +55,12 @@ urlpatterns = [
     path('attractions/<str:attraction>/checkLike/', views.a_check_like, name='a_check_like'),
     path('destinations/<str:destination>/checkDislike/', views.d_check_dislike, name='d_check_dislike'),
     path('destinations/<str:destination>/checkLike/', views.d_check_like, name='d_check_like'),
+
+    path('destinations/<str:destination>/checkBookmark/', views.d_check_bookmark, name='d_check_bookmark'),
+    path('attractions/<str:attraction>/checkBookmark/', views.a_check_bookmark, name='a_check_bookmark'),
+
+    path('destinations/<str:destination>/bookmark/', views.d_bookmark, name='d_bookmark'),
+    path('attractions/<str:attraction>/bookmark/', views.a_bookmark, name='a_bookmark'),
 
 ]
 

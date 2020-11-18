@@ -122,15 +122,14 @@
         </form>
     </div>
 
+<script src="{% static 'destination-like-functions.js' %}"></script>
+<script src="{% static 'destination-bookmark-function.js' %}"></script>
 
-    <script src="{% static 'destination-like-dislike-function.js' %}"></script>
-    <script src="{% static 'destination-check-like-function.js' %}"></script>
+{% include 'footer.html' %}
+<script src="{% static 'load_destination_comments.js' %}"></script>
+<script src="{% static 'index.js' %}"></script>
+{% include 'external.html' %}
 
-    {% include 'footer.html' %}
-    <script src="{% static 'load_destination_comments.js' %}"></script>
-    <script src="{% static 'destinationBookmarkFunction.js' %}"></script>
-    <script src="{% static 'index.js' %}"></script>
-    {% include 'external.html' %}
 </body>
 </html>
 
