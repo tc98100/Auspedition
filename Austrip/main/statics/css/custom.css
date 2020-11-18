@@ -351,6 +351,22 @@ body .userProfile{
     line-height: 1rem;
 }
 
+.destinationFontD{
+    font-size: 3rem;
+    line-height: 2rem;
+}
+
+.destinationFontE {
+    font-size: 3rem;
+    line-height: 2rem;
+    color: lightseagreen;
+}
+
+.destinationFontF {
+    font-size: 1rem;
+    line-height: 2rem;
+}
+
 /* Css for home page */
 .homeBackgroundTextA{
     position:absolute;
