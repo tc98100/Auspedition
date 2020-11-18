@@ -138,3 +138,5 @@ STATICFILES_DIRS = ['main/statics/css', 'main/assets', 'main/statics/javascript'
 
 MEDIA_URL = '/assets/'
 MEDIA_ROOT = 'main/assets'
+
+APPEND_SLASH = False

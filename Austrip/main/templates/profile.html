@@ -49,7 +49,7 @@
                 <p>{{ request.user.userinfo.bio }}</p>
             </dd>
         </dl>
-    </div>
+    </div>{% csrf_token %}
 
     <!-- Bookmark List -->
     <div class="bookmarkList">
