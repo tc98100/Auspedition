@@ -127,13 +127,13 @@
                             </a>
                             {% if request.user == comment.user %}
                                 <a class="btn btn-success my-2"
-                                   href="{% url 'edit_comment_attraction' comment_id=comment.commentId %}">Edit</a>
+                                   href="{% url 'edit_comment_attraction' comment_id=comment.commentId attraction=place.attraction_id %}">Edit</a>
                                 <a class="btn btn-success my-2"
                                    href="{% url 'delete_comment_attraction' comment_id=comment.commentId attraction=place.attraction_id %}">Delete</a>
                             {% endif %}
                             {% if request.user.is_superuser %}
                                 <a class="btn btn-success my-2"
-                                   href="{% url 'delete_comment_attraction' comment_id=comment.commentId %}">Admin
+                                   href="{% url 'delete_comment_attraction' comment_id=comment.commentId attraction=place.attraction_id%}">Admin
                                     Delete</a>
                             {% endif %}
                         </div>

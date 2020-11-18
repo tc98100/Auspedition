@@ -319,18 +319,16 @@ def detailed_attraction(request, attraction):
 def edit_comment_destination(request, comment_id, destination):
     city = Destination.objects.get(destination_id=destination)
     comment = DestinationComment.objects.get(commentId=comment_id)
-    comments = city.destinationcomment_set.all()
     if request.method == 'POST':
         edit_form = AddCommentAttraction(request.POST, instance=comment)
         if edit_form.is_valid:
             edit_form.save()
-            print(request.get_full_path)
             url = 'http://127.0.0.1:8000/destinations/' + city.destination_id + '/'
             return redirect(url)
     else:
         edit_form = AddCommentAttraction(instance=comment)
     context = {'form': edit_form, 'city': city, 'comment': comment}
-    return render(request, 'edit.html', context)
+    return render(request, 'edit_destination.html', context)
 
 
 def delete_comment_attraction(request, comment_id, attraction):
@@ -342,17 +340,19 @@ def delete_comment_attraction(request, comment_id, attraction):
     return render(request, 'attraction_detail.html', context)
 
 
-def edit_comment_attraction(request, comment_id):
+def edit_comment_attraction(request, comment_id, attraction):
+    place = Attraction.objects.get(attraction_id=attraction)
     comment = AttractionComment.objects.get(commentId=comment_id)
     if request.method == 'POST':
         edit_form = AddCommentAttraction(request.POST, instance=comment)
         if edit_form.is_valid:
             edit_form.save()
-            return redirect('home')
+            url = 'http://127.0.0.1:8000/attractions/' + place.attraction_id + '/'
+            return redirect(url)
     else:
         edit_form = AddCommentAttraction(instance=comment)
-    context = {'form': edit_form, 'comment': comment}
-    return render(request, 'edit.html', context)
+    context = {'form': edit_form, 'place': place, 'comment': comment}
+    return render(request, 'edit_attraction.html', context)
 
 
 def delete_comment_destination(request, comment_id, destination):
