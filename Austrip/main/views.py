@@ -1,14 +1,15 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.forms import PasswordChangeForm, AuthenticationForm
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Q, F
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets
 
 from .decorators import *
-from .forms import CreateUserForm, ChangeUserInfo, ChangePicBio, EditRecommendation, AddCommentAttraction
+from .forms import CreateUserForm, ChangeUserInfo, ChangePicBio, EditRecommendation, AddCommentAttraction, \
+    AddCommentDestination
 from .serializers import *
 from django.http import HttpResponse, JsonResponse
 
@@ -76,6 +77,23 @@ def change_password(request):
     return render(request, 'change_password.html', {'form': form})
 
 
+# def login_user(request):
+#     if request.method == 'POST':
+#         form = AuthenticationForm(request.POST)
+#         if form.is_valid:
+#             user = authenticate(request, username=form.cleaned_data['username'], password=form.cleaned_data['password1'])
+#             # user = form.get_user
+#             if user is not None:
+#                 login(request, user)
+#                 return redirect('home')
+#             else:
+#                 messages.info(request, 'Invalid username or password :(')
+#     else:
+#         form = AuthenticationForm()
+#     context = {'form': form}
+#     return render(request, 'login_restyled.html', context)
+#
+
 def login_user(request):
     if request.method == 'POST':
         user = authenticate(request, username=request.POST.get('username'), password=request.POST.get('password'))
@@ -84,7 +102,8 @@ def login_user(request):
             return redirect('home')
         else:
             messages.info(request, 'Invalid username or password :(')
-    return render(request, 'login_user.html')
+    return render(request, 'login_restyled.html')
+    # return render(request, 'login_restyled.html')
 
 
 def logout_user(request):
@@ -290,6 +309,7 @@ def detailed_destination(request, destination):
     city.click_count += 1
     city.save()
     comments = city.destinationcomment_set.all()
+    add_form = AddCommentDestination()
     if request.method == 'POST':
         add_comment = request.POST.get('add_comment')
         DestinationComment.objects.create(
@@ -320,13 +340,13 @@ def edit_comment_destination(request, comment_id, destination):
     city = Destination.objects.get(destination_id=destination)
     comment = DestinationComment.objects.get(commentId=comment_id)
     if request.method == 'POST':
-        edit_form = AddCommentAttraction(request.POST, instance=comment)
+        edit_form = AddCommentDestination(request.POST, instance=comment)
         if edit_form.is_valid:
             edit_form.save()
             url = 'http://127.0.0.1:8000/destinations/' + city.destination_id + '/'
             return redirect(url)
     else:
-        edit_form = AddCommentAttraction(instance=comment)
+        edit_form = AddCommentDestination(instance=comment)
     context = {'form': edit_form, 'city': city, 'comment': comment}
     return render(request, 'edit_destination.html', context)
 

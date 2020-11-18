@@ -8,6 +8,12 @@ from django.forms import ModelForm
 from .models import UserInfo, Recommendation, AttractionComment
 
 
+class AddCommentDestination(ModelForm):
+    class Meta:
+        model = AttractionComment
+        fields = ['comment_content']
+
+
 class AddCommentAttraction(ModelForm):
     class Meta:
         model = AttractionComment

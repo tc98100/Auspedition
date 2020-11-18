@@ -153,7 +153,7 @@
           action="{% url 'attraction_details' attraction=place.attraction_id %}">
         {% csrf_token %}
         {% if request.user.is_authenticated %}
-            <input class="form-control mr-sm-2 px-3" type="text" placeholder="Add a comment..." name="add_comment"
+            <input id="sub_input" class="form-control mr-sm-2 px-3" type="text" placeholder="Add a comment..." name="add_comment"
                value="{{ request.POST.add_comment }}">
             <button class="btn btn-outline-success my-2 my-sm-0" id="post-button" type="submit">Post</button>
         {% endif %}
@@ -163,6 +163,8 @@
 
 {% include 'footer.html' %}
     <script>
+        document.getElementById('sub_input').value = ''
+
         let btn=document.getElementById("not-log-dislike-button")
         let btn2=document.getElementById("not-log-like-button")
         btn.addEventListener("click",()=>{
