@@ -164,6 +164,22 @@
     margin: auto;
 }
 
+/*
+.profileImg .uploadedFile {
+    position: relative;
+    overflow: hidden;
+    margin-top: -25%;
+    border: none;
+    background: grey;
+}
+
+.uploadedFile input {
+    position: absolute;
+    opacity: 0;
+    right: 0;
+    top: 0;
+}*/
+
 body .userProfile{
     background-image: radial-gradient(circle at 20% 20%, #99CCCC, #7171B7);
     padding-bottom: 5rem;
@@ -171,7 +187,8 @@ body .userProfile{
 
 .basicInfo{
     width: 50%;
-    margin: 2rem auto auto;
+    margin: auto;
+    margin-top: 2rem;
 }
 
 .basicInfo h3{
