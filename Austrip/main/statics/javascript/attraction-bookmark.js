@@ -16,7 +16,6 @@ attractionBookBtn.addEventListener('click', () => {
             attractionBookBtn.style.color = data
         },
         error: function (xhr, errmsg, err) {
-
         }, complete: function (response) {
             checkBookmark()
         }

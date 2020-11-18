@@ -37,6 +37,7 @@ let count = 3;
          }
          cards += "</div>"
              if(count-1>=response.length){
+
                  cards=""
              }
              aComments.insertAdjacentHTML("beforeend", cards);
