@@ -126,17 +126,19 @@
                             <span>User# {{ comment.user.id }}</span>
                             <span class="summary-text small">{{ comment.created_time }}</span>
                         </a>
-                        {% if request.user == comment.user %}
-                            <a class="btn btn-success my-2"
-                               href="{% url 'edit_comment_destination' comment_id=comment.commentId destination=city.destination_id %}">Edit</a>
-                            <a class="btn btn-success my-2"
-                               href="{% url 'delete_comment_destination' comment_id=comment.commentId destination=city.destination_id %}">
-                                Delete</a>
-                        {% endif %}
+
                         {% if request.user.is_superuser %}
                             <a class="btn btn-success my-2"
-                               href="{% url 'delete_comment_destination' comment_id=comment.commentId destination=city.destination_id%}">Admin
+                               href="{% url 'delete_comment_destination' comment_id=comment.commentId destination=city.destination_id%}">
                                 Delete</a>
+                        {% else %}
+                            {% if request.user == comment.user %}
+                                <a class="btn btn-success my-2 ml-5"
+                                href="{% url 'edit_comment_destination' comment_id=comment.commentId destination=city.destination_id %}">Edit</a>
+                                <a class="btn btn-success my-2 ml-2"
+                                href="{% url 'delete_comment_destination' comment_id=comment.commentId destination=city.destination_id %}">
+                                Delete</a>
+                            {% endif %}
                         {% endif %}
                     </div>
                     <div class="messageText ml-2 container m-2">{{ comment.comment_content }}</div>
@@ -145,6 +147,7 @@
         {% endfor %}
     </div>
     <div id="d-comments"></div>
+
     <!--Load more button-->
     <div class="loadMoreButton">
         <button type="button" id="d-load-comment-div" class="btn btn-link" value="{{ city.destination_id }}">LOAD MORE
@@ -157,8 +160,8 @@
     <div class="ml-4">
         <form class="form-inline my-2 my-lg-0 mx-3" method="POST" action="{% url 'destination_details' destination=city.destination_id %}">
             {% csrf_token %}
-            {% if request.user.is_authenticated %}
-                <input id="sub_input" class="form-control mr-sm-2 px-3" type="text" placeholder="Add a comment..." name="add_comment" value="{{ request.POST.add_comment }}">
+            {% if request.user.is_authenticated and not request.user.is_superuser %}
+                <input id="sub_input" class="form-control mr-sm-2 px-3 m-3" type="text" placeholder="Add a comment..." name="add_comment" value="{{ request.POST.add_comment }}">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Post</button>
             {% endif %}
         </form>
