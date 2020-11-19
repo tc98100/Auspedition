@@ -119,50 +119,89 @@
 
 <form class=" container-fluid mt-2 border p-2 pl-5 pr-5" style="border-top: #17a2b8 solid 2px !important;">
     <div class="p-1 comments">
-        {% for comment in comments|slice:":3" %}
-            <div class="container comment  m-1 p-0">
-                <div class=" ml-3 border-left ">
-                    <div class="container ml-2">
-                        <a class="author">
-                            <span>User# {{ comment.user.id }}</span>
-                            <span class="summary-text small">{{ comment.created_time }}</span>
-                        </a>
+        {% if request.user.is_superuser %}
+            {% for comment in comments %}
+                <div class="container comment  m-1 p-0">
+                    <div class=" ml-3 border-left ">
+                        <div class="container ml-2">
+                            <a class="author">
+                                <span>User# {{ comment.user.id }}</span>
+                                <span class="summary-text small">{{ comment.created_time }}</span>
+                            </a>
+                            {% if request.user.is_superuser %}
+                                <a class="btn btn-success my-2"
+                                   href="{% url 'delete_comment_destination' comment_id=comment.commentId destination=city.destination_id %}">
+                                    Delete</a>
+                            {% else %}
+                                {% if request.user == comment.user %}
+                                    <a class="btn btn-success my-2 ml-5"
+                                       href="{% url 'edit_comment_destination' comment_id=comment.commentId destination=city.destination_id %}">Edit</a>
+                                    <a class="btn btn-success my-2 ml-2"
+                                       href="{% url 'delete_comment_destination' comment_id=comment.commentId destination=city.destination_id %}">
+                                        Delete</a>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                        <div class="messageText ml-2 container m-2">{{ comment.comment_content }}</div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% elif request.user.is_authenticated %}
+            {% for comment in comments %}
+                <div class="container comment  m-1 p-0">
+                    <div class=" ml-3 border-left ">
+                        <div class="container ml-2">
+                            <a class="author">
+                                <span>User# {{ comment.user.id }}</span>
+                                <span class="summary-text small">{{ comment.created_time }}</span>
+                            </a>
 
-                        {% if request.user.is_superuser %}
-                            <a class="btn btn-success my-2"
-                               href="{% url 'delete_comment_destination' comment_id=comment.commentId destination=city.destination_id%}">
-                                Delete</a>
-                        {% else %}
                             {% if request.user == comment.user %}
                                 <a class="btn btn-success my-2 ml-5"
-                                href="{% url 'edit_comment_destination' comment_id=comment.commentId destination=city.destination_id %}">Edit</a>
+                                   href="{% url 'edit_comment_destination' comment_id=comment.commentId destination=city.destination_id %}">Edit</a>
                                 <a class="btn btn-success my-2 ml-2"
-                                href="{% url 'delete_comment_destination' comment_id=comment.commentId destination=city.destination_id %}">
-                                Delete</a>
+                                   href="{% url 'delete_comment_destination' comment_id=comment.commentId destination=city.destination_id %}">
+                                    Delete</a>
                             {% endif %}
-                        {% endif %}
+                        </div>
+                        <div class="messageText ml-2 container m-2">{{ comment.comment_content }}</div>
                     </div>
-                    <div class="messageText ml-2 container m-2">{{ comment.comment_content }}</div>
                 </div>
+            {% endfor %}
+        {% else %}
+            {% for comment in comments|slice:":3" %}
+                <div class="container comment  m-1 p-0">
+                    <div class=" ml-3 border-left ">
+                        <div class="container ml-2">
+                            <a class="author">
+                                <span>User# {{ comment.user.id }}</span>
+                                <span class="summary-text small">{{ comment.created_time }}</span>
+                            </a>
+                        </div>
+                        <div class="messageText ml-2 container m-2">{{ comment.comment_content }}</div>
+                    </div>
+                </div>
+            {% endfor %}
+            <div id="d-comments"></div>
+            <!--Load more button-->
+            <div class="loadMoreButton">
+                <button type="button" id="d-load-comment-div" class="btn btn-link" value="{{ city.destination_id }}">
+                    LOAD MORE
+                </button>
             </div>
-        {% endfor %}
-    </div>
-    <div id="d-comments"></div>
-
-    <!--Load more button-->
-    <div class="loadMoreButton">
-        <button type="button" id="d-load-comment-div" class="btn btn-link" value="{{ city.destination_id }}">LOAD MORE
-        </button>
+        {% endif %}
     </div>
 </form>
 
 
 {% if request.user.is_authenticated %}
     <div class="ml-4">
-        <form class="form-inline my-2 my-lg-0 mx-3" method="POST" action="{% url 'destination_details' destination=city.destination_id %}">
+        <form class="form-inline my-2 my-lg-0 mx-3" method="POST"
+              action="{% url 'destination_details' destination=city.destination_id %}">
             {% csrf_token %}
             {% if not request.user.is_superuser %}
-                <input id="sub_input" class="form-control mr-sm-2 px-3 m-3" type="text" placeholder="Add a comment..." name="add_comment" value="{{ request.POST.add_comment }}">
+                <input id="sub_input" class="form-control mr-sm-2 px-3 m-3" type="text" placeholder="Add a comment..."
+                       name="add_comment" value="{{ request.POST.add_comment }}">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Post</button>
             {% endif %}
         </form>
@@ -182,11 +221,182 @@
         alert("Please Login")
     })
 </script>
+<script>
+    let script = document.createElement('script');
 
+    script.src = '//code.jquery.com/jquery-1.11.0.min.js';
+    document.getElementsByTagName('head')[0].appendChild(script);
+    let aComments = document.getElementById("d-comments")
+    let dLoadCommentsBtn = document.getElementById("d-load-comment-div")
+    let cards = ""
+    let count = 3;
+    dLoadCommentsBtn.addEventListener("click", () => {
+        alert("Loading in progress,Please wait for 2 seconds.")
+        cards = ""
+        $.ajax({
+            method: "GET",
+            url: "http://127.0.0.1:8000/viewset/destinationComment/?comment_on=" + dLoadCommentsBtn.value,
+            success: function (response) {
+                cards += "<div class=\"row\">\n"
+                for (let i = count; i < count + 3; i++) {
+                    if (i >= response.length) {
+                        alert("All content loaded.")
+                        break;
+                    }
+                    let dateObject = new Date(response[i].created_time)
+                    const date = dateObject.toLocaleString()
+
+                    cards += " <div class=\"container comment  m-1 p-0\">\n" +
+                        "                    <div class=\" ml-3 border-left \">\n" +
+                        "                        <div class=\"container ml-2\">\n" +
+                        "                            <a class=\"author\">\n" +
+                        "                                <span>User# " + response[i].user + "</span>\n" +
+                        "                                <span class=\"summary-text small\">" + date + "</span>\n" +
+                        "                            </a>\n" +
+                        "                        </div>\n" +
+                        "                        <div class=\"messageText ml-2 container m-2\">" + response[i].comment_content + "</div>\n" +
+                        "                    </div>\n" +
+                        "                </div>";
+
+
+                }
+                cards += "</div>"
+                if (count - 1 >= response.length) {
+
+                    cards = ""
+                }
+                aComments.insertAdjacentHTML("beforeend", cards);
+                count += 3;
+            }
+
+        })
+    });
+</script>
+<script>
+    let destinationBookBtn = document.getElementById("d-bookmark-btn")
+    destinationBookBtn.addEventListener('click', () => {
+        alert("Bookmark click, data update process may be slow.")
+        $.ajax({
+            type: 'POST',
+            url: 'bookmark/',
+            data: {
+                csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value,
+            },
+            success: function (data) {
+                destinationBookBtn.style.color = data
+            },
+            error: function (xhr, errmsg, err) {
+
+            }, complete: function (response) {
+                checkBookmark()
+            }
+        });
+    })
+
+
+    window.onload = function () {
+        checkBookmark()
+    }
+
+    function checkBookmark() {
+        $.ajax({
+            type: 'GET',
+            url: 'checkBookmark/',
+            data: {
+                csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value,
+            },
+            success: function (data) {
+                destinationBookBtn.style.color = data
+            },
+            error: function (xhr, errmsg, err) {
+
+            }
+        });
+    }
+</script>
+<script>
+    window.addEventListener("load", checkLikes, false);
+    window.addEventListener("load", checkDislikes, false);
+
+    let destinationLikeBtn = document.getElementById("d-like-btn")
+    let destinationLikeCount = document.getElementById("d-like-count")
+
+    let destinationDislikeBtn = document.getElementById("d-dislike-btn")
+    let destinationDislikeCount = document.getElementById("d-dislike-count")
+
+    function checkLikes() {
+        $.ajax({
+            type: 'GET',
+            url: 'checkLike/',
+            data: {
+                csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value,
+            },
+            success: function (data) {
+                destinationLikeBtn.style.color = data
+            },
+            error: function (xhr, errmsg, err) {
+            }
+        });
+    }
+
+    function checkDislikes() {
+        $.ajax({
+            type: 'GET',
+            url: 'checkDislike/',
+            data: {
+                csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value,
+            },
+            success: function (data) {
+                destinationDislikeBtn.style.color = data
+            },
+            error: function (xhr, errmsg, err) {
+            }
+        });
+    }
+
+
+    destinationLikeBtn.addEventListener('click', () => {
+        alert("Like button clicked, data update process may be slow.")
+        $.ajax({
+            type: 'POST',
+            url: 'like/',
+            data: {
+                csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value,
+            },
+            success: function (data) {
+                destinationLikeCount.innerHTML = data
+            },
+            error: function (xhr, errmsg, err) {
+
+            },
+            complete: function (response) {
+                checkLikes()
+            }
+        });
+    })
+    destinationDislikeBtn.addEventListener('click', () => {
+        alert("Dislike button clicked, data update process may be slow")
+        $.ajax({
+            type: 'POST',
+            url: 'dislike/',
+            data: {
+                csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value,
+            },
+            success: function (data) {
+                destinationDislikeCount.innerHTML = data
+
+            },
+            error: function (xhr, errmsg, err) {
+
+            },
+            complete: function (response) {
+                checkDislikes()
+            }
+
+        })
+    });
+</script>
 {% include 'footer.html' %}
-<script src="{% static 'load_more_destination_comment.js' %}"></script>
-<script src="{% static 'destination-like-functions.js' %}"></script>
-<script src="{% static 'destination-bookmark-function.js' %}"></script>
 
 <script src="{% static 'index.js' %}"></script>
 {% include 'external.html' %}

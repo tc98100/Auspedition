@@ -13,6 +13,8 @@
 
 <body>
 {% include 'navbar.html' %}
+{% csrf_token %}
+
 <div class="container-fluid userProfile">
     <h2>{{ request.user.get_full_name }}</h2>
 
