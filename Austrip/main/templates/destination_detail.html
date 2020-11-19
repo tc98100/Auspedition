@@ -161,7 +161,7 @@
     <div class="ml-4">
         <form class="form-inline my-2 my-lg-0 mx-3" method="POST" action="{% url 'destination_details' destination=city.destination_id %}">
             {% csrf_token %}
-            {% if request.user.is_authenticated and not request.user.is_superuser %}
+            {% if not request.user.is_superuser %}
                 <input id="sub_input" class="form-control mr-sm-2 px-3 m-3" type="text" placeholder="Add a comment..." name="add_comment" value="{{ request.POST.add_comment }}">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Post</button>
             {% endif %}
