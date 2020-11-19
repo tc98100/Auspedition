@@ -48,3 +48,13 @@ dLoadCommentsBtn.addEventListener("click", () => {
 
     })
 });
+
+
+// "{% if request.user.is_superuser %}" +
+//                     "<a class=\"btn btn-success my-2\" href=\"{% url 'delete_comment_destination' comment_id=comment.commentId destination=city.destination_id%}\">Delete</a>" +
+//                     "{% else %}" +
+//                     "{% if request.user == comment.user %}" +
+//                     "<a class=\"btn btn-success my-2 ml-5\" href=\"{% url 'edit_comment_destination' comment_id=comment.commentId destination=city.destination_id %}\">Edit</a>" +
+//                     "<a class=\"btn btn-success my-2 ml-2\" href=\"{% url 'delete_comment_destination' comment_id=comment.commentId destination=city.destination_id %}\">Delete</a>" +
+//                     "{% endif %}" +
+//                     "{% endif %}" +
