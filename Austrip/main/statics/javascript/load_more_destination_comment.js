@@ -1,7 +1,4 @@
-let script = document.createElement('script');
 
-script.src = '//code.jquery.com/jquery-1.11.0.min.js';
-document.getElementsByTagName('head')[0].appendChild(script);
 let aComments = document.getElementById("d-comments")
 let dLoadCommentsBtn = document.getElementById("d-load-comment-div")
 let cards = ""
