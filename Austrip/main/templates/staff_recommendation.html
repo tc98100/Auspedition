@@ -11,22 +11,22 @@
 </head>
 <body>
     {% include 'navbar.html' %}
-    <div class="container-fluid userProfile">
-                    <div class="changeTitle">
-                        <h4>Change Profile Information</h4>
-                    </div>
-                    <div align="center">
-                        <form class="form-horizontal" role="form" method="POST" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        {{ edit.as_p }}
-                        <button type="submit" class="btn btn-success subBtn">Update Details</button>
-                        </form>
-                    </div>
+    <div class="container-fluid userProfile text-center">
+        <div class="changeTitle">
+            <h4>Change Profile Information</h4>
+        </div>
+        <div>
+            <form class="form-horizontal" role="form" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ edit.as_p }}
+            <button type="submit" class="btn btn-success subBtn">Update Details</button>
+            </form>
+        </div>
 
 
         <!-- Back button -->
         <div class="backBtn">
-            <a class="btn btn-success" href="{% url 'profile' %}" role="button">Back</a>
+            <a class="btn btn-success" href="{% url 'recommendation_details' recommendation=recommendation.recommendation_id %}" role="button">Back</a>
         </div>
     </div>
     {% include 'footer.html' %}
