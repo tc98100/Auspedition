@@ -8,7 +8,7 @@ window.onload = function () {
 }
 
 function loadAttractionBookmark() {
-    cards = document.getElementById("a-book-cards")
+    let cards = document.getElementById("a-book-cards")
     let texts = ""
     $.ajax({
         method: "GET",
@@ -22,7 +22,7 @@ function loadAttractionBookmark() {
                 let cardId = attractionId + "_card"
                 let buttonId = attractionId + "_button"
                 texts += "<div class=\"card\" id=\"" + cardId + "\">\n" +
-                    "                    <img src=\"" + obj[i].image + "\" class=\"card-img-top\" alt=\"...\">\n" +
+                    "                            <a class=\"attraction\" style=\"background-image: url(http://127.0.0.1:8000/assets/"+obj[i].image+"); display: block\"></a>\n" +
                     "                    <div class=\"card-body\" style=\"text-align:center\">\n" +
                     "                        <h5 class=\"card-title\">" + obj[i].name + "</h5>\n" +
                     "                        <div class=\"bookmarkBtnGroup\">\n" +
@@ -56,7 +56,7 @@ function removeAttractionBookmark(id) {
 }
 
 function loadDestinationBookmark() {
-    cards = document.getElementById("d-book-cards")
+    let cards = document.getElementById("d-book-cards")
     let texts = ""
     $.ajax({
         method: "GET",
@@ -69,9 +69,8 @@ function loadDestinationBookmark() {
                 let destinationId = obj[i].destination_id
                 let cardId = destinationId + "_card"
                 let buttonId = destinationId + "_button"
-
                 texts += "<div class=\"card\" id=\"" + cardId + "\">\n" +
-                    "                    <img src=\"" + obj[i].image + "\" class=\"card-img-top\" alt=\"...\">\n" +
+                    "                            <a class=\"attraction\" style=\"background-image: url(http://127.0.0.1:8000/assets/"+obj[i].image+"); display: block\"></a>\n" +
                     "                    <div class=\"card-body\" style=\"text-align:center\">\n" +
                     "                        <h5 class=\"card-title\">" + obj[i].name + "</h5>\n" +
                     "                        <div class=\"bookmarkBtnGroup\">\n" +
