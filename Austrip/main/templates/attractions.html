@@ -11,84 +11,82 @@
         integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 </head>
 <body>
-    {% include 'navbar.html' %}
-    <!--Search bar in attraction -->
-    <div id="attraction_jumbo">
-        <div class="container-fluid">
-            <div class="row rounded-pill mx-auto justify-content-center attractionSearchPic">
-                <form class="attractionForm" method="GET" action="{% url 'attraction_result' %}">
-                    <div class="form-row align-items-center">
-                        <div class="col-8 pl-3">
-                            <select class="custom-select custom-select-lg border-0 mb-1" id="inputGroupSelect01"
-                                    name="city">
-                                <option selected>CITY</option>
-                                {% for place in city_list %}
-                                    <option value="{{ place }}">{{ place }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="col-4">
-                            <button class="btn btn-outline-success btn-lg btn-block rounded-pill " type="submit">SEARCH
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!--attraction Font-->
-    <div class="mt-5 ml-5 mr-5">
-        <div class="container-fluid ">
-            <div class="bg-transparent">
-                <h1 class="font-weight-bold attractionFontA">
-                    Wow that looks good!</h1>
-                <div class="row">
-                    <div class="col-8">
-                        <p class="font-weight-light attractionFontB">All
-                            Attractions
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--Attraction Lists-->
-        <div class="container-fluid mb-5">
-            <div class="row">
-                {% for place in Attractions|slice:":4" %}
-                    <div class="col-3 mb-2">
-                        <div class="card rounded-cus shadow">
-                            <a class="attraction" style="background-image: url({{ place.image.url }}); display: block"></a>
-                            <div class="card-body">
-                                <p class="font-weight-bold text-center attractionCardText"
-                                >{{ place.name }}</p>
-                                <hr>
-                                <div class="row text-center">
-                                    <div class="col">
-                                        <p class=""><b>{{ place.likes }}</b> likes</p>
-                                        <p><b>{{ place.dislikes }}</b> dislikes</p>
-                                    </div>
-                                    <div class="col">
-                                        <a class="btn btn-success my-2"
-                                        href="{% url 'attraction_details' attraction=place.attraction_id %}">see more</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+  {% include 'navbar.html' %}
+  <!--Search bar in attraction -->
+  <div id="attraction_jumbo">
+    <div class="container-fluid">
+      <div class="row rounded-pill mx-auto justify-content-center attractionSearchPic">
+        <form class="attractionForm" method="GET" action="{% url 'attraction_result' %}">
+          <div class="form-row align-items-center">
+            <div class="col-8 pl-3">
+              <select class="custom-select custom-select-lg border-0 mb-1" id="inputGroupSelect01"
+                      name="city">
+                <option selected>CITY</option>
+                {% for place in city_list %}
+                  <option value="{{ place }}">{{ place }}</option>
                 {% endfor %}
+              </select>
             </div>
-            <div id="attractions" class="mb-5">
+            <div class="col-4">
+              <button class="btn btn-outline-success btn-lg btn-block rounded-pill " type="submit">SEARCH
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!--attraction Font-->
+  <div class="mt-5 ml-5 mr-5">
+    <div class="container-fluid ">
+      <div class="bg-transparent">
+        <h1 class="font-weight-bold attractionFontA">
+          Wow that looks good!</h1>
+        <div class="row">
+          <div class="col-8">
+            <p class="font-weight-light attractionFontB">All
+              Attractions
+            </p>
+          </div>
         </div>
+      </div>
     </div>
-
-     <!--Load more button-->
-     <div class="loadMoreButton">
-        <button type="button" id="loadAttractionBtn" class="btn btn-link">LOAD MORE</button>
+    <!--Attraction Lists-->
+    <div class="container-fluid mb-5">
+      <div class="row">
+        {% for place in Attractions|slice:":4" %}
+          <div class="col-3 mb-2">
+            <div class="card rounded-cus shadow">
+              <a class="attraction" style="background-image: url({{ place.image.url }}); display: block"></a>
+              <div class="card-body">
+                <p class="font-weight-bold text-center attractionCardText"
+                >{{ place.name }}</p>
+                <hr>
+                <div class="row text-center">
+                  <div class="col">
+                    <p class=""><b>{{ place.likes }}</b> likes</p>
+                    <p><b>{{ place.dislikes }}</b> dislikes</p>
+                  </div>
+                  <div class="col">
+                    <a class="btn btn-success my-2"
+                       href="{% url 'attraction_details' attraction=place.attraction_id %}">see more</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      <div id="attractions" class="mb-5"></div>
     </div>
+  </div>
+  <!--Load more button-->
+  <div class="loadMoreButton">
+    <button type="button" id="loadAttractionBtn" class="btn btn-link">LOAD MORE</button>
+  </div>
+  {% include 'footer.html' %}
 
-{% include 'footer.html' %}
-<script src="{% static 'load-attraction.js' %}"></script>
-
-{% include 'external.html' %}
+  <script src="{% static 'load-attraction.js' %}"></script>
+  {% include 'external.html' %}
 </body>
 </html>

@@ -12,7 +12,7 @@
     color: cadetblue;
 }
 
-#signButton{
+#signButton {
     margin-right: 1rem;
 }
 
@@ -63,16 +63,16 @@
     color: green;
 }
 
-.backBtn{
+.backBtn {
     text-align: center;
     margin-top: 5px;
 }
 
-.form-check{
+.form-check {
     margin-bottom: 10px;
 }
 
-.loadMoreButton{
+.loadMoreButton {
     text-align: center;
     margin-bottom: 2rem;
 }
@@ -81,16 +81,16 @@
 .bg-box {
     background-size: 100% 100%;
     background-repeat: no-repeat;
-    margin:0 auto;
+    margin: 0 auto;
 }
 
 .bg-box::after {
     content: "";
     display: block;
-    padding:20%;
+    padding: 20%;
 }
 
-.attraction{
+.attraction {
     width: 100%;
     height: 0;
     padding-bottom: 75%;
@@ -99,30 +99,30 @@
     background-repeat: no-repeat;
 }
 
-.rounded-cus{
+.rounded-cus {
     border-radius: 1rem;
     overflow: hidden;
 }
 
-.card-body-attraction p{
+.card-body-attraction p {
     font-size: 1.5rem;
     line-height: 1rem;
 }
 
 #destination_jumbo {
     justify-content: center;
-	display: flex;
-    align-items:center;
-    background:url('/../../assets/destination_background.jpg');
-    background-size:100%;
+    display: flex;
+    align-items: center;
+    background: url('/../../assets/destination_background.jpg');
+    background-size: 100%;
 }
 
 #attraction_jumbo {
     justify-content: center;
-	display: flex;
-    align-items:center;
-    background:url('/../../assets/attraction_background.jpeg');
-    background-size:100%;
+    display: flex;
+    align-items: center;
+    background: url('/../../assets/attraction_background.jpeg');
+    background-size: 100%;
 }
 
 #home_background {
@@ -130,7 +130,7 @@
 }
 
 /* Recommendation page */
-.container.recommendationBox{
+.container.recommendationBox {
     width: 70%;
     padding-bottom: 2rem;
     padding-top: 1rem;
@@ -138,9 +138,9 @@
     margin: auto auto 1rem;
 }
 
-.pageTitle{
+.pageTitle {
     text-align: center;
-    padding:1rem;
+    padding: 1rem;
     margin-top: 1rem;
     margin-bottom: 2rem;
     background-color: #8FBC8F;
@@ -148,69 +148,69 @@
     box-shadow: 2px 2px 2px #A9A9A9;
 }
 
-.recImg{
-    border-radius:15px 50px 30px;
+.recImg {
+    border-radius: 15px 50px 30px;
     margin-right: 0.5rem;
 }
 
 /* User Profile */
-.userProfile h2{
+.userProfile h2 {
     text-align: center;
     padding-top: 3rem;
     padding-bottom: 1rem;
 }
 
-.profileImg{
+.profileImg {
     margin: auto;
 }
 
-.userProfile{
+.userProfile {
     background-image: radial-gradient(circle at 20% 20%, #99CCCC, #7171B7);
     padding-bottom: 5rem;
 }
 
-.basicInfo{
+.basicInfo {
     width: 50%;
     margin: 2rem auto auto;
 }
 
-.basicInfo h3{
+.basicInfo h3 {
     text-align: center;
     margin-bottom: 2rem;
 }
 
-.bookmarkList{
+.bookmarkList {
     width: 50%;
     margin: auto;
 }
 
-.bookmarkList h3{
+.bookmarkList h3 {
     text-align: center;
     margin-bottom: 2rem;
 }
 
-.btnGroup{
+.btnGroup {
     margin-top: 2rem;
 }
 
-#editBtn:hover{
+#editBtn:hover {
     background-color: #0c180c;
     border-color: #4CAF50;
     color: white;
 }
 
-#changePassword:hover{
+#changePassword:hover {
     background-color: #B8860B;
     border-color: #B8860B;
     color: white;
 }
 
 /* Change User Profile */
-.userProfile{
+.userProfile {
     padding-top: 2rem;
 }
 
-#leftBox, #rightBox{
+#leftBox, #rightBox {
     width: 80%;
     margin: auto;
 }
@@ -226,7 +226,7 @@
     text-align: center;
 }
 
-.backBtn{
+.backBtn {
     margin: 3rem auto -1rem;
 }
 
@@ -244,7 +244,7 @@
     border: 1px solid grey;
 }
 
-.recUploadImg  input {
+.recUploadImg input {
     position: absolute;
     opacity: 0;
     filter: alpha(opacity=0);
@@ -257,18 +257,18 @@
     text-decoration: none;
 }
 
-.recAddBtn{
-    margin-top:0.5rem;
+.recAddBtn {
+    margin-top: 0.5rem;
     text-align: center;
 }
 
-.upRecBtn{
+.upRecBtn {
     text-align: center;
     margin-top: 1rem;
 }
 
 /* Delete Comments */
-.deleCommentBtn{
+.deleCommentBtn {
     margin-left: 1.4rem;
     margin-bottom: 1rem;
 }
@@ -283,66 +283,66 @@
 }
 
 /* Css for attraction */
-.attractionSearchPic{
+.attractionSearchPic {
     width: 50%;
-    margin:15%;
+    margin: 15%;
     font-size: 2.5rem;
     background-color: white;
-    padding:0.5rem;
+    padding: 0.5rem;
 }
 
-.attractionForm{
+.attractionForm {
     width: 100%;
     margin: 0;
 }
 
-.attractionFontA{
+.attractionFontA {
     font-size: 1rem;
     color: lightseagreen;
 }
 
-.attractionFontB{
+.attractionFontB {
     font-size: 3rem;
     color: slategray;
     line-height: 2rem;
 }
 
-.attractionCardText{
+.attractionCardText {
     font-size: 1.1rem;
     line-height: 1rem;
 }
 
 /* Css for destination */
-.destinationSearchBar{
+.destinationSearchBar {
     width: 50%;
-    margin:15%;
+    margin: 15%;
     font-size: 2.5rem;
     background-color: white;
-    padding:0.5rem;
+    padding: 0.5rem;
 }
 
-.destinationForm{
+.destinationForm {
     width: 100%;
     margin: 0;
 }
 
-.destinationFontA{
+.destinationFontA {
     font-size: 1rem;
     color: lightseagreen;
 }
 
-.destinationFontB{
+.destinationFontB {
     font-size: 3rem;
     color: slategray;
     line-height: 2rem;
 }
 
-.destinationFontC{
+.destinationFontC {
     font-size: 1.5rem;
     line-height: 1rem;
 }
 
-.destinationFontD{
+.destinationFontD {
     font-size: 3rem;
     line-height: 2rem;
 }
@@ -359,28 +359,28 @@
 }
 
 /* Css for home page */
-.homeBackgroundTextA{
-    position:absolute;
+.homeBackgroundTextA {
+    position: absolute;
     left: 60%;
     top: 20%;
     right: 10%;
 }
 
-.homeBackgroundTextB{
+.homeBackgroundTextB {
     font-size: 2rem;
 }
 
-.homeTextA{
+.homeTextA {
     font-size: 4rem;
     color: lightseagreen;
 }
 
-.homeTextB{
+.homeTextB {
     font-size: 1.5rem;
     color: slategray;
 }
 
-.homeCardText{
+.homeCardText {
     font-size: 1.5rem;
     line-height: 1rem;
 }
