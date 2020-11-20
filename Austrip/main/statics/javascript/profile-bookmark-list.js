@@ -27,7 +27,7 @@ function loadAttractionBookmark() {
                     "                        <h5 class=\"card-title\">" + obj[i].name + "</h5>\n" +
                     "                        <div class=\"bookmarkBtnGroup\">\n" +
                     "                        <a href=" + link + " class=\"btn btn-success btn-sm btn-block\">Go To This Page</a>\n" +
-                    "                        <button id=\"" + buttonId + "\" class=\"btn btn-danger mr-4 btn-sm btn-block\">Remove Bookmark</button>`\n" +
+                    // "                        <button id=\"" + buttonId + "\" class=\"btn btn-danger mr-4 btn-sm btn-block\">Remove Bookmark</button>\n" +
                     "                        </div>\n" +
                     "                    </div>\n" +
                     "                </div>"
@@ -75,7 +75,7 @@ function loadDestinationBookmark() {
                     "                        <h5 class=\"card-title\">" + obj[i].name + "</h5>\n" +
                     "                        <div class=\"bookmarkBtnGroup\">\n" +
                     "                        <a href=" + link + " class=\"btn btn-success btn-sm btn-block\">Go To This Page</a>\n" +
-                    "                        <button id=\"" + buttonId + "\" class=\"btn btn-danger mr-4 btn-sm btn-block\">Remove Bookmark</button>`\n" +
+                    // "                        <button id=\"" + buttonId + "\" class=\"btn btn-danger mr-4 btn-sm btn-block\">Remove Bookmark</button>\n" +
                     "                        </div>\n" +
                     "                    </div>\n" +
                     "                </div>"
