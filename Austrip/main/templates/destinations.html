@@ -10,88 +10,88 @@
         integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 </head>
 <body>
-    {% include 'navbar.html' %}
-    <!--Destination search bar-->
-    <div id="destination_jumbo">
-        <div class="container-fluid">
-            <div class="row rounded-pill mx-auto justify-content-center destinationSearchBar">
-                <form class="destinationForm" method="GET" action="{% url 'destination_result' %}">
-                    <div class="form-row align-items-center">
-                        <div class="col-8 pl-3">
-                            <select class="custom-select custom-select-lg border-0 mb-1" id="inputGroupSelect01"
-                                    name="state">
-                                <option selected>STATE</option>
-                                <option value="NSW">New South Wales</option>
-                                <option value="QLD">Queensland</option>
-                                <option value="SA">South Australia</option>
-                                <option value="TAS">Tasmania</option>
-                                <option value="VIC">Victoria</option>
-                                <option value="WA">Western Australia</option>
-                                <option value="NT">Northern Territory</option>
-                                <option value="ACT">Australian Capital Territory</option>
-                            </select>
-                        </div>
-                        <div class="col-4">
-                            <button class="btn btn-outline-success btn-lg btn-block rounded-pill " type="submit">SEARCH
-                            </button>
-                        </div>
-                    </div>
-                </form>
+  {% include 'navbar.html' %}
+  <!--Destination search bar-->
+  <div id="destination_jumbo">
+    <div class="container-fluid">
+      <div class="row rounded-pill mx-auto justify-content-center destinationSearchBar">
+        <form class="destinationForm" method="GET" action="{% url 'destination_result' %}">
+          <div class="form-row align-items-center">
+            <div class="col-8 pl-3">
+              <select class="custom-select custom-select-lg border-0 mb-1" id="inputGroupSelect01"
+                      name="state">
+                <option selected>STATE</option>
+                <option value="NSW">New South Wales</option>
+                <option value="QLD">Queensland</option>
+                <option value="SA">South Australia</option>
+                <option value="TAS">Tasmania</option>
+                <option value="VIC">Victoria</option>
+                <option value="WA">Western Australia</option>
+                <option value="NT">Northern Territory</option>
+                <option value="ACT">Australian Capital Territory</option>
+              </select>
             </div>
-        </div>
+            <div class="col-4">
+              <button class="btn btn-outline-success btn-lg btn-block rounded-pill " type="submit">SEARCH
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
-    <!--Destination font-->
-    <div class="m-5">
-        <div class="container-fluid mb-5">
-            <div class="bg-transparent">
-                <h1 class="font-weight-bold destinationFontA">
-                    VISIT AMAZING PLACES</h1>
-                <div class="row">
-                    <div class="col-8">
-                        <p class="font-weight-light destinationFontB">All
-                            Destinations
-                        </p>
-                    </div>
+  </div>
+  <!--Destination font-->
+  <div class="m-5">
+    <div class="container-fluid mb-5">
+      <div class="bg-transparent">
+        <h1 class="font-weight-bold destinationFontA">
+          VISIT AMAZING PLACES</h1>
+        <div class="row">
+          <div class="col-8">
+            <p class="font-weight-light destinationFontB">All
+              Destinations
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Destination lists-->
+    <div class="container-fluid mb-5">
+      <div class="row">
+        {% for city in Destinations|slice:":4" %}
+          <div class="col-3 mb-2">
+            <div class="card rounded-cus shadow">
+              <a class="attraction" style="background-image: url({{ city.image.url }}); display: block"></a>
+              <div class="card-body">
+                <p class="font-weight-bold text-center destinationFontC">{{ city.name }}</p>
+                <hr>
+                <div class="row text-center">
+                  <div class="col">
+                    <p class=""><b>{{ city.likes }}</b> likes</p>
+                    <p><b>{{ city.dislikes }}</b> dislikes</p>
+                  </div>
+                  <div class="col">
+                    <a class="btn btn-success my-2"
+                       href="{% url 'destination_details' destination=city.destination_id %}">see
+                      more</a>
+                  </div>
                 </div>
+              </div>
             </div>
-        </div>
-        <!--Destination lists-->
-        <div class="container-fluid mb-5">
-            <div class="row">
-                {% for city in Destinations|slice:":4" %}
-                    <div class="col-3 mb-2">
-                        <div class="card rounded-cus shadow">
-                            <a class="attraction" style="background-image: url({{ city.image.url }}); display: block"></a>
-                            <div class="card-body">
-                                <p class="font-weight-bold text-center destinationFontC">{{ city.name }}</p>
-                                <hr>
-                                <div class="row text-center">
-                                    <div class="col">
-                                        <p class=""><b>{{ city.likes }}</b> likes</p>
-                                        <p><b>{{ city.dislikes }}</b> dislikes</p>
-                                    </div>
-                                    <div class="col">
-                                        <a class="btn btn-success my-2"
-                                        href="{% url 'destination_details' destination=city.destination_id %}">see
-                                            more</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-            <div id="destinations" class="mb-5"></div>
-        </div>
+          </div>
+        {% endfor %}
+      </div>
+      <div id="destinations" class="mb-5"></div>
     </div>
+  </div>
+  <!--Load more button-->
+  <div class="loadMoreButton">
+    <button type="button" id="loadDestinationBtn" class="btn btn-link">LOAD MORE</button>
+  </div>
+  {% include 'footer.html' %}
 
-    <!--Load more button-->
-    <div class="loadMoreButton">
-        <button type="button" id="loadDestinationBtn" class="btn btn-link">LOAD MORE</button>
-    </div>
-{% include 'footer.html' %}
-<script src="{% static 'load-destination.js' %}"></script>
-<script src="{% static 'index.js' %}"></script>
-{% include 'external.html' %}
+  <script src="{% static 'load-destination.js' %}"></script>
+  <script src="{% static 'index.js' %}"></script>
+  {% include 'external.html' %}
 </body>
 </html>
