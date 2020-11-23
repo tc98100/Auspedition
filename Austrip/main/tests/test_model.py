@@ -300,9 +300,46 @@ class AttractionModelTest(TestCase):
 class UserModelTest(TestCase):
     @classmethod
     def setUpTestData(cls):
-        testUser = User.objects.create(id=1);
-        UserInfo.objects.create(user=testUser,
-                                bio="Testing")
+        test_user = User.objects.create(id=1);
+        test_user_info = UserInfo.objects.create(user=test_user,
+                                                 bio="Testing")
+        a = Destination.objects.create(destination_id=1,
+                                       state="New South Wales",
+                                       stateCode="NSW",
+                                       name="Sydney",
+                                       description="Noice place",
+                                       image="abcd",
+                                       likes=1,
+                                       dislikes=1,
+                                       click_count=1,
+                                       )
+        test_user_info.attraction_bookmark.add(Attraction.objects.create(attraction_id=1,
+                                                                         city=a,
+                                                                         name="Surrey Hills",
+                                                                         description="Noice place",
+                                                                         image="abcd",
+                                                                         likes=1,
+                                                                         dislikes=1,
+                                                                         click_count=1, ))
+        test_user_info.attraction_bookmark.add(Attraction.objects.create(attraction_id=2,
+                                                                         city=a,
+                                                                         name="Surrey Hills",
+                                                                         description="Noice place",
+                                                                         image="abcd",
+                                                                         likes=1,
+                                                                         dislikes=1,
+                                                                         click_count=1, ))
+        test_user_info.destination_bookmark.add(a)
+        test_user_info.destination_bookmark.add(Destination.objects.create(destination_id=2,
+                                                                           state="New South Wales",
+                                                                           stateCode="NSW",
+                                                                           name="Sydney",
+                                                                           description="Noice place",
+                                                                           image="abcd",
+                                                                           likes=1,
+                                                                           dislikes=1,
+                                                                           click_count=1,
+                                                                           ))
 
     def test_user_label(self):
         user = UserInfo.objects.get(user=1)
@@ -349,6 +386,14 @@ class UserModelTest(TestCase):
         user = UserInfo.objects.get(user=1)
         user.image = "abc"
         self.assertNotEqual(user.image, "image.png")
+
+    def test_more_than_one_attraction_bookmark(self):
+        user = UserInfo.objects.get(user=1)
+        self.assertEqual(user.attraction_bookmark.count(), 2)
+
+    def test_more_than_one_destination_bookmark(self):
+        user = UserInfo.objects.get(user=1)
+        self.assertEqual(user.destination_bookmark.count(), 2)
 
 
 class DestinationCommentModelTest(TestCase):
