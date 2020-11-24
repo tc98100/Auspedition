@@ -1,0 +1,3 @@
+Please run the tests using this line on the command line:
+*make sure you are in the same directory as manage.py for manage.py to work*
+python3 manage.py test main.tests
