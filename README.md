@@ -1,6 +1,6 @@
 # The AusPedition project
 
-*(Note: this is a backup of our original project from github.sydney.edu.au, in case the latter becomes unavaliable later)*
+*(Note: This is a backup of the original project from github.sydney.edu.au, in case the latter becomes unavaliable later)*
 
 ## Project Description
 AusPedition is a website for the people who are interested in visting Asutralia and it provides them with basic information about the destinations, attractions and so on. 
